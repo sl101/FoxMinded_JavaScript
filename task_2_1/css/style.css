@@ -126,7 +126,7 @@ body {
   font-family: "Objective", sans-serif;
   font-weight: 400;
   font-size: 22px;
-  background-color: #aaa;
+  background-color: #000;
   color: #fff;
 }
 
@@ -163,6 +163,7 @@ body {
 
 .form__value {
   color: #099999;
+  text-transform: capitalize;
 }
 
 .form__button {
