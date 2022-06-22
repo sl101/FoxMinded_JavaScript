@@ -125,19 +125,13 @@ body {
 body {
   font-family: "Objective", sans-serif;
   font-weight: 400;
-  font-size: 16px;
-  background-color: #fff;
-  color: #0f001a;
-}
-
-.container {
-  max-width: 1230px;
-  padding: 0 15px;
-  margin: 0 auto;
+  font-size: 22px;
+  background-color: #aaa;
+  color: #fff;
 }
 
 .wrapper {
-  height: 100%;
+  height: 100vh;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -145,109 +139,58 @@ body {
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
-}
-
-.main-page {
-  -webkit-box-flex: 1;
-      -ms-flex: 1 1 auto;
-          flex: 1 1 auto;
-}
-
-.lock {
-  position: relative;
-  overflow: hidden;
-  width: 100%;
-  height: 100%;
-  z-index: 2;
-  background-color: rgba(14, 29, 40, 0.8);
-}
-
-.lock::before {
-  content: "";
-  position: absolute;
-  z-index: 2;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(14, 29, 40, 0.8);
-}
-
-.hover {
-  position: relative;
-  top: 0;
-  outline: none;
-  border: 1px solid transparent;
-  -webkit-transition: border-color 0.3s linear, color 0.3s linear;
-  transition: border-color 0.3s linear, color 0.3s linear;
-}
-
-@media only screen and (min-width: 767.98px) {
-  .hover:focus {
-    border-bottom-color: #4a99d3;
-  }
-  .hover:hover {
-    color: #4a99d3;
-    border-bottom-color: transparent;
-  }
-}
-
-.hover:active {
-  top: 1px;
-}
-
-@media only screen and (min-width: 767.98px) {
-  .hover--footer:focus {
-    border-bottom-color: #fff;
-  }
-  .hover--footer:hover {
-    color: #0f001a;
-    border-bottom-color: transparent;
-  }
-}
-
-.menu__body {
-  position: relative;
-  width: 100%;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  -webkit-transition: all 0.4s ease-out;
-  transition: all 0.4s ease-out;
 }
 
-@media only screen and (max-width: 767.98px) {
-  .menu__body {
-    position: fixed;
-    top: 0;
-    left: 0;
-    display: block;
-    width: 100%;
-    width: 100%;
-    height: 100%;
-    overflow: auto;
-    -webkit-transform: translate(-100%, 0);
-            transform: translate(-100%, 0);
-  }
-}
-
-.menu__body.active {
-  -webkit-transform: translate(0, 0);
-          transform: translate(0, 0);
-}
-
-.title {
-  font-weight: 700;
-  font-size: 26px;
+.form {
   text-align: center;
-  color: #0f001a;
+}
+
+.form__input {
+  font-weight: 700;
+  font-size: 32px;
+  padding: 10px 20px 8px;
+  margin: 0 0 30px 0;
+  border-radius: 8px;
+  background-color: #000;
+  cursor: default;
+}
+
+.form__value {
+  color: #099999;
+}
+
+.form__button {
+  position: relative;
+  top: 0;
+  padding: 10px 20px 8px;
+  border-radius: 8px;
+  border: 1px solid #000;
+  color: #000;
+  background-color: transparent;
+  -webkit-transition: background-color 0.3s ease, color 0.3s ease, -webkit-box-shadow 0.3s ease;
+  transition: background-color 0.3s ease, color 0.3s ease, -webkit-box-shadow 0.3s ease;
+  transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
+  transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease, -webkit-box-shadow 0.3s ease;
+}
+
+.form__button:focus {
+  -webkit-box-shadow: 2px 2px 15px 0 #000;
+          box-shadow: 2px 2px 15px 0 #000;
+}
+
+.form__button:hover {
+  color: #fff;
+  background-color: #000;
+  -webkit-box-shadow: 2px 2px 15px 0 transparent;
+          box-shadow: 2px 2px 15px 0 transparent;
+}
+
+.form__button:active {
+  top: 1px;
 }
