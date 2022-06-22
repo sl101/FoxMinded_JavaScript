@@ -1,0 +1,253 @@
+html {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+*,
+*::after,
+*::before {
+  -webkit-box-sizing: inherit;
+          box-sizing: inherit;
+}
+
+ul,
+ol {
+  padding: 0;
+}
+
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+ul,
+ol,
+li,
+figure,
+figcaption,
+blockquote,
+dl,
+dd {
+  margin: 0;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: inherit;
+  font-size: inherit;
+}
+
+ul {
+  list-style: none;
+}
+
+img {
+  max-width: 100%;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+input,
+button,
+textarea,
+select {
+  font: inherit;
+  cursor: pointer;
+}
+
+a,
+button {
+  text-decoration: none;
+  color: inherit;
+  padding: 0;
+  margin: 0;
+}
+
+button {
+  border: none;
+  background-color: transparent;
+}
+
+a:active,
+button:active {
+  -webkit-tap-highlight-color: transparent;
+  background-color: transparent;
+}
+
+@font-face {
+  font-family: Objective;
+  font-display: swap;
+  src: url("../fonts/Objective-Bold.woff2") format("woff2"), url("../fonts/Objective-Bold.otf") format("otf");
+  font-weight: 700;
+  font-style: bold;
+}
+
+@font-face {
+  font-family: Objective;
+  font-display: swap;
+  src: url("../fonts/Objective-Medium.woff2") format("woff2"), url("../fonts/Objective-Medium.otf") format("otf");
+  font-weight: 500;
+  font-style: medium;
+}
+
+@font-face {
+  font-family: Objective;
+  font-display: swap;
+  src: url("../fonts/Objective-Regular.woff2") format("woff2"), url("../fonts/Objective-Regular.otf") format("otf");
+  font-weight: 400;
+  font-style: normal;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  font-family: "Objective", sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  background-color: #fff;
+  color: #0f001a;
+}
+
+.container {
+  max-width: 1230px;
+  padding: 0 15px;
+  margin: 0 auto;
+}
+
+.wrapper {
+  height: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.main-page {
+  -webkit-box-flex: 1;
+      -ms-flex: 1 1 auto;
+          flex: 1 1 auto;
+}
+
+.lock {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+  background-color: rgba(14, 29, 40, 0.8);
+}
+
+.lock::before {
+  content: "";
+  position: absolute;
+  z-index: 2;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(14, 29, 40, 0.8);
+}
+
+.hover {
+  position: relative;
+  top: 0;
+  outline: none;
+  border: 1px solid transparent;
+  -webkit-transition: border-color 0.3s linear, color 0.3s linear;
+  transition: border-color 0.3s linear, color 0.3s linear;
+}
+
+@media only screen and (min-width: 767.98px) {
+  .hover:focus {
+    border-bottom-color: #4a99d3;
+  }
+  .hover:hover {
+    color: #4a99d3;
+    border-bottom-color: transparent;
+  }
+}
+
+.hover:active {
+  top: 1px;
+}
+
+@media only screen and (min-width: 767.98px) {
+  .hover--footer:focus {
+    border-bottom-color: #fff;
+  }
+  .hover--footer:hover {
+    color: #0f001a;
+    border-bottom-color: transparent;
+  }
+}
+
+.menu__body {
+  position: relative;
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-transition: all 0.4s ease-out;
+  transition: all 0.4s ease-out;
+}
+
+@media only screen and (max-width: 767.98px) {
+  .menu__body {
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: block;
+    width: 100%;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    -webkit-transform: translate(-100%, 0);
+            transform: translate(-100%, 0);
+  }
+}
+
+.menu__body.active {
+  -webkit-transform: translate(0, 0);
+          transform: translate(0, 0);
+}
+
+.title {
+  font-weight: 700;
+  font-size: 26px;
+  text-align: center;
+  color: #0f001a;
+}

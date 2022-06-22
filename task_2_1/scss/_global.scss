@@ -1,0 +1,129 @@
+.sr-only {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	padding: 0;
+	margin: -1px;
+	overflow: hidden;
+	clip: rect(0, 0, 0, 0);
+	white-space: nowrap;
+	border: 0;
+}
+
+html,
+body {
+	height: 100%;
+}
+
+body {
+	font-family: "Objective", sans-serif;
+	font-weight: 400;
+	font-size: 16px;
+	background-color: $color-fff;
+	color: $color-0f0;
+}
+
+.container {
+	max-width: $container;
+	padding: 0 15px;
+	margin: 0 auto;
+}
+
+.wrapper {
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.main-page {
+	flex: 1 1 auto;
+}
+
+.lock {
+	position: relative;
+	overflow: hidden;
+	width: 100%;
+	height: 100%;
+	z-index: 2;
+	background-color: $color-bg08;
+
+	&::before {
+		content: "";
+		position: absolute;
+		z-index: 2;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		background-color: $color-bg08;
+	}
+}
+
+.hover {
+	position: relative;
+	top: 0;
+	outline: none;
+	border: 1px solid transparent;
+	transition: border-color $hoverTime linear, color $hoverTime linear;
+
+	@include md-min {
+		&:focus {
+			border-bottom-color: $color-4a9;
+		}
+
+		&:hover {
+			color: $color-4a9;
+			border-bottom-color: transparent;
+		}
+	}
+
+	&:active {
+		top: 1px;
+	}
+
+	&--footer {
+		@include md-min {
+			&:focus {
+				border-bottom-color: $color-fff;
+			}
+
+			&:hover {
+				color: $color-0f0;
+				border-bottom-color: transparent;
+			}
+		}
+	}
+}
+
+.menu__body {
+	position: relative;
+	width: 100%;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	transition: all 0.4s ease-out;
+
+	@include md {
+		position: fixed;
+		top: 0;
+		left: 0;
+		display: block;
+		width: 100%;
+		width: 100%;
+		height: 100%;
+		overflow: auto;
+		transform: translate(-100%, 0);
+	}
+
+	&.active {
+		transform: translate(0, 0);
+	}
+}
+
+.title {
+	font-weight: 700;
+	font-size: 26px;
+	text-align: center;
+	color: $color-0f0;
+}
