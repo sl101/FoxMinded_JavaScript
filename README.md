@@ -1,3 +1,3 @@
 # task_2
 
-JS or TypeScript project
+## Загальний репозіторій для розділу "JS or TypeScript"
