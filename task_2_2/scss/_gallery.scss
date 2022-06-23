@@ -1,0 +1,81 @@
+.gallery {
+	height: 100%;
+	background-image: url("../img/bg/wall.png");
+	@include bg-cover;
+	// .gallery__top
+
+	&__top {
+	}
+
+	// .gallery__title
+
+	&__title {
+	}
+
+	// .gallery__filter
+
+	&__filter {
+	}
+
+	// .gallery__unit
+
+	&__unit {
+	}
+
+	// .gallery__btn
+
+	&__btn {
+	}
+
+	// .gallery__content
+
+	&__content {
+	}
+
+	// .gallery__list
+
+	&__list {
+	}
+
+	// .gallery__item
+
+	&__item {
+	}
+}
+
+.product {
+	// .product__link
+
+	&__link {
+	}
+
+	// .product__picture
+
+	&__picture {
+	}
+
+	// .product__img
+
+	&__img {
+	}
+
+	// .product__content
+
+	&__content {
+	}
+
+	// .product__title
+
+	&__title {
+	}
+
+	// .product__price
+
+	&__price {
+	}
+
+	// .product__description
+
+	&__description {
+	}
+}

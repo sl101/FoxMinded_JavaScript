@@ -6,11 +6,57 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="stylesheet" href="css/style.css">
-	<title>Background switching</title>
+	<title>Restaurant menu</title>
 </head>
 
 <body>
-	
+
+	<main class="gallery">
+		<div class="container">
+
+			<div class="gallery__top">
+				<h1 class="gallery__title">Menu</h1>
+
+				<ul class="gallery__filter">
+					<li class="gallery__unit">
+						<button class="gallery__btn" type="button" data-filter="all">All</button>
+					</li>
+					<li class="gallery__unit">
+						<button class="gallery__btn" type="button" data-filter=".pizza">Pizza</button>
+					</li>
+					<li class="gallery__unit">
+						<button class="gallery__btn" type="button" data-filter=".sushi">Sushi</button>
+					</li>
+					<li class="gallery__unit">
+						<button class="gallery__btn" type="button" data-filter=".salat">Salat</button>
+					</li>
+					<li class="gallery__unit">
+						<button class="gallery__btn" type="button" data-filter=".dessert">Dessert</button>
+					</li>
+				</ul>
+			</div>
+
+			<div class="gallery__content">
+				<ul class="gallery__list">
+					<li class="gallery__item product">
+						<a class="product__link" href="#">
+							<div class="product__picture">
+								<img class="product__img" src="img/pizza/lovebirds_cover.jpg" alt="Pizza lovebird cover">
+							</div>
+							<div class="product__content">
+								<h2 class="product__title">Lovebird cover</h2>
+								<span class="product__price">12 €</span>
+								<div class="product__description">
+									Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+								</div>
+							</div>
+						</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</main>
+
 	<script src="js/main.js"></script>
 </body>
 
