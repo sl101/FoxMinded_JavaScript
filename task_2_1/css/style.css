@@ -1,0 +1,197 @@
+html {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+*,
+*::after,
+*::before {
+  -webkit-box-sizing: inherit;
+          box-sizing: inherit;
+}
+
+ul,
+ol {
+  padding: 0;
+}
+
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+ul,
+ol,
+li,
+figure,
+figcaption,
+blockquote,
+dl,
+dd {
+  margin: 0;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: inherit;
+  font-size: inherit;
+}
+
+ul {
+  list-style: none;
+}
+
+img {
+  max-width: 100%;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+input,
+button,
+textarea,
+select {
+  font: inherit;
+  cursor: pointer;
+}
+
+a,
+button {
+  text-decoration: none;
+  color: inherit;
+  padding: 0;
+  margin: 0;
+}
+
+button {
+  border: none;
+  background-color: transparent;
+}
+
+a:active,
+button:active {
+  -webkit-tap-highlight-color: transparent;
+  background-color: transparent;
+}
+
+@font-face {
+  font-family: Objective;
+  font-display: swap;
+  src: url("../fonts/Objective-Bold.woff2") format("woff2"), url("../fonts/Objective-Bold.otf") format("otf");
+  font-weight: 700;
+  font-style: bold;
+}
+
+@font-face {
+  font-family: Objective;
+  font-display: swap;
+  src: url("../fonts/Objective-Medium.woff2") format("woff2"), url("../fonts/Objective-Medium.otf") format("otf");
+  font-weight: 500;
+  font-style: medium;
+}
+
+@font-face {
+  font-family: Objective;
+  font-display: swap;
+  src: url("../fonts/Objective-Regular.woff2") format("woff2"), url("../fonts/Objective-Regular.otf") format("otf");
+  font-weight: 400;
+  font-style: normal;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  font-family: "Objective", sans-serif;
+  font-weight: 400;
+  font-size: 22px;
+  background-color: #000;
+  color: #fff;
+}
+
+.wrapper {
+  height: 100vh;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.form {
+  text-align: center;
+}
+
+.form__input {
+  font-weight: 700;
+  font-size: 32px;
+  padding: 10px 20px 8px;
+  margin: 0 0 30px 0;
+  border-radius: 8px;
+  background-color: #000;
+  cursor: default;
+}
+
+.form__value {
+  color: #099999;
+  text-transform: capitalize;
+}
+
+.form__button {
+  position: relative;
+  top: 0;
+  padding: 10px 20px 8px;
+  border-radius: 8px;
+  border: 1px solid #000;
+  color: #000;
+  background-color: transparent;
+  -webkit-transition: background-color 0.3s ease, color 0.3s ease, -webkit-box-shadow 0.3s ease;
+  transition: background-color 0.3s ease, color 0.3s ease, -webkit-box-shadow 0.3s ease;
+  transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
+  transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease, -webkit-box-shadow 0.3s ease;
+}
+
+.form__button:focus {
+  -webkit-box-shadow: 2px 2px 15px 0 #000;
+          box-shadow: 2px 2px 15px 0 #000;
+}
+
+.form__button:hover {
+  color: #fff;
+  background-color: #000;
+  -webkit-box-shadow: 2px 2px 15px 0 transparent;
+          box-shadow: 2px 2px 15px 0 transparent;
+}
+
+.form__button:active {
+  top: 1px;
+}
