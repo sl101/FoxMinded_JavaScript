@@ -1,0 +1,32 @@
+.sr-only {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	padding: 0;
+	margin: -1px;
+	overflow: hidden;
+	clip: rect(0, 0, 0, 0);
+	white-space: nowrap;
+	border: 0;
+}
+
+html,
+body {
+	height: 100%;
+}
+
+body {
+	font-family: "Objective", sans-serif;
+	font-weight: 400;
+	font-size: 22px;
+	background-color: $color-000;
+	color: $color-fff;
+}
+
+.wrapper {
+	height: 100vh;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
