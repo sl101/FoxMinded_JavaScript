@@ -1,18 +1,15 @@
 "use strict";
 
-const colorArray = ["AliceBlue", "AntiqueWhite", "beige", "bisque", "black", "BlanchedAlmond", "BlueViolet", "brown", "burlywood", "CadetBlue", "coral", "CornflowerBlue", "cyan", "DarkGoldenrod", "DarkGreen", "DarkKhaki", "DarkOliveGreen", "DarkOrange", "DarkOrchid", "DarkSalmon", "DarkSeaGreen", "DarkSlateBlue", "DarkSlateGray",
-"DarkTurquoise", "DarkViolet", "DimGray", "firebrick", "FloralWhite", "ForestGreen", "gainsboro", "GhostWhite", "gold", "goldenrod", "gray", "green", "GreenYellow", "HotPink", "IndianRed",  "khaki", "lavender", "LawnGreen", "light", "LightBlue", "LightGoldenrodYellow", "LightGray", "LightPink", "LightSeaGreen", "LightSkyBlue", "LightSlateBlue", "LightSlateGray", "LightSteelBlue", "LimeGreen", "linen", "magenta", "maroon", "medium",
-"MediumAquamarine", "MediumBlue", "MediumOrchid", "MediumPurple", "MediumSeaGreen", "MediumSlateBlue", "MediumSpringGreen", "MediumTurquoise", "MediumVioletRed", "MidnightBlue",
-"MintCream", "moccasin", "NavyBlue", "OldLace", "OliveDrab", "orange", "OrangeRed1", "OrangeRed2", "OrangeRed3", "OrangeRed4", "orchid", "pale", "PaleGoldenrod", "PaleGreen", "PaleTurquoise", "PaleVioletRed", "PapayaWhip", "pink", "plum", "PowderBlue", "purple", "rebeccapurple", "red", "RosyBrown", "RoyalBlue", "SaddleBrown", "salmon", "SandyBrown", "SeaGreen", "seashell", "sienna", "SkyBlue", "SlateBlue", "SlateGray", "snow", "SpringGreen", "SteelBlue", "tan", "thistle", "tomato", "turquoise", "violet", "VioletRed", "wheat", "white", "WhiteSmoke", "yellow","YellowGreen"];
+const colorArray = ["beige", "bisque", "brown", "coral", "cyan", "firebrick", "gainsboro", "gold", "gray", "green", "GreenYellow", "HotPink", "IndianRed",  "khaki", "lavender", "linen", "magenta", "maroon", "medium", "moccasin", "NavyBlue", "orange", "orchid", "pale", "pink", "plum", "purple", "red", "salmon", "tan", "tomato", "violet", "white", "yellow"];
 const body = document.querySelector('body');
 const valueInput = document.querySelector('.form__value');
 const btn = document.querySelector('.form__button');
-const startColor = 'Grey';
+const startColor = colorArray[8];
 
 body.style.backgroundColor = startColor;
 valueInput.textContent = startColor;
 
-btn.addEventListener('click', e => {
+btn.addEventListener('click', () => {
 	let randomInt = getRandomInt(3);
 
 	if(randomInt){
@@ -26,17 +23,17 @@ function getRandomInt(el) {
 }
 
 function setColor(value) {
-	var color;
+	let color;
 	switch(value) {
 		case 1:
 			color = getRandomRGB();
-		break;
+			break;
 		case 2:
 			color = getRandonHEX();
-		break;
+			break;
 		case 3:
 			color = getRandomColor();
-		break;
+			break;
 	}
 	body.style.backgroundColor = color;
 	valueInput.textContent = color;
