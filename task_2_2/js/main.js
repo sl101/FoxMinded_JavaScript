@@ -8,17 +8,17 @@ const time = 400;
 if(btnArray){
 	btnArray.forEach(element =>{
 		element.addEventListener('click',() =>{
-			let scrollBefore = checkoverflow();
-			let btnData = element.dataset.filter;
+			const scrollBefore = checkoverflow();
+			const btnData = element.dataset.filter;
 			setAnimation(btnData);
-			let scrollAfter = checkoverflow();
+			const scrollAfter = checkoverflow();
 			fixLayout(scrollBefore, scrollAfter);
 		});
 	});
 }
 
 function checkoverflow(){
-	let paddingOffset = window.innerWidth - document.body.offsetWidth + 'px';
+	const paddingOffset = window.innerWidth - document.body.offsetWidth + 'px';
 	return paddingOffset;
 }
 
