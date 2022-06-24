@@ -137,12 +137,10 @@ body {
 }
 
 .gallery {
-  min-height: 100%;
+  min-height: 100vh;
   padding: 50px 0;
-  background-image: url("../img/bg/wall.png");
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: cover;
+  background: -webkit-gradient(linear, left top, right top, from(#4c4c4c), color-stop(0%, #595959), color-stop(0%, #474747), color-stop(1%, #000000), color-stop(13%, #111111), color-stop(24%, #2c2c2c), color-stop(24%, #2c2c2c), color-stop(37%, #111111), color-stop(59%, #2c2c2c), color-stop(85%, #000000), to(#131313));
+  background: linear-gradient(to right, #4c4c4c 0%, #595959 0%, #474747 0%, #000000 1%, #111111 13%, #2c2c2c 24%, #2c2c2c 24%, #111111 37%, #2c2c2c 59%, #000000 85%, #131313 100%);
 }
 
 .gallery__top {
@@ -217,6 +215,15 @@ body {
   padding: 20px 0;
 }
 
+.product {
+  display: none;
+  overflow: hidden;
+  opacity: 0;
+  visibility: hidden;
+  -webkit-transition: opacity 0.8s ease;
+  transition: opacity 0.8s ease;
+}
+
 .product__link {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -224,25 +231,23 @@ body {
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
-  border-radius: 8px;
+  padding: 0 0 0 15px;
   outline: none;
-  -webkit-transition: color 0.8s ease, -webkit-transform 0.8s ease, -webkit-box-shadow 0.8s ease;
-  transition: color 0.8s ease, -webkit-transform 0.8s ease, -webkit-box-shadow 0.8s ease;
-  transition: transform 0.8s ease, color 0.8s ease, box-shadow 0.8s ease;
-  transition: transform 0.8s ease, color 0.8s ease, box-shadow 0.8s ease, -webkit-transform 0.8s ease, -webkit-box-shadow 0.8s ease;
+  border-radius: 8px;
+  -webkit-transition: color 0.8s ease, opacity 0.8s ease, visible 0.8s ease, -webkit-transform 0.8s ease, -webkit-box-shadow 0.8s ease;
+  transition: color 0.8s ease, opacity 0.8s ease, visible 0.8s ease, -webkit-transform 0.8s ease, -webkit-box-shadow 0.8s ease;
+  transition: transform 0.8s ease, color 0.8s ease, box-shadow 0.8s ease, opacity 0.8s ease, visible 0.8s ease;
+  transition: transform 0.8s ease, color 0.8s ease, box-shadow 0.8s ease, opacity 0.8s ease, visible 0.8s ease, -webkit-transform 0.8s ease, -webkit-box-shadow 0.8s ease;
 }
 
-.product__link:focus {
+.product__link:focus .product__picture {
   -webkit-box-shadow: 0 0 10px 0 gold;
           box-shadow: 0 0 10px 0 gold;
 }
 
-.product__link:hover {
+.product__link:hover .product__picture {
   -webkit-box-shadow: 0 0 10px 0 transparent;
           box-shadow: 0 0 10px 0 transparent;
-}
-
-.product__link:hover .product__picture {
   -webkit-transform: scale(1.1);
           transform: scale(1.1);
 }
@@ -252,10 +257,10 @@ body {
       -ms-flex: 0 0 100%;
           flex: 0 0 100%;
   max-width: 220px;
-  -webkit-transition: -webkit-transform 0.8s ease;
-  transition: -webkit-transform 0.8s ease;
-  transition: transform 0.8s ease;
-  transition: transform 0.8s ease, -webkit-transform 0.8s ease;
+  -webkit-transition: -webkit-transform 0.8s ease, -webkit-box-shadow 0.8s ease;
+  transition: -webkit-transform 0.8s ease, -webkit-box-shadow 0.8s ease;
+  transition: transform 0.8s ease, box-shadow 0.8s ease;
+  transition: transform 0.8s ease, box-shadow 0.8s ease, -webkit-transform 0.8s ease, -webkit-box-shadow 0.8s ease;
 }
 
 .product__picture, .product__img {
@@ -298,4 +303,62 @@ body {
   font-size: 18px;
   -ms-flex-item-align: baseline;
       align-self: baseline;
+}
+
+.product__description {
+  overflow: hidden;
+}
+
+@supports (-webkit-line-clamp: 1) {
+  .product__description {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    max-height: 100%;
+  }
+}
+
+.product.animate {
+  display: block;
+  opacity: 1;
+  visibility: visible;
+  -webkit-transition: opacity 0.8s ease, visible 0.8s ease;
+  transition: opacity 0.8s ease, visible 0.8s ease;
+}
+
+.product.animate > .product__link {
+  -webkit-transform: translate(0, 0);
+          transform: translate(0, 0);
+  -webkit-animation: productAnimation linear 0.8s;
+          animation: productAnimation linear 0.8s;
+}
+
+@-webkit-keyframes productAnimation {
+  0% {
+    opacity: 0;
+    visibility: hidden;
+    -webkit-transform: translate(0, -100%);
+            transform: translate(0, -100%);
+  }
+  100% {
+    opacity: 1;
+    visibility: visible;
+    -webkit-transform: translate(0, 0) scale(1);
+            transform: translate(0, 0) scale(1);
+  }
+}
+
+@keyframes productAnimation {
+  0% {
+    opacity: 0;
+    visibility: hidden;
+    -webkit-transform: translate(0, -100%);
+            transform: translate(0, -100%);
+  }
+  100% {
+    opacity: 1;
+    visibility: visible;
+    -webkit-transform: translate(0, 0) scale(1);
+            transform: translate(0, 0) scale(1);
+  }
 }

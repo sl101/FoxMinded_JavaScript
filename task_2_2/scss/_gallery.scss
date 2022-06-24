@@ -1,8 +1,20 @@
 .gallery {
-	min-height: 100%;
+	min-height: 100vh;
 	padding: 50px 0;
-	background-image: url("../img/bg/wall.png");
-	@include bg-cover;
+	background: linear-gradient(
+		to right,
+		#4c4c4c 0%,
+		#595959 0%,
+		#474747 0%,
+		#000000 1%,
+		#111111 13%,
+		#2c2c2c 24%,
+		#2c2c2c 24%,
+		#111111 37%,
+		#2c2c2c 59%,
+		#000000 85%,
+		#131313 100%
+	);
 
 	// .gallery__top
 	&__top {
@@ -74,20 +86,31 @@
 }
 
 .product {
+	display: none;
+	overflow: hidden;
+	opacity: 0;
+	visibility: hidden;
+	transition: opacity $hoverTime ease;
+
+	// .product__link
 	&__link {
 		display: flex;
 		justify-content: space-between;
-		border-radius: 8px;
+		padding: 0 0 0 15px;
 		outline: none;
-		transition: transform $hoverTime ease, color $hoverTime ease, box-shadow $hoverTime ease;
+		border-radius: 8px;
+		transition: transform $hoverTime ease, color $hoverTime ease, box-shadow $hoverTime ease, opacity $hoverTime ease,
+			visible $hoverTime ease;
 
 		&:focus {
-			box-shadow: 0 0 10px 0 $color-gold;
+			.product__picture {
+				box-shadow: 0 0 10px 0 $color-gold;
+			}
 		}
 
 		&:hover {
-			box-shadow: 0 0 10px 0 transparent;
 			.product__picture {
+				box-shadow: 0 0 10px 0 transparent;
 				transform: scale(1.1);
 			}
 		}
@@ -97,7 +120,7 @@
 	&__picture {
 		flex: 0 0 100%;
 		max-width: 220px;
-		transition: transform $hoverTime ease;
+		transition: transform $hoverTime ease, box-shadow $hoverTime ease;
 	}
 
 	// .product__img
@@ -137,5 +160,35 @@
 		text-align: right;
 		font-size: 18px;
 		align-self: baseline;
+	}
+
+	// .product__description
+	&__description {
+		@include line-clamp(3);
+	}
+
+	&.animate {
+		display: block;
+		opacity: 1;
+		visibility: visible;
+		transition: opacity $hoverTime ease, visible $hoverTime ease;
+	}
+
+	&.animate > .product__link {
+		transform: translate(0, 0);
+		animation: productAnimation linear $hoverTime;
+	}
+}
+
+@keyframes productAnimation {
+	0% {
+		opacity: 0;
+		visibility: hidden;
+		transform: translate(0, -100%);
+	}
+	100% {
+		opacity: 1;
+		visibility: visible;
+		transform: translate(0, 0) scale(1);
 	}
 }
