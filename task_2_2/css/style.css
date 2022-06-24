@@ -1,0 +1,364 @@
+html {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+*,
+*::after,
+*::before {
+  -webkit-box-sizing: inherit;
+          box-sizing: inherit;
+}
+
+ul,
+ol {
+  padding: 0;
+}
+
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+ul,
+ol,
+li,
+figure,
+figcaption,
+blockquote,
+dl,
+dd {
+  margin: 0;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: inherit;
+  font-size: inherit;
+}
+
+ul {
+  list-style: none;
+}
+
+img {
+  max-width: 100%;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+input,
+button,
+textarea,
+select {
+  font: inherit;
+  cursor: pointer;
+}
+
+a,
+button {
+  text-decoration: none;
+  color: inherit;
+  padding: 0;
+  margin: 0;
+}
+
+button {
+  border: none;
+  background-color: transparent;
+}
+
+a:active,
+button:active {
+  -webkit-tap-highlight-color: transparent;
+  background-color: transparent;
+}
+
+@font-face {
+  font-family: Objective;
+  font-display: swap;
+  src: url("../fonts/Objective-Bold.woff2") format("woff2"), url("../fonts/Objective-Bold.otf") format("otf");
+  font-weight: 700;
+  font-style: bold;
+}
+
+@font-face {
+  font-family: Objective;
+  font-display: swap;
+  src: url("../fonts/Objective-Medium.woff2") format("woff2"), url("../fonts/Objective-Medium.otf") format("otf");
+  font-weight: 500;
+  font-style: medium;
+}
+
+@font-face {
+  font-family: Objective;
+  font-display: swap;
+  src: url("../fonts/Objective-Regular.woff2") format("woff2"), url("../fonts/Objective-Regular.otf") format("otf");
+  font-weight: 400;
+  font-style: normal;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  font-family: "Objective", sans-serif;
+  font-weight: 400;
+  font-size: 18px;
+  background-color: #000;
+  color: #eabd4b;
+}
+
+.container {
+  max-width: 1230px;
+  padding: 0 15px;
+  margin: 0 auto;
+}
+
+.gallery {
+  min-height: 100vh;
+  padding: 50px 0;
+  background: -webkit-gradient(linear, left top, right top, from(#4c4c4c), color-stop(0%, #595959), color-stop(0%, #474747), color-stop(1%, #000000), color-stop(13%, #111111), color-stop(24%, #2c2c2c), color-stop(24%, #2c2c2c), color-stop(37%, #111111), color-stop(59%, #2c2c2c), color-stop(85%, #000000), to(#131313));
+  background: linear-gradient(to right, #4c4c4c 0%, #595959 0%, #474747 0%, #000000 1%, #111111 13%, #2c2c2c 24%, #2c2c2c 24%, #111111 37%, #2c2c2c 59%, #000000 85%, #131313 100%);
+}
+
+.gallery__top {
+  text-align: center;
+  margin: 0 0 50px 0;
+}
+
+.gallery__title {
+  margin: 0 0 25px 0;
+  font-weight: 700;
+  font-size: 42px;
+  letter-spacing: 3px;
+  color: gold;
+}
+
+.gallery__filter {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.gallery__unit:not(:last-child) {
+  margin: 0 30px 0 0;
+}
+
+.gallery__btn {
+  position: relative;
+  top: 0;
+  padding: 5px 8px 3px;
+  min-width: 100px;
+  border: 1px solid #eabd4b;
+  border-radius: 6px;
+  letter-spacing: 1.3px;
+  outline: none;
+  -webkit-transition: background-color 0.8s ease, color 0.8s ease, -webkit-box-shadow 0.8s ease;
+  transition: background-color 0.8s ease, color 0.8s ease, -webkit-box-shadow 0.8s ease;
+  transition: background-color 0.8s ease, color 0.8s ease, box-shadow 0.8s ease;
+  transition: background-color 0.8s ease, color 0.8s ease, box-shadow 0.8s ease, -webkit-box-shadow 0.8s ease;
+}
+
+.gallery__btn:focus {
+  -webkit-box-shadow: 0 0 10px 0 gold;
+          box-shadow: 0 0 10px 0 gold;
+}
+
+.gallery__btn:hover {
+  background-color: #eabd4b;
+  -webkit-box-shadow: 0 0 10px 0 transparent;
+          box-shadow: 0 0 10px 0 transparent;
+  color: #000;
+}
+
+.gallery__btn:active {
+  top: 1px;
+}
+
+.gallery__list {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: (550px)[2];
+      grid-template-columns: repeat(2, 550px);
+  grid-column-gap: 30px;
+}
+
+.gallery__item {
+  padding: 20px 0;
+}
+
+.product {
+  display: none;
+  overflow: hidden;
+  opacity: 0;
+  visibility: hidden;
+  -webkit-transition: opacity 0.8s ease;
+  transition: opacity 0.8s ease;
+}
+
+.product__link {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  padding: 0 0 0 15px;
+  outline: none;
+  border-radius: 8px;
+  -webkit-transition: color 0.8s ease, opacity 0.8s ease, visible 0.8s ease, -webkit-transform 0.8s ease, -webkit-box-shadow 0.8s ease;
+  transition: color 0.8s ease, opacity 0.8s ease, visible 0.8s ease, -webkit-transform 0.8s ease, -webkit-box-shadow 0.8s ease;
+  transition: transform 0.8s ease, color 0.8s ease, box-shadow 0.8s ease, opacity 0.8s ease, visible 0.8s ease;
+  transition: transform 0.8s ease, color 0.8s ease, box-shadow 0.8s ease, opacity 0.8s ease, visible 0.8s ease, -webkit-transform 0.8s ease, -webkit-box-shadow 0.8s ease;
+}
+
+.product__link:focus .product__picture {
+  -webkit-box-shadow: 0 0 10px 0 gold;
+          box-shadow: 0 0 10px 0 gold;
+}
+
+.product__link:hover .product__picture {
+  -webkit-box-shadow: 0 0 10px 0 transparent;
+          box-shadow: 0 0 10px 0 transparent;
+  -webkit-transform: scale(1.1);
+          transform: scale(1.1);
+}
+
+.product__picture {
+  -webkit-box-flex: 0;
+      -ms-flex: 0 0 100%;
+          flex: 0 0 100%;
+  max-width: 220px;
+  -webkit-transition: -webkit-transform 0.8s ease, -webkit-box-shadow 0.8s ease;
+  transition: -webkit-transform 0.8s ease, -webkit-box-shadow 0.8s ease;
+  transition: transform 0.8s ease, box-shadow 0.8s ease;
+  transition: transform 0.8s ease, box-shadow 0.8s ease, -webkit-transform 0.8s ease, -webkit-box-shadow 0.8s ease;
+}
+
+.product__picture, .product__img {
+  border-radius: 8px;
+}
+
+.product__img {
+  width: 100%;
+  height: 126px;
+  -o-object-fit: cover;
+     object-fit: cover;
+  border: 2px solid #eabd4b;
+}
+
+.product__content {
+  padding: 5px 5px 5px 15px;
+}
+
+.product__title {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: baseline;
+      -ms-flex-align: baseline;
+          align-items: baseline;
+  padding: 0 0 4px 0;
+  margin: 0 0 25px 0;
+  font-size: 22px;
+  border-bottom: 2px solid #eabd4b;
+}
+
+.product__price {
+  display: inline-block;
+  padding-left: 10px;
+  text-align: right;
+  font-size: 18px;
+  -ms-flex-item-align: baseline;
+      align-self: baseline;
+}
+
+.product__description {
+  overflow: hidden;
+}
+
+@supports (-webkit-line-clamp: 1) {
+  .product__description {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    max-height: 100%;
+  }
+}
+
+.product.animate {
+  display: block;
+  opacity: 1;
+  visibility: visible;
+  -webkit-transition: opacity 0.8s ease, visible 0.8s ease;
+  transition: opacity 0.8s ease, visible 0.8s ease;
+}
+
+.product.animate > .product__link {
+  -webkit-transform: translate(0, 0);
+          transform: translate(0, 0);
+  -webkit-animation: productAnimation linear 0.8s;
+          animation: productAnimation linear 0.8s;
+}
+
+@-webkit-keyframes productAnimation {
+  0% {
+    opacity: 0;
+    visibility: hidden;
+    -webkit-transform: translate(0, -100%);
+            transform: translate(0, -100%);
+  }
+  100% {
+    opacity: 1;
+    visibility: visible;
+    -webkit-transform: translate(0, 0) scale(1);
+            transform: translate(0, 0) scale(1);
+  }
+}
+
+@keyframes productAnimation {
+  0% {
+    opacity: 0;
+    visibility: hidden;
+    -webkit-transform: translate(0, -100%);
+            transform: translate(0, -100%);
+  }
+  100% {
+    opacity: 1;
+    visibility: visible;
+    -webkit-transform: translate(0, 0) scale(1);
+            transform: translate(0, 0) scale(1);
+  }
+}
