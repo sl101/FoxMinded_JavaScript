@@ -1,0 +1,76 @@
+@mixin line-clamp($lines: 1, $line-height: null) {
+	overflow: hidden;
+
+	@if ($lines==1) {
+		text-overflow: ellipsis;
+		white-space: nowrap;
+	}
+
+	@if ($lines > 1) {
+		@if ($line-height) {
+			$max-height: #{$lines + " * (" + $line-height + ")"};
+			max-height: calc(#{$max-height});
+		}
+		@supports (-webkit-line-clamp: 1) {
+			display: -webkit-box;
+			-webkit-line-clamp: $lines;
+			-webkit-box-orient: vertical;
+			max-height: 100%;
+		}
+	}
+}
+
+@mixin bg-cover {
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: cover;
+}
+
+// Breakpoints ===========================================
+@mixin sm {
+	@media only screen and (max-width: #{$screen-sm + px}) {
+		@content;
+	}
+}
+
+@mixin sm-min {
+	@media only screen and (min-width: #{$screen-sm + px}) {
+		@content;
+	}
+}
+
+@mixin md {
+	@media only screen and (max-width: #{$screen-md + px}) {
+		@content;
+	}
+}
+
+@mixin md-min {
+	@media only screen and (min-width: #{$screen-md + px}) {
+		@content;
+	}
+}
+
+@mixin lg {
+	@media only screen and (max-width: #{$screen-lg + px}) {
+		@content;
+	}
+}
+
+@mixin lg-min {
+	@media only screen and (min-width: #{$screen-lg + px}) {
+		@content;
+	}
+}
+
+@mixin xl {
+	@media only screen and (max-width: #{$screen-xl + px}) {
+		@content;
+	}
+}
+
+@mixin xl-min {
+	@media only screen and (min-width: #{$screen-xl + px}) {
+		@content;
+	}
+}

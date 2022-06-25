@@ -1,0 +1,30 @@
+.sr-only {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	padding: 0;
+	margin: -1px;
+	overflow: hidden;
+	clip: rect(0, 0, 0, 0);
+	white-space: nowrap;
+	border: 0;
+}
+
+html,
+body {
+	height: 100%;
+}
+
+body {
+	font-family: "Objective", sans-serif;
+	font-weight: 400;
+	font-size: 18px;
+	background-color: $color-fff;
+	color: $color-000;
+}
+
+.container {
+	max-width: $container;
+	padding: 0 15px;
+	margin: 0 auto;
+}
