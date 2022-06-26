@@ -10,6 +10,63 @@
 </head>
 
 <body>
+	<section class="sorting">
+		<div class="container">
+			<h1 class="sorting__title">
+				Speed Comparison of Sorting Methods
+			</h1>
+			<table class="sorting__table table">
+				<tr class="table__top">
+					<th class="table__title">Sort method</th>
+					<th class="table__title">Average sorting speed</th>
+				</tr>
+
+				<tr class="table__unit unit">
+					<td class="unit__title">Bubble</td>
+					<td class="unit__value">n/a</td>
+				</tr>
+
+				<tr class="table__unit unit">
+					<td class="unit__title">Insertion</td>
+					<td class="unit__value">n/a</td>
+				</tr>
+
+				<tr class="table__unit unit">
+					<td class="unit__title">Quick</td>
+					<td class="unit__value">n/a</td>
+				</tr>
+
+				<tr class="table__unit unit">
+					<td class="unit__title">Merge</td>
+					<td class="unit__value">n/a</td>
+				</tr>
+
+				<tr class="table__unit unit">
+					<td class="unit__title">Selection</td>
+					<td class="unit__value">n/a</td>
+				</tr>
+			</table>
+
+			<form action="#" class="sorting__form form">
+				<label class="form__label">
+					Number of tests
+					<input class="form__input" type="number" placeholder="default 5">
+				</label>
+
+				<label class="form__label">
+					Array size
+					<input class="form__input form__input--range" type="range" placeholder="default 1000">
+				</label>
+
+				<button class="form__button" type="button">Start</button>
+			</form>
+
+			<div class="sorting__result">
+				<p>Best result</p>
+				<span class="sorting__value">0</span>
+			</div>
+		</div>
+	</section>
 
 	<script src="js/main.js"></script>
 </body>
