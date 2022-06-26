@@ -31,6 +31,7 @@
 	&__result {
 		display: flex;
 		justify-content: space-between;
+		align-items: center;
 		p {
 			max-width: 240px;
 			width: 100%;
@@ -102,6 +103,13 @@
 		}
 	}
 
+	&__box {
+		max-width: 410px;
+		width: 100%;
+		display: flex;
+		justify-content: space-between;
+	}
+
 	// .form__input
 
 	&__input {
@@ -113,7 +121,7 @@
 
 		&--range {
 			height: 10px;
-			padding: 0 50px;
+			padding: 0 50px 0 0;
 			appearance: none;
 			background-color: transparent;
 			border: none;
@@ -175,9 +183,20 @@
 		}
 	}
 
+	// .form__amount
+	&__amount {
+		max-width: 76px;
+		width: 100%;
+		font-weight: 700;
+		font-size: 20px;
+		text-align: right;
+	}
+
 	// .form__button
 
 	&__button {
+		position: relative;
+		top: 0;
 		display: inline-block;
 		max-width: 240px;
 		width: 100%;
@@ -187,5 +206,17 @@
 		font-weight: 700;
 		font-size: 20px;
 		background-color: $color-teal-02;
+		transition: background-color $hoverTime linear, color $hoverTime linear;
+
+		&:focus {
+		}
+
+		&:hover {
+			background-color: $color-teal;
+		}
+
+		&:active {
+			top: 1px;
+		}
 	}
 }

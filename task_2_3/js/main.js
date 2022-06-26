@@ -126,24 +126,98 @@ function selectionSort(arr) {
 }
 
 // Execution speed comparison ===========================================
-function compareSort(cnt) {
-	const arr = createRandomArray(cnt);
-	const generalArray = [bubbleSort, insertionSort, mergeSort, selectionSort];
+function compareSort(rangeValue, functionArray) {
+	const arr = createRandomArray(rangeValue);
+	let timeArray = [];
 
-	for (let index = 0; index < generalArray.length; index++) {
-		const element = generalArray[index];
+	for (let index = 0; index < functionArray.length - 1; index++) {
+		const element = functionArray[index];
+
 		let time = performance.now();
 		element(arr);
 		time = performance.now() - time;
-		console.log('Время выполнения = ', time);
+		timeArray[index] = time;
 	}
 
+	const lastElement = functionArray[functionArray.length - 1];
 	let time = performance.now();
-	quickSort(arr, 0, arr.length - 1);
+	lastElement(arr, 0, arr.length - 1);
 	time = performance.now() - time;
-	console.log('Время выполнения = ', time);
+
+	timeArray[timeArray.length] = time;
+
+	return timeArray;
 }
 
-// ==================================================
+// Data output
+function dataOutput(resultArray) {
+	const functionArrayNames = [
+		'Bubble sort',
+		'Insertion sort',
+		'Merge sort',
+		'Selection sort',
+		'Quick sort',
+	];
 
-compareSort(10000);
+	let minNumber = resultArray[0];
+	let sortingName;
+
+	for (let index = 0; index < resultArray.length; index++) {
+		const element = resultArray[index];
+
+		unitsArray[index].textContent = resultArray[index];
+
+		if (element < minNumber) {
+			minNumber = element;
+			sortingName = functionArrayNames[index];
+		}
+	}
+
+	return sortingName;
+}
+
+// Find best result ===================================
+function findResult(rangeValue, valueTest) {
+	const functionArray = [
+		bubbleSort,
+		insertionSort,
+		mergeSort,
+		selectionSort,
+		quickSort,
+	];
+
+	const resultArray = compareSort(rangeValue, functionArray);
+
+	for (let index = 0; index < valueTest - 1; index++) {
+		const array = compareSort(rangeValue, functionArray);
+
+		for (let index = 0; index < resultArray.length; index++) {
+			if (resultArray[index] > array[index]) {
+				resultArray[index] = array[index];
+			}
+		}
+	}
+
+	return dataOutput(resultArray);
+}
+
+//==================================================
+const btn = document.querySelector('.form__button');
+const resultValue = document.querySelector('.sorting__value');
+const testValue = document.querySelector('.form__input--test');
+const rangeValue = document.querySelector('.form__input--range');
+const unitsArray = document.querySelectorAll('.unit__value');
+
+btn.addEventListener('click', (el) => {
+	el.preventDefault;
+	const valueTest = testValue.value;
+	const valueRange = rangeValue.value;
+	const result = findResult(valueRange, valueTest);
+
+	resultValue.style.display = 'none';
+	const myTimeout = setTimeout(myGreeting, 100);
+	function myGreeting() {
+		resultValue.style.display = 'block';
+		resultValue.textContent = result;
+	}
+});

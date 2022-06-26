@@ -32,11 +32,6 @@
 				</tr>
 
 				<tr class="table__unit unit">
-					<td class="unit__title">Quick</td>
-					<td class="unit__value">n/a</td>
-				</tr>
-
-				<tr class="table__unit unit">
 					<td class="unit__title">Merge</td>
 					<td class="unit__value">n/a</td>
 				</tr>
@@ -45,17 +40,29 @@
 					<td class="unit__title">Selection</td>
 					<td class="unit__value">n/a</td>
 				</tr>
+
+				<tr class="table__unit unit">
+					<td class="unit__title">Quick</td>
+					<td class="unit__value">n/a</td>
+				</tr>
 			</table>
 
 			<form action="#" class="sorting__form form">
 				<label class="form__label">
 					Number of tests
-					<input class="form__input" type="number" placeholder="default 5">
+					<input class="form__input form__input--test" type="number" value="3" min="1" max="10">
 				</label>
 
 				<label class="form__label">
 					Array size
-					<input class="form__input form__input--range" type="range" placeholder="default 1000">
+					<div class="form__box">
+						<input class="form__input form__input--range" type="range" min="20" max="10000" step="10" value="5000"
+							name="income" id="incomeInputId" oninput="incomeOutputId.value = incomeInputId.value"
+							placeholder="default 1000">
+						<output class="form__amount" name="income" id="incomeOutputId">
+							5000
+						</output>
+					</div>
 				</label>
 
 				<button class="form__button" type="button">Start</button>
@@ -63,7 +70,7 @@
 
 			<div class="sorting__result">
 				<p>Best result</p>
-				<span class="sorting__value">0</span>
+				<span class="sorting__value">n/a</span>
 			</div>
 		</div>
 	</section>
