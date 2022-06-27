@@ -132,16 +132,29 @@ function compareSort(rangeValue, functionArray) {
 
 	for (let index = 0; index < functionArray.length - 1; index++) {
 		const element = functionArray[index];
+		const temporaryArray = [];
+
+		for (let index = 0; index < arr.length; index++) {
+			const element = arr[index];
+			temporaryArray[index] = element;
+		}
 
 		let time = performance.now();
-		element(arr);
+		element(temporaryArray);
 		time = performance.now() - time;
 		timeArray[index] = time;
 	}
 
+	const temporaryLast = [];
+
+	for (let index = 0; index < arr.length; index++) {
+		const element = arr[index];
+		temporaryLast[index] = element;
+	}
+
 	const lastElement = functionArray[functionArray.length - 1];
 	let time = performance.now();
-	lastElement(arr, 0, arr.length - 1);
+	lastElement(temporaryLast, 0, temporaryLast.length - 1);
 	time = performance.now() - time;
 
 	timeArray[timeArray.length] = time;
@@ -202,6 +215,7 @@ function findResult(rangeValue, valueTest) {
 }
 
 //==================================================
+const page = document.querySelector('.sorting');
 const btn = document.querySelector('.form__button');
 const resultValue = document.querySelector('.sorting__value');
 const testValue = document.querySelector('.form__input--test');
@@ -210,14 +224,22 @@ const unitsArray = document.querySelectorAll('.unit__value');
 
 btn.addEventListener('click', (el) => {
 	el.preventDefault;
+	page.classList.add('lock');
+	unitsArray.forEach((element) => {
+		element.style.color = 'transparent';
+	});
+	resultValue.style.display = 'none';
+	setTimeout(myGreeting, 1000);
 	const valueTest = testValue.value;
 	const valueRange = rangeValue.value;
 	const result = findResult(valueRange, valueTest);
 
-	resultValue.style.display = 'none';
-	const myTimeout = setTimeout(myGreeting, 100);
 	function myGreeting() {
+		unitsArray.forEach((element) => {
+			element.style.color = '#000';
+		});
 		resultValue.style.display = 'block';
 		resultValue.textContent = result;
+		page.classList.remove('lock');
 	}
 });
