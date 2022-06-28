@@ -12,6 +12,8 @@ if (btnArray) {
 			const btnData = element.dataset.filter;
 			setAnimation(btnData);
 			const scrollAfter = checkoverflow();
+			console.log('before = ' + scrollBefore);
+			console.log('after = ' + scrollAfter);
 			fixLayout(scrollBefore, scrollAfter);
 		});
 	});

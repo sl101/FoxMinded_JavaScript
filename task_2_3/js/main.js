@@ -1,9 +1,37 @@
 'use strict';
 
+const body = document.querySelector('body');
+const page = document.querySelector('.sorting');
+const btn = document.querySelector('.form__button');
+const resultValue = document.querySelector('.sorting__value');
+const testValue = document.querySelector('.form__input--test');
+const rangeValue = document.querySelector('.form__input--range');
+const rangeNumber = document.querySelector('.form__amount');
+const unitsArray = document.querySelectorAll('.unit__value');
+const dataList = document.querySelector('.data__list');
+const dataArrow = document.querySelector('.data__box');
+const dataTextArray = document.querySelectorAll('.data__text');
+const dataUnsorted = document.querySelector('.data__text--unsorted');
+const dataSorted = document.querySelector('.data__text--sorted');
+const minArrr = 400;
+// Fix layout =================================================
+function checkoverflow() {
+	const paddingOffset = window.innerWidth - document.body.offsetWidth + 'px';
+	return paddingOffset;
+}
+
+function fixLayout(before, after) {
+	if (before > after) {
+		body.style.paddingRight = before;
+	} else if (before < after) {
+		body.style.paddingRight = '0';
+	}
+}
+
 // Random Array for compare ===================================
 function createRandomArray(elementAmount) {
 	const arr = [];
-	for (var i = 0; i < elementAmount; i++) {
+	for (let i = 0; i < elementAmount; i++) {
 		arr.push(Math.random() * 10000);
 	}
 	return arr;
@@ -128,7 +156,19 @@ function selectionSort(arr) {
 // Execution speed comparison ===========================================
 function compareSort(rangeValue, functionArray) {
 	const arr = createRandomArray(rangeValue);
+	let stringUnsorted = '';
+	let stringSorted = '';
 	let timeArray = [];
+
+	if (rangeValue <= minArrr) {
+		for (let index = 0; index < arr.length; index++) {
+			const element = arr[index];
+			stringUnsorted = stringUnsorted.concat('' + element + '\n');
+			dataUnsorted.textContent = stringUnsorted;
+		}
+	} else {
+		dataUnsorted.textContent = 'no data ' + '\nthe array was too long';
+	}
 
 	for (let index = 0; index < functionArray.length - 1; index++) {
 		const element = functionArray[index];
@@ -156,8 +196,17 @@ function compareSort(rangeValue, functionArray) {
 	let time = performance.now();
 	lastElement(temporaryLast, 0, temporaryLast.length - 1);
 	time = performance.now() - time;
-
 	timeArray[timeArray.length] = time;
+
+	if (rangeValue <= minArrr) {
+		for (let index = 0; index < temporaryLast.length; index++) {
+			const item = temporaryLast[index];
+			stringSorted = stringSorted.concat('' + item + ' ');
+			dataSorted.textContent = stringSorted;
+		}
+	} else {
+		dataSorted.textContent = 'no data ' + '\nthe array was too long';
+	}
 
 	return timeArray;
 }
@@ -214,32 +263,80 @@ function findResult(rangeValue, valueTest) {
 	return dataOutput(resultArray);
 }
 
-//==================================================
-const page = document.querySelector('.sorting');
-const btn = document.querySelector('.form__button');
-const resultValue = document.querySelector('.sorting__value');
-const testValue = document.querySelector('.form__input--test');
-const rangeValue = document.querySelector('.form__input--range');
-const unitsArray = document.querySelectorAll('.unit__value');
-
-btn.addEventListener('click', (el) => {
-	el.preventDefault;
-	page.classList.add('lock');
+// Data overload =================================
+function overload() {
 	unitsArray.forEach((element) => {
 		element.style.color = 'transparent';
 	});
-	resultValue.style.display = 'none';
-	setTimeout(myGreeting, 1000);
+
+	arraySize();
 	const valueTest = testValue.value;
 	const valueRange = rangeValue.value;
 	const result = findResult(valueRange, valueTest);
 
-	function myGreeting() {
-		unitsArray.forEach((element) => {
-			element.style.color = '#000';
+	unitsArray.forEach((element) => {
+		element.style.color = '#000';
+	});
+	resultValue.style.color = '#000';
+	resultValue.textContent = result;
+	page.classList.remove('lock');
+}
+
+// Data reload =====================
+function reloadData() {
+	page.classList.add('lock');
+	resultValue.style.color = 'transparent';
+	setTimeout(overload, 100);
+}
+
+// Show arrays =====================
+function showArrays() {
+	const scrollBefore = checkoverflow();
+
+	dataArrow.classList.toggle('active');
+	dataTextArray.forEach((element) => {
+		element.classList.toggle('active');
+	});
+	const scrollAfter = checkoverflow();
+	fixLayout(scrollBefore, scrollAfter);
+}
+
+// Check array size ===========================
+function arraySize() {
+	const valueRange = rangeValue.value;
+	if (valueRange > minArrr) {
+		rangeNumber.style.color = 'red';
+		dataArrow.classList.remove('active');
+		dataList.classList.add('block');
+		dataArrow.classList.add('block');
+		dataTextArray.forEach((element) => {
+			element.classList.remove('active');
 		});
-		resultValue.style.display = 'block';
-		resultValue.textContent = result;
-		page.classList.remove('lock');
+	} else {
+		dataList.classList.remove('block');
+		dataArrow.classList.remove('block');
+		rangeNumber.style.color = '#000';
 	}
-});
+}
+
+//==================================================
+
+if (rangeValue) {
+	rangeValue.addEventListener('change', () => {
+		arraySize();
+	});
+}
+
+if (btn) {
+	btn.addEventListener('click', (el) => {
+		el.preventDefault;
+		reloadData();
+	});
+}
+
+if (dataArrow) {
+	dataArrow.addEventListener('click', (el) => {
+		el.preventDefault;
+		showArrays();
+	});
+}

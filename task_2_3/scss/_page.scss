@@ -1,7 +1,7 @@
 .sorting {
 	position: relative;
 	z-index: 1;
-	height: 100vh;
+	height: 110vh;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
@@ -20,10 +20,16 @@
 		background-color: transparent;
 	}
 
+	// .sorting__container
+	&__container {
+		width: 100%;
+	}
+
 	// .sorting__title
 	&__title {
 		font-weight: 700;
 		font-size: 32px;
+		text-align: center;
 		margin: 0 0 40px 0;
 	}
 
@@ -38,6 +44,7 @@
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
+		margin: 0 0 40px 0;
 		p {
 			max-width: 240px;
 			width: 100%;
@@ -87,19 +94,32 @@
 	z-index: 1;
 	display: flex;
 	flex-direction: column;
+	padding: 10px 0;
 	margin: 0 0 40px 0;
 
 	// .form__label
 	&__label {
+		position: relative;
+		z-index: 1;
 		display: flex;
-		align-items: center;
 		justify-content: space-between;
-		cursor: pointer;
+		align-items: center;
+		min-height: 40px;
 		&:not(:last-child) {
 			margin: 0 0 20px 0;
 		}
 	}
 
+	// .form__title
+	&__title {
+		position: relative;
+		z-index: 2;
+		display: block;
+		padding: 0 10px;
+		cursor: pointer;
+	}
+
+	// .form__box
 	&__box {
 		max-width: 410px;
 		width: 100%;
@@ -112,8 +132,19 @@
 		max-width: 410px;
 		width: 100%;
 		padding: 10px;
-		border: 2px solid $color-teal-02;
+		border: 1px solid $color-teal-02;
+		box-shadow: 0 0 7px transparent;
+		outline: none;
 		cursor: text;
+		transition: box-shadow $hoverTime linear, background-color $hoverTime linear, border-color $hoverTime linear,
+			color $hoverTime linear;
+
+		&--test {
+			&:focus {
+				box-shadow: 0 0 7px $color-teal;
+				border: 1px solid $color-teal;
+			}
+		}
 
 		&--range {
 			height: 10px;
@@ -122,12 +153,11 @@
 			background-color: transparent;
 			border: none;
 			cursor: default;
-			outline: none;
 
 			&:focus {
 				&::-webkit-slider-thumb {
-					box-shadow: inset 0 0 3px $color-teal;
-					border: 1px solid $color-000;
+					box-shadow: 0 0 7px $color-teal;
+					border: 1px solid $color-teal;
 				}
 			}
 
@@ -144,6 +174,8 @@
 				background-color: $color-teal-02;
 				border-radius: 5px;
 				box-shadow: inset 0 2px 7px $color-teal, 0 0 2px $color-000;
+				transition: box-shadow $hoverTime linear, background-color $hoverTime linear, border-color $hoverTime linear,
+					color $hoverTime linear;
 			}
 
 			&::-moz-range-track {
@@ -152,6 +184,8 @@
 				background-color: $color-teal-02;
 				border-radius: 5px;
 				box-shadow: inset 0 2px 7px $color-teal, 0 0 2px $color-000;
+				transition: box-shadow $hoverTime linear, background-color $hoverTime linear, border-color $hoverTime linear,
+					color $hoverTime linear;
 			}
 
 			&::-webkit-slider-thumb {
@@ -165,6 +199,8 @@
 				border: 2px solid $color-teal;
 				border-radius: 100%;
 				box-shadow: inset 0 0 3px $color-teal;
+				transition: box-shadow $hoverTime linear, background-color $hoverTime linear, border-color $hoverTime linear,
+					color $hoverTime linear;
 			}
 
 			&::-moz-range-thumb {
@@ -175,6 +211,8 @@
 				cursor: pointer;
 				background-color: $color-teal-02;
 				border-radius: 100%;
+				transition: box-shadow $hoverTime linear, background-color $hoverTime linear, border-color $hoverTime linear,
+					color $hoverTime linear;
 			}
 		}
 	}
@@ -189,7 +227,6 @@
 	}
 
 	// .form__button
-
 	&__button {
 		position: relative;
 		top: 0;
@@ -201,10 +238,16 @@
 		padding: 10px;
 		font-weight: 700;
 		font-size: 20px;
+		outline: none;
+		box-shadow: 0 0 7px transparent;
+		border: 1px solid transparent;
 		background-color: $color-teal-02;
-		transition: background-color $hoverTime linear, color $hoverTime linear;
+		transition: background-color $hoverTime linear, color $hoverTime linear, border $hoverTime linear,
+			box-shadow $hoverTime linear;
 
 		&:focus {
+			box-shadow: 0 0 7px $color-teal;
+			border: 1px solid $color-teal;
 		}
 
 		&:hover {
@@ -213,6 +256,150 @@
 
 		&:active {
 			top: 1px;
+		}
+	}
+}
+
+.data {
+	display: flex;
+	justify-content: space-between;
+	align-items: flex-start;
+	margin-bottom: 40px;
+
+	// .data__list
+	&__list {
+		position: relative;
+		z-index: 5;
+		flex: 0 0 1120px;
+		max-width: 1120px;
+		display: flex;
+		justify-content: space-between;
+		width: 100%;
+		height: 100%;
+		align-items: center;
+
+		&.block {
+			color: $color-teal-02;
+		}
+	}
+
+	// .data__item
+	&__item {
+		position: relative;
+		z-index: 3;
+		width: 50%;
+		min-height: 100%;
+		padding: 10px;
+		display: flex;
+		flex-direction: column;
+		background-color: $color-fff;
+		border: 1px solid $color-teal;
+	}
+
+	// .data__title
+	&__title {
+		position: relative;
+		z-index: 3;
+	}
+
+	// .data__content
+	&__content {
+		z-index: 1;
+		padding: 10px 0 0;
+		text-align: left;
+		width: 100%;
+		overflow-y: auto;
+		background-color: $color-fff;
+	}
+
+	// .data__text
+	&__text {
+		max-height: 0;
+		display: block;
+		overflow: auto;
+		opacity: 0;
+		visibility: hidden;
+		transition: all $hoverTime ease;
+
+		&.active {
+			max-height: 200px;
+			opacity: 1;
+			visibility: visible;
+		}
+	}
+
+	// .data__arrow
+	&__arrow {
+		position: relative;
+		z-index: 1;
+		flex: 0 0 80px;
+		padding: 0 20px;
+	}
+
+	// .data__box
+	&__box {
+		position: relative;
+		z-index: 3;
+		display: block;
+		width: 40px;
+		height: 40px;
+		border-radius: 50%;
+		outline: none;
+		box-shadow: 0 0 7px transparent;
+		border: 1px solid transparent;
+		cursor: pointer;
+		transition: background-color $hoverTime linear, color $hoverTime linear, border $hoverTime linear,
+			box-shadow $hoverTime linear;
+
+		&:focus {
+			box-shadow: 0 0 7px $color-teal;
+			border: 1px solid $color-teal;
+		}
+
+		&:hover {
+			background-color: $color-teal;
+			&::before,
+			&:after {
+				background-color: $color-fff;
+			}
+		}
+
+		&.block {
+			pointer-events: none;
+			&::before,
+			&:after {
+				background-color: $color-teal-02;
+			}
+		}
+
+		&.active {
+			&::before {
+				transform: rotate(-45deg);
+			}
+			&:after {
+				transform: rotate(45deg);
+			}
+		}
+
+		&::before,
+		&:after {
+			content: "";
+			position: absolute;
+			z-index: 1;
+			top: 48%;
+			width: 14px;
+			height: 3px;
+			background-color: $color-teal;
+			transition: transform $hoverTime linear, background-color $hoverTime linear;
+		}
+
+		&::before {
+			left: 22%;
+			transform: rotate(45deg);
+		}
+		&:after {
+			left: 43%;
+			transform: rotate(-45deg);
 		}
 	}
 }

@@ -11,7 +11,7 @@
 
 <body>
 	<section class="sorting">
-		<div class="container">
+		<div class="sorting__container container">
 			<h1 class="sorting__title">
 				Speed Comparison of Sorting Methods
 			</h1>
@@ -23,55 +23,86 @@
 
 				<tr class="table__unit unit">
 					<td class="unit__title">Bubble</td>
-					<td class="unit__value">n/a</td>
+					<td class="unit__value">no data</td>
 				</tr>
 
 				<tr class="table__unit unit">
 					<td class="unit__title">Insertion</td>
-					<td class="unit__value">n/a</td>
+					<td class="unit__value">no data</td>
 				</tr>
 
 				<tr class="table__unit unit">
 					<td class="unit__title">Merge</td>
-					<td class="unit__value">n/a</td>
+					<td class="unit__value">no data</td>
 				</tr>
 
 				<tr class="table__unit unit">
 					<td class="unit__title">Selection</td>
-					<td class="unit__value">n/a</td>
+					<td class="unit__value">no data</td>
 				</tr>
 
 				<tr class="table__unit unit">
 					<td class="unit__title">Quick</td>
-					<td class="unit__value">n/a</td>
+					<td class="unit__value">no data</td>
 				</tr>
 			</table>
 
 			<form action="#" class="sorting__form form">
 				<label class="form__label">
-					Number of tests
-					<input class="form__input form__input--test" type="number" value="3" min="1" max="10">
+					<span class="form__title">
+						Number of tests
+					</span>
+					<input class="form__input form__input--test" type="number" value="3" min="1" max="10" tabindex="1">
 				</label>
 
 				<label class="form__label">
-					Array size
+					<span class="form__title">
+						Array size
+					</span>
 					<div class="form__box">
-						<input class="form__input form__input--range" type="range" min="20" max="10000" step="10" value="5000"
-							name="income" id="incomeInputId" oninput="incomeOutputId.value = incomeInputId.value"
-							placeholder="default 1000">
+						<input class="form__input form__input--range" type="range" min="50" max="10000" step="50" value="200"
+							name="income" id="incomeInputId" oninput="incomeOutputId.value = incomeInputId.value" tabindex="2">
 						<output class="form__amount" name="income" id="incomeOutputId">
-							5000
+							200
 						</output>
 					</div>
 				</label>
 
-				<button class="form__button" type="button">Start</button>
+				<button class="form__button" type="button" tabindex="3">Start</button>
 			</form>
 
 			<div class="sorting__result">
 				<p>Best result</p>
-				<span class="sorting__value">n/a</span>
+				<span class="sorting__value">no data</span>
 			</div>
+
+			<div class="sorting__bottom data">
+				<ul class="data__list">
+					<li class="data__item">
+						<div class="data__title">
+							<p>Generated array</p>
+						</div>
+						<div class="data__content">
+							<p class="data__text data__text--unsorted">no data
+							</p>
+						</div>
+					</li>
+
+					<li class="data__item">
+						<div class="data__title">
+							<p>Sorted array</p>
+						</div>
+						<div class="data__content">
+							<p class="data__text data__text--sorted">no data
+							</p>
+						</div>
+					</li>
+				</ul>
+				<div class="data__arrow">
+					<buton class="data__box" type="button" tabindex="4"></buton>
+				</div>
+			</div>
+
 		</div>
 	</section>
 

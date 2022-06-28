@@ -126,6 +126,7 @@ body {
   font-family: "Objective", sans-serif;
   font-weight: 400;
   font-size: 18px;
+  padding-right: 0px;
   background-color: #fff;
   color: #000;
 }
@@ -139,7 +140,7 @@ body {
 .sorting {
   position: relative;
   z-index: 1;
-  height: 100vh;
+  height: 110vh;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -168,9 +169,14 @@ body {
   background-color: transparent;
 }
 
+.sorting__container {
+  width: 100%;
+}
+
 .sorting__title {
   font-weight: 700;
   font-size: 32px;
+  text-align: center;
   margin: 0 0 40px 0;
 }
 
@@ -189,6 +195,7 @@ body {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+  margin: 0 0 40px 0;
 }
 
 .sorting__result p {
@@ -235,24 +242,35 @@ body {
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
+  padding: 10px 0;
   margin: 0 0 40px 0;
 }
 
 .form__label {
+  position: relative;
+  z-index: 1;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
-  cursor: pointer;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  min-height: 40px;
 }
 
 .form__label:not(:last-child) {
   margin: 0 0 20px 0;
+}
+
+.form__title {
+  position: relative;
+  z-index: 2;
+  display: block;
+  padding: 0 10px;
+  cursor: pointer;
 }
 
 .form__box {
@@ -270,8 +288,21 @@ body {
   max-width: 410px;
   width: 100%;
   padding: 10px;
-  border: 2px solid rgba(0, 128, 128, 0.2);
+  border: 1px solid rgba(0, 128, 128, 0.2);
+  -webkit-box-shadow: 0 0 7px transparent;
+          box-shadow: 0 0 7px transparent;
+  outline: none;
   cursor: text;
+  -webkit-transition: background-color 0.4s linear, border-color 0.4s linear, color 0.4s linear, -webkit-box-shadow 0.4s linear;
+  transition: background-color 0.4s linear, border-color 0.4s linear, color 0.4s linear, -webkit-box-shadow 0.4s linear;
+  transition: box-shadow 0.4s linear, background-color 0.4s linear, border-color 0.4s linear, color 0.4s linear;
+  transition: box-shadow 0.4s linear, background-color 0.4s linear, border-color 0.4s linear, color 0.4s linear, -webkit-box-shadow 0.4s linear;
+}
+
+.form__input--test:focus {
+  -webkit-box-shadow: 0 0 7px teal;
+          box-shadow: 0 0 7px teal;
+  border: 1px solid teal;
 }
 
 .form__input--range {
@@ -283,13 +314,12 @@ body {
   background-color: transparent;
   border: none;
   cursor: default;
-  outline: none;
 }
 
 .form__input--range:focus::-webkit-slider-thumb {
-  -webkit-box-shadow: inset 0 0 3px teal;
-          box-shadow: inset 0 0 3px teal;
-  border: 1px solid #000;
+  -webkit-box-shadow: 0 0 7px teal;
+          box-shadow: 0 0 7px teal;
+  border: 1px solid teal;
 }
 
 .form__input--range:focus::-moz-range-thumb {
@@ -304,6 +334,10 @@ body {
   border-radius: 5px;
   -webkit-box-shadow: inset 0 2px 7px teal, 0 0 2px #000;
           box-shadow: inset 0 2px 7px teal, 0 0 2px #000;
+  -webkit-transition: background-color 0.4s linear, border-color 0.4s linear, color 0.4s linear, -webkit-box-shadow 0.4s linear;
+  transition: background-color 0.4s linear, border-color 0.4s linear, color 0.4s linear, -webkit-box-shadow 0.4s linear;
+  transition: box-shadow 0.4s linear, background-color 0.4s linear, border-color 0.4s linear, color 0.4s linear;
+  transition: box-shadow 0.4s linear, background-color 0.4s linear, border-color 0.4s linear, color 0.4s linear, -webkit-box-shadow 0.4s linear;
 }
 
 .form__input--range::-moz-range-track {
@@ -312,6 +346,10 @@ body {
   background-color: rgba(0, 128, 128, 0.2);
   border-radius: 5px;
   box-shadow: inset 0 2px 7px teal, 0 0 2px #000;
+  -webkit-transition: background-color 0.4s linear, border-color 0.4s linear, color 0.4s linear, -webkit-box-shadow 0.4s linear;
+  transition: background-color 0.4s linear, border-color 0.4s linear, color 0.4s linear, -webkit-box-shadow 0.4s linear;
+  transition: box-shadow 0.4s linear, background-color 0.4s linear, border-color 0.4s linear, color 0.4s linear;
+  transition: box-shadow 0.4s linear, background-color 0.4s linear, border-color 0.4s linear, color 0.4s linear, -webkit-box-shadow 0.4s linear;
 }
 
 .form__input--range::-webkit-slider-thumb {
@@ -326,6 +364,10 @@ body {
   border-radius: 100%;
   -webkit-box-shadow: inset 0 0 3px teal;
           box-shadow: inset 0 0 3px teal;
+  -webkit-transition: background-color 0.4s linear, border-color 0.4s linear, color 0.4s linear, -webkit-box-shadow 0.4s linear;
+  transition: background-color 0.4s linear, border-color 0.4s linear, color 0.4s linear, -webkit-box-shadow 0.4s linear;
+  transition: box-shadow 0.4s linear, background-color 0.4s linear, border-color 0.4s linear, color 0.4s linear;
+  transition: box-shadow 0.4s linear, background-color 0.4s linear, border-color 0.4s linear, color 0.4s linear, -webkit-box-shadow 0.4s linear;
 }
 
 .form__input--range::-moz-range-thumb {
@@ -336,6 +378,10 @@ body {
   cursor: pointer;
   background-color: rgba(0, 128, 128, 0.2);
   border-radius: 100%;
+  -webkit-transition: background-color 0.4s linear, border-color 0.4s linear, color 0.4s linear, -webkit-box-shadow 0.4s linear;
+  transition: background-color 0.4s linear, border-color 0.4s linear, color 0.4s linear, -webkit-box-shadow 0.4s linear;
+  transition: box-shadow 0.4s linear, background-color 0.4s linear, border-color 0.4s linear, color 0.4s linear;
+  transition: box-shadow 0.4s linear, background-color 0.4s linear, border-color 0.4s linear, color 0.4s linear, -webkit-box-shadow 0.4s linear;
 }
 
 .form__amount {
@@ -359,9 +405,21 @@ body {
   padding: 10px;
   font-weight: 700;
   font-size: 20px;
+  outline: none;
+  -webkit-box-shadow: 0 0 7px transparent;
+          box-shadow: 0 0 7px transparent;
+  border: 1px solid transparent;
   background-color: rgba(0, 128, 128, 0.2);
-  -webkit-transition: background-color 0.4s linear, color 0.4s linear;
-  transition: background-color 0.4s linear, color 0.4s linear;
+  -webkit-transition: background-color 0.4s linear, color 0.4s linear, border 0.4s linear, -webkit-box-shadow 0.4s linear;
+  transition: background-color 0.4s linear, color 0.4s linear, border 0.4s linear, -webkit-box-shadow 0.4s linear;
+  transition: background-color 0.4s linear, color 0.4s linear, border 0.4s linear, box-shadow 0.4s linear;
+  transition: background-color 0.4s linear, color 0.4s linear, border 0.4s linear, box-shadow 0.4s linear, -webkit-box-shadow 0.4s linear;
+}
+
+.form__button:focus {
+  -webkit-box-shadow: 0 0 7px teal;
+          box-shadow: 0 0 7px teal;
+  border: 1px solid teal;
 }
 
 .form__button:hover {
@@ -370,4 +428,173 @@ body {
 
 .form__button:active {
   top: 1px;
+}
+
+.data {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+  margin-bottom: 40px;
+}
+
+.data__list {
+  position: relative;
+  z-index: 5;
+  -webkit-box-flex: 0;
+      -ms-flex: 0 0 1120px;
+          flex: 0 0 1120px;
+  max-width: 1120px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  width: 100%;
+  height: 100%;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.data__list.block {
+  color: rgba(0, 128, 128, 0.2);
+}
+
+.data__item {
+  position: relative;
+  z-index: 3;
+  width: 50%;
+  min-height: 100%;
+  padding: 10px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  background-color: #fff;
+  border: 1px solid teal;
+}
+
+.data__title {
+  position: relative;
+  z-index: 3;
+}
+
+.data__content {
+  z-index: 1;
+  padding: 10px 0 0;
+  text-align: left;
+  width: 100%;
+  overflow-y: auto;
+  background-color: #fff;
+}
+
+.data__text {
+  max-height: 0;
+  display: block;
+  overflow: auto;
+  opacity: 0;
+  visibility: hidden;
+  -webkit-transition: all 0.4s ease;
+  transition: all 0.4s ease;
+}
+
+.data__text.active {
+  max-height: 200px;
+  opacity: 1;
+  visibility: visible;
+}
+
+.data__arrow {
+  position: relative;
+  z-index: 1;
+  -webkit-box-flex: 0;
+      -ms-flex: 0 0 80px;
+          flex: 0 0 80px;
+  padding: 0 20px;
+}
+
+.data__box {
+  position: relative;
+  z-index: 3;
+  display: block;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  outline: none;
+  -webkit-box-shadow: 0 0 7px transparent;
+          box-shadow: 0 0 7px transparent;
+  border: 1px solid transparent;
+  cursor: pointer;
+  -webkit-transition: background-color 0.4s linear, color 0.4s linear, border 0.4s linear, -webkit-box-shadow 0.4s linear;
+  transition: background-color 0.4s linear, color 0.4s linear, border 0.4s linear, -webkit-box-shadow 0.4s linear;
+  transition: background-color 0.4s linear, color 0.4s linear, border 0.4s linear, box-shadow 0.4s linear;
+  transition: background-color 0.4s linear, color 0.4s linear, border 0.4s linear, box-shadow 0.4s linear, -webkit-box-shadow 0.4s linear;
+}
+
+.data__box:focus {
+  -webkit-box-shadow: 0 0 7px teal;
+          box-shadow: 0 0 7px teal;
+  border: 1px solid teal;
+}
+
+.data__box:hover {
+  background-color: teal;
+}
+
+.data__box:hover::before, .data__box:hover:after {
+  background-color: #fff;
+}
+
+.data__box.block {
+  pointer-events: none;
+}
+
+.data__box.block::before, .data__box.block:after {
+  background-color: rgba(0, 128, 128, 0.2);
+}
+
+.data__box.active::before {
+  -webkit-transform: rotate(-45deg);
+          transform: rotate(-45deg);
+}
+
+.data__box.active:after {
+  -webkit-transform: rotate(45deg);
+          transform: rotate(45deg);
+}
+
+.data__box::before, .data__box:after {
+  content: "";
+  position: absolute;
+  z-index: 1;
+  top: 48%;
+  width: 14px;
+  height: 3px;
+  background-color: teal;
+  -webkit-transition: background-color 0.4s linear, -webkit-transform 0.4s linear;
+  transition: background-color 0.4s linear, -webkit-transform 0.4s linear;
+  transition: transform 0.4s linear, background-color 0.4s linear;
+  transition: transform 0.4s linear, background-color 0.4s linear, -webkit-transform 0.4s linear;
+}
+
+.data__box::before {
+  left: 22%;
+  -webkit-transform: rotate(45deg);
+          transform: rotate(45deg);
+}
+
+.data__box:after {
+  left: 43%;
+  -webkit-transform: rotate(-45deg);
+          transform: rotate(-45deg);
 }
