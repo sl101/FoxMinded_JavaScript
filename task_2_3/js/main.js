@@ -156,16 +156,10 @@ function selectionSort(arr) {
 // Execution speed comparison ===========================================
 function compareSort(rangeValue, functionArray) {
 	const arr = createRandomArray(rangeValue);
-	let stringUnsorted = '';
-	let stringSorted = '';
-	let timeArray = [];
+	const timeArray = [];
 
 	if (rangeValue <= minArrr) {
-		for (let index = 0; index < arr.length; index++) {
-			const element = arr[index];
-			stringUnsorted = stringUnsorted.concat('' + element + '\n');
-			dataUnsorted.textContent = stringUnsorted;
-		}
+		dataUnsorted.textContent = arr.join('\n');
 	} else {
 		dataUnsorted.textContent = 'no data ' + '\nthe array was too long';
 	}
@@ -199,11 +193,7 @@ function compareSort(rangeValue, functionArray) {
 	timeArray[timeArray.length] = time;
 
 	if (rangeValue <= minArrr) {
-		for (let index = 0; index < temporaryLast.length; index++) {
-			const item = temporaryLast[index];
-			stringSorted = stringSorted.concat('' + item + ' ');
-			dataSorted.textContent = stringSorted;
-		}
+		dataSorted.textContent = temporaryLast.join('\n');
 	} else {
 		dataSorted.textContent = 'no data ' + '\nthe array was too long';
 	}

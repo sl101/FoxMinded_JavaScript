@@ -319,6 +319,8 @@
 		overflow: auto;
 		opacity: 0;
 		visibility: hidden;
+		text-align: center;
+		padding: 0 200px 0 0;
 		transition: all $hoverTime ease;
 
 		&.active {
