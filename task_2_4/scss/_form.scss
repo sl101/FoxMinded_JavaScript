@@ -1,0 +1,119 @@
+.form {
+	// .form__list
+	&__list {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		grid-column-gap: 25px;
+		grid-row-gap: 25px;
+		padding: 40px 50px;
+		margin: 0 0 20px 0;
+		background: linear-gradient(
+			to right,
+			rgba(255, 255, 255, 1) 0%,
+			rgba(250, 250, 250, 1) 50%,
+			rgba(255, 255, 255, 1) 100%
+		);
+		border-top: 2px solid $border-dark;
+		border-bottom: 2px solid $border-dark;
+	}
+
+	// .form__item
+	&__item {
+		&--firstname {
+			grid-column-start: 1;
+			grid-column-end: 2;
+		}
+		&--lastname {
+			grid-column-start: 2;
+			grid-column-end: 3;
+		}
+
+		&--email {
+			grid-column-start: 1;
+			grid-column-end: 2;
+		}
+
+		&--date {
+			grid-column-start: 2;
+			grid-column-end: 3;
+		}
+
+		&--textarea {
+			width: 100%;
+			grid-column-start: 1;
+			grid-column-end: 3;
+		}
+	}
+
+	// .form__label
+	&__label {
+		color: $brand-dark;
+		font-weight: 600;
+		padding: 0 0 0 10px;
+		cursor: pointer;
+	}
+
+	// .form__input
+	&__input {
+		width: 100%;
+		min-height: 60px;
+		display: block;
+		padding: 0 10px;
+		margin: 8px 0 0 0;
+		color: $text-dark;
+		border-radius: 10px;
+		border: 2px solid $text-light;
+		cursor: text;
+		outline: none;
+
+		&::placeholder {
+			color: $text-light;
+		}
+
+		&:focus {
+			border-color: $brand-dark;
+		}
+
+		&--date {
+			&::-webkit-datetime-edit {
+				color: $text-light;
+			}
+
+			&::-webkit-calendar-picker-indicator {
+				background-image: url("../img/date.svg");
+				@include bg-cover;
+			}
+		}
+
+		&--textarea {
+			min-height: 100px;
+			padding: 15px 10px;
+			resize: none;
+		}
+	}
+
+	// .form__button
+	&__button {
+		position: relative;
+		top: 0;
+		display: block;
+		padding: 10px 40px 12px;
+		margin: 0 0 0 50px;
+		border-radius: 10px;
+		background-color: $brand-dark;
+		color: $brand-light;
+		outline: none;
+		border: 2px solid transparent;
+		transition: background-color $hoverTime ease, border-color $hoverTime ease;
+
+		&:focus {
+			border-color: $text-dark;
+		}
+		&:hover {
+			background-color: $body;
+		}
+		&:active {
+			top: 2px;
+		}
+	}
+}

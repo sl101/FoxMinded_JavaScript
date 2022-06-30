@@ -6,11 +6,64 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="stylesheet" href="css/style.css">
-	<title>Document</title>
+	<title>OOP challenge</title>
 </head>
 
 <body>
+	<div class="wrapper">
+		<div class="content">
+			<span class="content__title">
+				Send message
+			</span>
 
+			<form class="content__form form" action="#" method="post" enctype="multipart/form-data">
+				<ul class="form__list">
+					<li class="form__item  form__item--firstname">
+						<label class="form__label">
+							First name*
+							<input class="form__input" type="text" name="first-name" value="" placeholder="first name" required
+								tabindex="1">
+						</label>
+					</li>
+
+					<li class="form__item form__item--lastname">
+						<label class="form__label">
+							Last name*
+							<input class="form__input" type="text" name="first-name" value="" placeholder="last name" required
+								tabindex="2">
+						</label>
+					</li>
+
+					<li class="form__item form__item--email">
+						<label class="form__label">
+							Email*
+							<input class="form__input" type="email" name="email" placeholder="enter your email" required tabindex="4">
+						</label>
+					</li>
+
+					<li class="form__item form__item--date">
+						<label class="form__label">
+							Day of birth*
+							<input class="form__input form__input--date" type="date" name="birthday" value="2000-01-01" tabindex="3">
+						</label>
+					</li>
+
+
+					<li class="form__item form__item--textarea">
+						<label class="form__label">
+							Your message
+							<textarea class="form__input form__input--textarea" tabindex="5"></textarea>
+						</label>
+					</li>
+				</ul>
+
+				<button class="form__button" type="submit" tabindex="6">
+					Send
+				</button>
+			</form>
+
+		</div>
+	</div>
 
 	<script src="js/main.js"></script>
 </body>

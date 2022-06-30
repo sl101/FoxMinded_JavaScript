@@ -26,6 +26,11 @@
 	background-size: cover;
 }
 
+@mixin Ubuntu($Rfw) {
+	font-family: "Ubuntu", sans-serif;
+	font-weight: $Rfw;
+}
+
 // Breakpoints ===========================================
 @mixin sm {
 	@media only screen and (max-width: #{$screen-sm + px}) {
