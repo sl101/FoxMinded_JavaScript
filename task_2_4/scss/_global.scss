@@ -19,25 +19,25 @@ body {
 body {
 	@include Ubuntu(400);
 	font-weight: 400;
-	font-size: 18px;
+	font-size: 16px;
 	padding-right: 0px;
 	background-color: $color-fff;
 	color: $text;
 }
 
 .wrapper {
-	height: 100vh;
+	height: 100%;
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	padding: 60px;
+	padding: 30px;
 	background: linear-gradient(to right, rgba(87, 128, 145, 1) 0%, rgba(57, 94, 109, 1) 50%, rgba(87, 128, 145, 1) 100%);
 }
 
 .content {
-	max-width: 1300px;
+	max-width: 1200px;
 	width: 100%;
-	padding: 30px 0 20px;
+	padding: 20px 0 20px;
 	border-radius: 10px;
 	background: linear-gradient(
 		to right,
@@ -50,9 +50,9 @@ body {
 	&__title {
 		display: block;
 		text-align: center;
-		margin: 0 0 20px 0;
+		margin: 0 0 15px 0;
 		font-weight: 600;
-		font-size: 28px;
+		font-size: 24px;
 		text-transform: uppercase;
 	}
 }

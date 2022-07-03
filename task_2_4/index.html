@@ -16,35 +16,55 @@
 				Send message
 			</span>
 
-			<form class="content__form form" action="#" method="post" enctype="multipart/form-data">
+			<form class="content__form form" action="#" novalidate>
 				<ul class="form__list">
-					<li class="form__item  form__item--firstname">
+					<li class="form__item form__item--firstname">
 						<label class="form__label">
 							First name*
-							<input class="form__input" type="text" name="first-name" value="" placeholder="first name" required
-								tabindex="1">
+							<input class="form__input form__input--firstname" type="text" name="first-name" autofocus="true"
+								placeholder="first name" tabindex="1">
 						</label>
 					</li>
 
 					<li class="form__item form__item--lastname">
 						<label class="form__label">
 							Last name*
-							<input class="form__input" type="text" name="first-name" value="" placeholder="last name" required
+							<input class="form__input form__input--lastname" type="text" name="last-name" placeholder="last name"
 								tabindex="2">
-						</label>
-					</li>
-
-					<li class="form__item form__item--email">
-						<label class="form__label">
-							Email*
-							<input class="form__input" type="email" name="email" placeholder="enter your email" required tabindex="4">
 						</label>
 					</li>
 
 					<li class="form__item form__item--date">
 						<label class="form__label">
 							Day of birth*
-							<input class="form__input form__input--date" type="date" name="birthday" value="2000-01-01" tabindex="3">
+							<input class="form__input form__input--date" type="date" name="date" tabindex="3">
+						</label>
+					</li>
+
+					<li class="form__item form__item--email">
+						<label class="form__label">
+							Email*
+							<input class="form__input form__input--email" type="email" name="email" placeholder="enter your email"
+								tabindex="4">
+						</label>
+					</li>
+
+
+					<li class="form__item form__item--password">
+						<label class="form__label">
+							password (6 characters minimum):*
+							<input class="form__input form__input--password" type="password" name="password"
+								placeholder="enter your password" tabindex="6">
+							<a href="#" class="form__input-show password"></a>
+						</label>
+					</li>
+
+					<li class="form__item form__item--password">
+						<label class="form__label">
+							confirm password*
+							<input class="form__input form__input--password confirm" type="password" name="password"
+								placeholder="confirm your password" tabindex="7">
+							<a href="#" class="form__input-show passwordConfirm"></a>
 						</label>
 					</li>
 
@@ -52,12 +72,12 @@
 					<li class="form__item form__item--textarea">
 						<label class="form__label">
 							Your message
-							<textarea class="form__input form__input--textarea" tabindex="5"></textarea>
+							<textarea class="form__input form__input--textarea" tabindex="8"></textarea>
 						</label>
 					</li>
 				</ul>
 
-				<button class="form__button" type="submit" tabindex="6">
+				<button class="form__button" type="submit" tabindex="9">
 					Send
 				</button>
 			</form>
