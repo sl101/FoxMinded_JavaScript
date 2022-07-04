@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="css/style.css">
+	<title>OOP challenge</title>
+</head>
+
+<body>
+	<div class="wrapper">
+		<div class="content">
+			<span class="content__title">
+				Send message
+			</span>
+
+			<form class="content__form form" action="#" novalidate>
+				<ul class="form__list">
+					<li class="form__item form__item--firstname">
+						<label class="form__label">
+							First name*
+							<input class="form__input form__input--firstname" type="text" name="first name" autofocus="true"
+								placeholder="first name" tabindex="1">
+						</label>
+					</li>
+
+					<li class="form__item form__item--lastname">
+						<label class="form__label">
+							Last name*
+							<input class="form__input form__input--lastname" type="text" name="last name" placeholder="last name"
+								tabindex="2">
+						</label>
+					</li>
+
+					<li class="form__item form__item--date">
+						<label class="form__label">
+							Day of birth*
+							<input class="form__input form__input--date" type="date" name="birthday" tabindex="3">
+						</label>
+					</li>
+
+					<li class="form__item form__item--email">
+						<label class="form__label">
+							Email*
+							<input class="form__input form__input--email" type="email" name="email" placeholder="enter your email"
+								tabindex="4">
+						</label>
+					</li>
+
+
+					<li class="form__item form__item--password">
+						<label class="form__label">
+							password (6 characters minimum):*
+							<input class="form__input form__input--password" type="password" name="password"
+								placeholder="enter your password" tabindex="6">
+							<a href="#" class="form__input-show password"></a>
+						</label>
+					</li>
+
+					<li class="form__item form__item--password">
+						<label class="form__label">
+							confirm password*
+							<input class="form__input form__input--passworСonfirm" type="password" name="password"
+								placeholder="confirm your password" tabindex="7">
+							<a href="#" class="form__input-show passwordConfirm"></a>
+						</label>
+					</li>
+
+
+					<li class="form__item form__item--textarea">
+						<label class="form__label">
+							Your message
+							<textarea class="form__input form__input--textarea" tabindex="8"></textarea>
+						</label>
+					</li>
+				</ul>
+
+				<button class="form__button" type="submit" tabindex="9">
+					Send
+				</button>
+			</form>
+
+		</div>
+	</div>
+
+	<script src="js/main.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,58 @@
+.sr-only {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	padding: 0;
+	margin: -1px;
+	overflow: hidden;
+	clip: rect(0, 0, 0, 0);
+	white-space: nowrap;
+	border: 0;
+}
+
+html,
+body {
+	width: 100%;
+	height: 100%;
+}
+
+body {
+	@include Ubuntu(400);
+	font-weight: 400;
+	font-size: 16px;
+	padding-right: 0px;
+	background-color: $color-fff;
+	color: $text;
+}
+
+.wrapper {
+	height: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	padding: 30px;
+	background: linear-gradient(to right, rgba(87, 128, 145, 1) 0%, rgba(57, 94, 109, 1) 50%, rgba(87, 128, 145, 1) 100%);
+}
+
+.content {
+	max-width: 1200px;
+	width: 100%;
+	padding: 20px 0 20px;
+	border-radius: 10px;
+	background: linear-gradient(
+		to right,
+		rgba(239, 240, 241, 1) 0%,
+		rgba(250, 250, 250, 1) 50%,
+		rgba(239, 240, 241, 1) 100%
+	);
+
+	// .content__title
+	&__title {
+		display: block;
+		text-align: center;
+		margin: 0 0 15px 0;
+		font-weight: 600;
+		font-size: 24px;
+		text-transform: uppercase;
+	}
+}
