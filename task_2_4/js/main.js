@@ -2,31 +2,15 @@
 
 const body = document.querySelector('body');
 const form = body.querySelector('form');
+const showPasswords = form.querySelectorAll('.form__input-show');
 
-// Fix layout =================================================
-function checkoverflow() {
-	const paddingOffset = window.innerWidth - document.body.offsetWidth + 'px';
-	return paddingOffset;
-}
-
-function fixLayout(before, after) {
-	if (before > after) {
-		body.style.paddingRight = before;
-	} else if (before < after) {
-		body.style.paddingRight = '0';
-	}
-}
-
-// ================================================================
 const firstNameInput = form.querySelector('.form__input--firstname');
 const lastNameInput = form.querySelector('.form__input--lastname');
 const birthDateInput = form.querySelector('.form__input--date');
 const emailInput = form.querySelector('.form__input--email');
 const passwordInput = form.querySelector('.form__input--password');
-const passwordConfInput = form.querySelector('.form__input--password.confirm');
-const textArray = form.querySelector('.form__input--textarea');
-const button = form.querySelector('.form__button');
-const showPasswords = form.querySelectorAll('.form__input-show');
+const passwordConfInput = form.querySelector('.form__input--passworСonfirm');
+const textInput = form.querySelector('.form__input--textarea');
 
 // Show/hide eye in password ========================
 showPasswords.forEach((element) => {
@@ -36,8 +20,7 @@ showPasswords.forEach((element) => {
 });
 
 function showHidePassword(target) {
-	const targetInput = target.previousElementSibling;
-
+	const targetInput = target.parentNode.firstElementChild;
 	if (targetInput.getAttribute('type') == 'password') {
 		target.classList.add('view');
 		targetInput.setAttribute('type', 'text');
@@ -47,176 +30,142 @@ function showHidePassword(target) {
 	}
 }
 
-// ====================================
-class Person {
-	constructor(firstNameInput, lastNameInput, birthDateInput) {
-		const validator = new Validator();
-		this.firstName = validator.validate(firstNameInput);
-		this.lastName = validator.validate(lastNameInput);
-		this.birthDate = validator.validate(birthDateInput);
-	}
-
-	getFullName() {
-		return (
-			'\n' +
-			this.firstName +
-			' ' +
-			this.lastName +
-			'\ndate of birth: ' +
-			this.birthDate
-		);
-	}
-}
-
-class User {
-	constructor(person, emailInput, passwordInput, passwordConfInput) {
-		const validator = new Validator();
-		this.person = person;
-		this.email = validator.validate(emailInput);
-		this.password = validator.validate(passwordInput);
-		this.confirmPassword = validator.validate(passwordConfInput);
-	}
-
-	getUser() {
-		if (this.person && this.email && this.password && this.confirmPassword) {
-			return this.person.getFullName() + '\nemail: ' + this.email;
-		} else {
-			return false;
-		}
-	}
-}
-
-class MessageRequest {
-	constructor(user, message) {
-		this.user = user;
-		this.message = message;
-	}
-
-	getRequest() {
-		if (this.user) {
-			return this.user.getUser() + '\nmessage:\n' + this.message;
-		} else {
-			return false;
-		}
-	}
-}
-
-function createRequest() {
-	const message = textArray.value;
-
-	const person = new Person(firstNameInput, lastNameInput, birthDateInput);
-	if (person.getFullName()) {
-		const user = new User(person, emailInput, passwordInput, passwordConfInput);
-		if (user.getUser()) {
-			const request = new MessageRequest(user, message);
-			return request.getRequest();
-		} else {
-			return false;
-		}
-	} else {
-		return false;
-	}
-}
-
+// ===================================
 class Validator {
-	validate(inputTarget) {
-		const targetName = inputTarget.name;
-		const target = inputTarget.value;
-		let patternString = '';
-		let password = '';
+	constructor() {
+		this.removeMessage();
+	}
 
-		switch (targetName) {
-			case 'email':
-				patternString = patternString.concat(
-					"[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?"
-				);
-				break;
-
-			case 'first-name':
-				patternString = patternString.concat('^[a-zA-Z-]+$');
-				break;
-
-			case 'last-name':
-				patternString = patternString.concat('^[a-zA-Z-]+$');
-				break;
-
-			case 'date':
-				patternString = patternString.concat('\\d{4}-\\d{1,2}-\\d{1,2}');
-				break;
-
-			case 'password':
-				patternString = patternString.concat('[0-9a-zA-Z!@#$%^&*]{6,}');
-				break;
-
-			case 'passwordConfirm':
-				const passwordValue = passwordInput.value;
-				password = patternString.concat(passwordValue);
-				patternString = patternString.concat('[0-9a-zA-Z!@#$%^&*]{6,}');
-				break;
+	removeMessage() {
+		const errorMessage = form.querySelectorAll('.error-message');
+		if (errorMessage) {
+			errorMessage.forEach((element) => {
+				element.remove('error');
+			});
 		}
+	}
 
-		const pattern = new RegExp(patternString);
-
+	commonMethod(incominData, pattern) {
 		const errorMessage = document.createElement('div');
 		errorMessage.classList.add('error-message');
-		inputTarget.parentElement.appendChild(errorMessage);
+		incominData.after(errorMessage);
+
+		const targetName = incominData.name;
+		const target = incominData.value;
 
 		if (target) {
-			if (target.match(pattern) || target === password) {
-				inputTarget.classList.remove('error');
+			if (target.match(pattern)) {
+				incominData.classList.remove('error');
 				errorMessage.classList.remove('error');
-
-				if (targetName === 'passwordConfirm') {
-					if (target.match(pattern)) {
-						if (target !== password) {
-							inputTarget.classList.add('error');
-							errorMessage.classList.add('error');
-							errorMessage.innerHTML = 'Мust be identical to a valid password';
-							return false;
-						} else {
-							return target;
-						}
-					} else {
-						inputTarget.classList.add('error');
-						errorMessage.classList.add('error');
-						errorMessage.innerHTML = 'Please enter a valid password';
-						return false;
-					}
-				} else {
-					return target;
-				}
+				return target;
 			} else {
-				inputTarget.classList.add('error');
+				incominData.classList.add('error');
 				errorMessage.classList.add('error');
-				if (targetName === 'passwordConfirm') {
-					errorMessage.innerHTML = 'Required field: confirm your password';
-				} else {
-					errorMessage.innerHTML = 'Please enter a valid ' + targetName;
-				}
+				errorMessage.innerHTML = 'Please enter a valid ' + targetName;
+
 				return false;
 			}
 		} else if (target == '') {
-			inputTarget.classList.add('error');
+			incominData.classList.add('error');
 			errorMessage.classList.add('error');
-			if (targetName === 'passwordConfirm') {
-				errorMessage.innerHTML = 'Required field: confirm your password';
+			errorMessage.innerHTML = 'Required field: enter your ' + targetName;
+
+			return false;
+		} else {
+			return false;
+		}
+	}
+
+	validateName(incominData) {
+		const pattern = new RegExp('^[a-zA-Z-]+$');
+		return this.commonMethod(incominData, pattern);
+	}
+
+	validateDate(incominData) {
+		const pattern = new RegExp('\\d{4}-\\d{1,2}-\\d{1,2}');
+		return this.commonMethod(incominData, pattern);
+	}
+
+	validateEmail(incominData) {
+		const pattern = new RegExp(
+			"[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?"
+		);
+		return this.commonMethod(incominData, pattern);
+	}
+
+	validatePassword(incominData) {
+		const pattern = new RegExp('[0-9a-zA-Z!@#$%^&*]{6,}');
+		return this.commonMethod(incominData, pattern);
+	}
+
+	validatePasswordConfirm(incominData) {
+		const passwordInput = form.querySelector('.form__input--password');
+		const password = passwordInput.value;
+		const passwordConfirm = incominData.value;
+
+		const errorMessage = document.createElement('div');
+		errorMessage.classList.add('error-message');
+		incominData.after(errorMessage);
+
+		const pattern = new RegExp('[0-9a-zA-Z!@#$%^&*]{6,}');
+		if (passwordConfirm) {
+			if (passwordConfirm === password) {
+				if (passwordConfirm.match(pattern)) {
+					incominData.classList.remove('error');
+					errorMessage.classList.remove('error');
+					return passwordConfirm;
+				} else {
+					incominData.classList.add('error');
+					errorMessage.classList.add('error');
+					errorMessage.innerHTML = 'Please enter a valid password';
+					return false;
+				}
 			} else {
-				errorMessage.innerHTML = 'Required field: enter your ' + targetName;
+				incominData.classList.add('error');
+				errorMessage.classList.add('error');
+				errorMessage.innerHTML = 'Мust be identical to a valid password';
+				return false;
 			}
+		} else {
+			incominData.classList.add('error');
+			errorMessage.classList.add('error');
+			errorMessage.innerHTML = 'Required field: confirm password';
 			return false;
 		}
 	}
 }
 
-function removeMessage() {
-	const errorMessage = form.querySelectorAll('.error-message');
-	errorMessage.forEach((element) => {
-		element.remove();
-	});
+function validateForm() {
+	let alertMessage = '';
+
+	const validate = new Validator();
+
+	const firstName = validate.validateName(firstNameInput);
+	alertMessage = alertMessage.concat(firstName);
+
+	const lastName = validate.validateName(lastNameInput);
+	alertMessage = alertMessage.concat(' ' + lastName);
+
+	const birthDate = validate.validateDate(birthDateInput);
+	alertMessage = alertMessage.concat('\n' + 'birthday: ' + birthDate);
+
+	const email = validate.validateEmail(emailInput);
+	alertMessage = alertMessage.concat('\n' + 'e-mail: ' + email);
+
+	const password = validate.validatePassword(passwordInput);
+	const passwordConfirm = validate.validatePasswordConfirm(passwordConfInput);
+
+	const textArea = textInput.value;
+
+	alertMessage = alertMessage.concat('\n' + 'message:\n' + textArea);
+
+	if (password && passwordConfirm) {
+		showAlert(alertMessage);
+	}
 }
 
 function showAlert(alertMessage) {
-	if (alertMessage) {
+	if (!alertMessage.includes('false')) {
 		alert('\n' + alertMessage + '\n\nMessage has been sent');
 	}
 }
@@ -224,6 +173,5 @@ function showAlert(alertMessage) {
 // ======================================================
 form.addEventListener('submit', function (e) {
 	e.preventDefault();
-	removeMessage();
-	showAlert(createRequest());
+	validateForm();
 });
