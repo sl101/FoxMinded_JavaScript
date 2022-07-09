@@ -1,177 +1,153 @@
 'use strict';
 
 const body = document.querySelector('body');
-const form = body.querySelector('form');
-const showPasswords = form.querySelectorAll('.form__input-show');
+const locationInput = body.querySelector('.search__input');
+const searchBtn = body.querySelector('.search__btn');
+const labelWrapper = body.querySelector('.search__wrapper');
+const labelTop = body.querySelector('.search__top');
+const searchResult = body.querySelector('.search__result');
 
-const firstNameInput = form.querySelector('.form__input--firstname');
-const lastNameInput = form.querySelector('.form__input--lastname');
-const birthDateInput = form.querySelector('.form__input--date');
-const emailInput = form.querySelector('.form__input--email');
-const passwordInput = form.querySelector('.form__input--password');
-const passwordConfInput = form.querySelector('.form__input--passworСonfirm');
-const textInput = form.querySelector('.form__input--textarea');
+let option = null;
+let data = null;
+let dataString = [];
+let city = null;
+let cityRequest = '';
 
-// Show/hide eye in password ========================
-showPasswords.forEach((element) => {
-	element.addEventListener('click', () => {
-		showHidePassword(element);
-	});
-});
+let optionArray = [];
 
-function showHidePassword(target) {
-	const targetInput = target.parentNode.firstElementChild;
-	if (targetInput.getAttribute('type') == 'password') {
-		target.classList.add('view');
-		targetInput.setAttribute('type', 'text');
-	} else {
-		target.classList.remove('view');
-		targetInput.setAttribute('type', 'password');
+function sendRequest(requestMessage) {
+	const request = new XMLHttpRequest();
+	request.open('GET', requestMessage, true);
+	// cleanOptions();
+	request.send();
+
+	request.onload = function () {
+		if (request.status >= 200 && request.status < 400) {
+			data = JSON.parse(request.responseText);
+			// dataString = data.concat(dataString);
+			// console.log('dataString: ' + dataString);
+			// console.log(data);
+			if (data.length === 0) {
+				// console.log('data 0');
+				locationInput.value = 'incorrect data, make a choice...';
+				// locationInput.placeholder = 'uncorrect data, make a choice...';
+			} else {
+				findOption(data);
+			}
+		} else {
+			alert('Oops, something went wrong');
+		}
+	};
+
+	// data.forEach((element) => {
+	// console.log(JSON.stringify(element));
+	// console.log(JSON.parse(element));
+	// console.table(JSON.parse(element));
+	// });
+}
+
+function cleanOptions() {
+	const options = document.querySelectorAll('.search__label');
+	if (options) {
+		options.forEach((element) => {
+			element.remove();
+		});
+		labelWrapper.classList.remove('active');
 	}
 }
 
-// ===================================
-class Validator {
-	constructor() {
-		this.removeMessage();
-	}
+function getLocation() {
+	city = locationInput.value;
+	// console.log('city: ' + city);
 
-	removeMessage() {
-		const errorMessage = form.querySelectorAll('.error-message');
-		if (errorMessage) {
-			errorMessage.forEach((element) => {
-				element.remove('error');
-			});
-		}
-	}
-
-	commonMethod(incominData, pattern) {
-		const errorMessage = document.createElement('div');
-		errorMessage.classList.add('error-message');
-		incominData.after(errorMessage);
-
-		const targetName = incominData.name;
-		const target = incominData.value;
-
-		if (target) {
-			if (target.match(pattern)) {
-				incominData.classList.remove('error');
-				errorMessage.classList.remove('error');
-				return target;
-			} else {
-				incominData.classList.add('error');
-				errorMessage.classList.add('error');
-				errorMessage.innerHTML = 'Please enter a valid ' + targetName;
-
-				return false;
-			}
-		} else if (target == '') {
-			incominData.classList.add('error');
-			errorMessage.classList.add('error');
-			errorMessage.innerHTML = 'Required field: enter your ' + targetName;
-
-			return false;
-		} else {
-			return false;
-		}
-	}
-
-	validateName(incominData) {
-		const pattern = new RegExp('^[a-zA-Z-]+$');
-		return this.commonMethod(incominData, pattern);
-	}
-
-	validateDate(incominData) {
-		const pattern = new RegExp('\\d{4}-\\d{1,2}-\\d{1,2}');
-		return this.commonMethod(incominData, pattern);
-	}
-
-	validateEmail(incominData) {
-		const pattern = new RegExp(
-			"[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?"
+	if (city) {
+		cityRequest = cityRequest.concat(
+			'http://api.openweathermap.org/geo/1.0/direct?q=' +
+				city +
+				'&lang=uk&limit=10&appid=eff59b9c302282748a7ceec43463dd55&units=metric'
 		);
-		return this.commonMethod(incominData, pattern);
+		sendRequest(cityRequest);
+	} else if (city === '') {
+		locationInput.placeholder = 'make a choice...';
 	}
+}
 
-	validatePassword(incominData) {
-		const pattern = new RegExp('[0-9a-zA-Z!@#$%^&*]{6,}');
-		return this.commonMethod(incominData, pattern);
+function setupChoise() {
+	const optionsAfter = document.querySelectorAll('.search__label');
+
+	if (optionsAfter) {
+		optionsAfter.forEach((element) => {
+			element.addEventListener('click', (e) => {
+				e.preventDefault();
+				locationInput.value = element.textContent;
+				searchResult.innerHTML = element.textContent;
+				labelWrapper.classList.remove('active');
+				searchBtn.classList.add('active');
+				optionsAfter.forEach((el) => {
+					el.remove();
+				});
+				const locationData = locationInput.value;
+				weatherRequest(locationData);
+			});
+		});
 	}
+}
 
-	validatePasswordConfirm(incominData) {
-		const passwordInput = form.querySelector('.form__input--password');
-		const password = passwordInput.value;
-		const passwordConfirm = incominData.value;
+function weatherRequest(locationData) {
+	console.log('start weatherRequest' + locationData);
+}
 
-		const errorMessage = document.createElement('div');
-		errorMessage.classList.add('error-message');
-		incominData.after(errorMessage);
-
-		const pattern = new RegExp('[0-9a-zA-Z!@#$%^&*]{6,}');
-		if (passwordConfirm) {
-			if (passwordConfirm === password) {
-				if (passwordConfirm.match(pattern)) {
-					incominData.classList.remove('error');
-					errorMessage.classList.remove('error');
-					return passwordConfirm;
-				} else {
-					incominData.classList.add('error');
-					errorMessage.classList.add('error');
-					errorMessage.innerHTML = 'Please enter a valid password';
-					return false;
-				}
-			} else {
-				incominData.classList.add('error');
-				errorMessage.classList.add('error');
-				errorMessage.innerHTML = 'Мust be identical to a valid password';
-				return false;
-			}
+function findOption(data) {
+	cleanOptions();
+	for (let i = 0; i < data.length; i++) {
+		// console.log(data[i]);
+		// console.table(JSON.stringify(data[i]));
+		// option.value = data[i];
+		option = document.createElement('label');
+		option.classList.add('search__label');
+		let optionValue = data[i].name;
+		if (data[i].state) {
+			optionValue = optionValue.concat(
+				', ' +
+					data[i].local_names.uk +
+					', ' +
+					data[i].state +
+					', ' +
+					data[i].country
+			);
 		} else {
-			incominData.classList.add('error');
-			errorMessage.classList.add('error');
-			errorMessage.innerHTML = 'Required field: confirm password';
-			return false;
+			optionValue = optionValue.concat(
+				', ' + data[i].local_names.uk + ', ' + data[i].country
+			);
 		}
+		option.innerHTML = optionValue;
+		labelWrapper.classList.add('active');
+
+		labelWrapper.appendChild(option);
+		optionArray[i] = option;
 	}
+
+	setupChoise();
 }
 
-function validateForm() {
-	let alertMessage = '';
-
-	const validate = new Validator();
-
-	const firstName = validate.validateName(firstNameInput);
-	alertMessage = alertMessage.concat(firstName);
-
-	const lastName = validate.validateName(lastNameInput);
-	alertMessage = alertMessage.concat(' ' + lastName);
-
-	const birthDate = validate.validateDate(birthDateInput);
-	alertMessage = alertMessage.concat('\n' + 'birthday: ' + birthDate);
-
-	const email = validate.validateEmail(emailInput);
-	alertMessage = alertMessage.concat('\n' + 'e-mail: ' + email);
-
-	const password = validate.validatePassword(passwordInput);
-	const passwordConfirm = validate.validatePasswordConfirm(passwordConfInput);
-
-	const textArea = textInput.value;
-
-	alertMessage = alertMessage.concat('\n' + 'message:\n' + textArea);
-
-	if (password && passwordConfirm) {
-		showAlert(alertMessage);
-	}
-}
-
-function showAlert(alertMessage) {
-	if (!alertMessage.includes('false')) {
-		alert('\n' + alertMessage + '\n\nMessage has been sent');
-	}
-}
-
-// ======================================================
-form.addEventListener('submit', function (e) {
+// =========================================================
+searchBtn.addEventListener('click', (e) => {
 	e.preventDefault();
-	validateForm();
+
+	if (!searchBtn.classList.contains('active')) {
+		getLocation();
+	} else {
+		searchBtn.classList.remove('active');
+		locationInput.value = '';
+		searchResult.innerHTML = '';
+	}
 });
+
+// =================================
+// https://api.openweathermap.org/data/2.5/weather?q={city name},{state code},{country code}&appid={API key}
+
+// cityRequest = cityRequest.concat(
+// 	'https://api.openweathermap.org/data/2.5/weather?q=' +
+// 		city +
+// 		'&appid=eff59b9c302282748a7ceec43463dd55'
+// );
