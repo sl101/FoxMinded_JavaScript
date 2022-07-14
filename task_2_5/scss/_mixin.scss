@@ -26,8 +26,8 @@
 	background-size: cover;
 }
 
-@mixin Ubuntu($Rfw) {
-	font-family: "Ubuntu", sans-serif;
+@mixin Roboto($Rfw) {
+	font-family: "Roboto", sans-serif;
 	font-weight: $Rfw;
 }
 

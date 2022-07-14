@@ -9,35 +9,30 @@
 	max-width: 357px;
 	width: 100%;
 	padding: 15px;
-	// .widget__top
 
+	// .widget__top
 	&__top {
 		background-color: transparent;
 	}
 
-	// .widget__search
-
-	&__search {
-	}
-
 	// .widget__content
-
 	&__content {
-	}
-
-	// .widget__info
-
-	&__info {
-	}
-
-	// .widget__forecast
-
-	&__forecast {
+		position: relative;
+		z-index: 2;
+		display: flex;
+		flex-direction: column;
+		width: 100%;
+		height: 100%;
+		color: $color-fff;
+		border: none;
+		border-radius: 8px;
+		overflow: hidden;
 	}
 }
 
 .search {
 	margin: 0 0 50px 0;
+
 	// .search__top
 	&__top {
 		position: relative;
@@ -79,7 +74,6 @@
 
 		&::placeholder {
 			font-style: italic;
-			// opacity: 1;
 		}
 
 		&:hover {
@@ -89,7 +83,6 @@
 		}
 
 		&:focus {
-			// color: red;
 		}
 	}
 
@@ -107,6 +100,7 @@
 		border: 1px solid $color-dad;
 		border-radius: 2px;
 		background-color: $color-fff;
+		@include line-clamp;
 		transition: all $hoverTime linear;
 
 		&:not(:last-child) {
@@ -222,21 +216,41 @@
 }
 
 .info {
-	// .info__temp
+	position: relative;
+	z-index: 1;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	padding: 40px 20px;
+	// width: 100%;
+	// min-height: 100px;
+	background-color: $color-000;
 
-	&__temp {
+	// .info__item
+	&__item {
+		&:not(:last-child) {
+			padding: 0 10px 0 0;
+		}
 	}
 
 	// .info__clouds
 
 	&__clouds {
 	}
+
+	// .picture
+	.picture {
+		// margin: 0 0 0 auto;
+	}
 }
 
 .temp {
 	// .temp__main
-
 	&__main {
+		display: block;
+		font-weight: 700;
+		font-size: 42px;
+		margin: 0 0 10px 0;
 	}
 
 	// .temp__feels
@@ -251,9 +265,16 @@
 }
 
 .clouds {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+
 	// .clouds__type
 
 	&__type {
+		font-weight: 700;
+		font-size: 20px;
+		margin: 0 0 5px 0;
 	}
 
 	// .clouds__place
@@ -262,44 +283,67 @@
 	}
 }
 
-.forecast {
-	// .forecast__list
+// .picture
+.picture {
+	flex: 0 0 40px;
+	width: 40px;
+	height: 40px;
+}
 
-	&__list {
-	}
+.forecast {
+	width: 100%;
+	min-height: 100px;
+	background-color: $color-293;
+	padding: 50px 20px 40px;
 
 	// .forecast__item
-
 	&__item {
+		position: relative;
+		z-index: 3;
+		width: 100%;
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		font-size: 16px;
+		// background-color: #fff;
+		cursor: pointer;
+
+		&:not(:last-child) {
+			margin: 0 0 20px 0;
+		}
 	}
 
 	// .forecast__day
 
 	&__day {
+		flex: 0 0 45px;
+		font-size: 22px;
+		text-transform: uppercase;
 	}
 
 	// .forecast__clouds
-
 	&__clouds {
 	}
 
 	// .forecast__value
-
 	&__value {
+		display: flex;
+		flex-direction: column;
+		align-items: end;
+		line-height: 22px;
 	}
 
 	// .forecast__temp
-
 	&__temp {
-	}
-
-	// .forecast__temp--min
-
-	&__temp--min {
 	}
 
 	// .forecast__temp--max
 
 	&__temp--max {
+	}
+
+	// .forecast__temp--min
+
+	&__temp--min {
 	}
 }
