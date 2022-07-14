@@ -135,7 +135,7 @@ body {
   font-family: "Roboto", sans-serif;
   font-weight: 400;
   font-weight: 400;
-  font-size: 16px;
+  font-size: 14px;
   padding-right: 0px;
   background-color: #409ae2;
   color: #000;
@@ -161,6 +161,7 @@ body {
 }
 
 .widget__top {
+  margin: 0 0 28px 0;
   background-color: transparent;
 }
 
@@ -180,10 +181,6 @@ body {
   border: none;
   border-radius: 8px;
   overflow: hidden;
-}
-
-.search {
-  margin: 0 0 50px 0;
 }
 
 .search__top {
@@ -257,6 +254,7 @@ body {
   width: 85%;
   min-height: 32px;
   padding: 4px 10px;
+  line-height: 24px;
   cursor: pointer;
   -webkit-box-shadow: inset 0 0 7px 0 #a0a0a0;
           box-shadow: inset 0 0 7px 0 #a0a0a0;
@@ -385,22 +383,25 @@ body {
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
-  padding: 40px 20px;
+  padding: 35px 20px 23px 20px;
   background-color: #000;
 }
 
-.info__item:not(:last-child) {
-  padding: 0 10px 0 0;
+.temp {
+  max-width: 120px;
+  width: 100%;
 }
 
 .temp__main {
   display: block;
   font-weight: 700;
   font-size: 42px;
-  margin: 0 0 10px 0;
+  letter-spacing: 2px;
+  margin: 0 0 7px 0;
 }
 
 .clouds {
+  width: 100%;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -408,30 +409,37 @@ body {
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  text-align: start;
+  padding: 0 10px 0 15px;
 }
 
 .clouds__type {
   font-weight: 700;
-  font-size: 20px;
+  font-size: 16px;
   margin: 0 0 5px 0;
 }
 
 .picture {
   -webkit-box-flex: 0;
-      -ms-flex: 0 0 40px;
-          flex: 0 0 40px;
-  width: 40px;
-  height: 40px;
+      -ms-flex: 0 0 auto;
+          flex: 0 0 auto;
+}
+
+.picture__icon {
+  width: 60px;
+  height: 60px;
+}
+
+.picture__icon--current {
+  width: 80px;
+  height: 80px;
 }
 
 .forecast {
   width: 100%;
   min-height: 100px;
   background-color: #293446;
-  padding: 50px 20px 40px;
+  padding: 58px 20px 30px;
 }
 
 .forecast__item {
@@ -447,23 +455,30 @@ body {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  font-size: 16px;
   cursor: pointer;
 }
 
 .forecast__item:not(:last-child) {
-  margin: 0 0 20px 0;
+  margin: 0 0 28px 0;
 }
 
 .forecast__day {
   -webkit-box-flex: 0;
       -ms-flex: 0 0 45px;
           flex: 0 0 45px;
-  font-size: 22px;
+  font-size: 18px;
   text-transform: uppercase;
 }
 
+.forecast__clouds {
+  width: 100%;
+  text-align: start;
+  padding: 0 0 0 20px;
+}
+
 .forecast__value {
+  max-width: 35px;
+  width: 100%;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;

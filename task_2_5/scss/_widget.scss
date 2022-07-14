@@ -12,6 +12,7 @@
 
 	// .widget__top
 	&__top {
+		margin: 0 0 28px 0;
 		background-color: transparent;
 	}
 
@@ -31,8 +32,6 @@
 }
 
 .search {
-	margin: 0 0 50px 0;
-
 	// .search__top
 	&__top {
 		position: relative;
@@ -75,15 +74,6 @@
 		&::placeholder {
 			font-style: italic;
 		}
-
-		&:hover {
-		}
-
-		&:active {
-		}
-
-		&:focus {
-		}
 	}
 
 	// .search__label
@@ -95,6 +85,7 @@
 		width: 85%;
 		min-height: 32px;
 		padding: 4px 10px;
+		line-height: 24px;
 		cursor: pointer;
 		box-shadow: inset 0 0 7px 0 $color-a0a;
 		border: 1px solid $color-dad;
@@ -176,9 +167,6 @@
 				background-color: $color-a0a;
 			}
 		}
-
-		&:active {
-		}
 	}
 
 	// .search__img
@@ -221,80 +209,60 @@
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
-	padding: 40px 20px;
-	// width: 100%;
-	// min-height: 100px;
+	padding: 35px 20px 23px 20px;
 	background-color: $color-000;
-
-	// .info__item
-	&__item {
-		&:not(:last-child) {
-			padding: 0 10px 0 0;
-		}
-	}
-
-	// .info__clouds
-
-	&__clouds {
-	}
-
-	// .picture
-	.picture {
-		// margin: 0 0 0 auto;
-	}
 }
 
 .temp {
+	max-width: 120px;
+	width: 100%;
+
 	// .temp__main
 	&__main {
 		display: block;
 		font-weight: 700;
 		font-size: 42px;
-		margin: 0 0 10px 0;
-	}
-
-	// .temp__feels
-
-	&__feels {
-	}
-
-	// .temp__type
-
-	&__type {
+		letter-spacing: 2px;
+		margin: 0 0 7px 0;
 	}
 }
 
 .clouds {
+	width: 100%;
 	display: flex;
 	flex-direction: column;
-	justify-content: center;
+	text-align: start;
+	padding: 0 10px 0 15px;
 
 	// .clouds__type
-
 	&__type {
 		font-weight: 700;
-		font-size: 20px;
+		font-size: 16px;
 		margin: 0 0 5px 0;
-	}
-
-	// .clouds__place
-
-	&__place {
 	}
 }
 
 // .picture
 .picture {
-	flex: 0 0 40px;
-	width: 40px;
-	height: 40px;
+	flex: 0 0 auto;
+
+	// .picture__icon picture__icon--current
+	&__icon {
+		width: 60px;
+		height: 60px;
+	}
+
+	&__icon--current {
+		width: 80px;
+		height: 80px;
+	}
 }
 
 .forecast {
 	width: 100%;
 	min-height: 100px;
 	background-color: $color-293;
-	padding: 50px 20px 40px;
+	padding: 58px 20px 30px;
 
 	// .forecast__item
 	&__item {
@@ -304,46 +272,34 @@
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
-		font-size: 16px;
-		// background-color: #fff;
 		cursor: pointer;
 
 		&:not(:last-child) {
-			margin: 0 0 20px 0;
+			margin: 0 0 28px 0;
 		}
 	}
 
 	// .forecast__day
-
 	&__day {
 		flex: 0 0 45px;
-		font-size: 22px;
+		font-size: 18px;
 		text-transform: uppercase;
 	}
 
 	// .forecast__clouds
 	&__clouds {
+		width: 100%;
+		text-align: start;
+		padding: 0 0 0 20px;
 	}
 
 	// .forecast__value
 	&__value {
+		max-width: 35px;
+		width: 100%;
 		display: flex;
 		flex-direction: column;
 		align-items: end;
 		line-height: 22px;
-	}
-
-	// .forecast__temp
-	&__temp {
-	}
-
-	// .forecast__temp--max
-
-	&__temp--max {
-	}
-
-	// .forecast__temp--min
-
-	&__temp--min {
 	}
 }
