@@ -1,313 +1,139 @@
 'use strict';
 
 const body = document.querySelector('body');
-const locationInput = body.querySelector('.search__input');
+const widgetContent = body.querySelector('.widget__content');
 const searchBtn = body.querySelector('.search__btn');
-const labelWrapper = body.querySelector('.search__wrapper');
+const locationInput = body.querySelector('.search__input');
+const searchInfo = body.querySelector('.search__info');
 const searchResult = body.querySelector('.search__result');
-const locField = document.querySelector('.clouds__place');
+const labelWrapper = body.querySelector('.search__wrapper');
+const locField = body.querySelector('.clouds__place');
 
-let option = null;
+let optionLabel = null;
 let optionArray = [];
 let forecast = null;
 let locationArray = [];
 let forecastArray = [];
 
-class Forecast {
-	constructor(jsonObj) {
-		this.name = jsonObj.name;
-		this.local_names = jsonObj.local_names;
-		this.state = jsonObj.state;
-		this.country = jsonObj.country;
-		this.lat = jsonObj.lat;
-		this.lon = jsonObj.lon;
-	}
-
-	getName() {
-		return this.name;
-	}
-
-	getLocal() {
-		if (this.local_names) {
-			if (this.local_names.uk) {
-				return this.local_names.uk;
-			} else {
-				return null;
-			}
-		} else {
-			return null;
-		}
-	}
-
-	getState() {
-		return this.state;
-	}
-
-	getCountry() {
-		return this.country;
-	}
-
-	getLat() {
-		return this.lat;
-	}
-
-	getLon() {
-		return this.lon;
-	}
+// Fix layout =================================================
+function checkoverflow() {
+	const paddingOffset = window.innerWidth - document.body.offsetWidth + 'px';
+	return paddingOffset;
 }
 
-class DayForecast {
-	constructor() {
-		this.forecastElement = document.querySelector('.forecast');
+function fixLayout(before, after) {
+	console.log('before: ' + before);
+	console.log('after: ' + after);
+	if (before > after) {
+		body.style.paddingRight = before;
+	} else if (before < after) {
+		body.style.paddingRight = '0';
+	}
+}
+// ==========================
 
-		this.forecastLink = document.createElement('a');
-		this.forecastLink.classList.add('forecast__item');
-		this.forecastElement.appendChild(this.forecastLink);
+function createDay(dayData) {
+	const forecastElement = body.querySelector('.forecast');
 
-		this.dayField = document.createElement('div');
-		this.dayField.classList.add('forecast__day');
-		this.forecastLink.appendChild(this.dayField);
+	const forecastLink = document.createElement('a');
+	forecastLink.classList.add('forecast__item');
+	forecastElement.appendChild(forecastLink);
 
-		this.pictureField = document.createElement('div');
-		this.pictureField.classList.add('picture');
-		this.forecastLink.appendChild(this.pictureField);
+	const dayField = document.createElement('div');
+	dayField.classList.add('forecast__day');
+	dayField.textContent = weekDay(dayData[0].dt_txt);
+	forecastLink.appendChild(dayField);
 
-		this.iconField = document.createElement('img');
-		this.iconField.classList.add('picture__icon');
-		this.pictureField.appendChild(this.iconField);
+	const pictureField = document.createElement('div');
+	pictureField.classList.add('picture');
+	forecastLink.appendChild(pictureField);
 
-		this.cloudsDescrField = document.createElement('div');
-		this.cloudsDescrField.classList.add('forecast__clouds');
-		this.forecastLink.appendChild(this.cloudsDescrField);
+	const iconField = document.createElement('img');
+	iconField.classList.add('picture__icon');
+	iconField.src =
+		'http://openweathermap.org/img/wn/' +
+		dayData[0].weather[0].icon +
+		'@2x.png';
+	pictureField.appendChild(iconField);
 
-		this.forecastValue = document.createElement('div');
-		this.forecastValue.classList.add('forecast__value');
-		this.forecastLink.appendChild(this.forecastValue);
+	const cloudsDescrField = document.createElement('div');
+	cloudsDescrField.classList.add('forecast__clouds');
+	cloudsDescrField.textContent = dayData[0].weather[0].description;
+	forecastLink.appendChild(cloudsDescrField);
 
-		this.maxField = document.createElement('div');
-		this.maxField.classList.add('forecast__temp--max');
-		this.forecastValue.appendChild(this.maxField);
+	const forecastValue = document.createElement('div');
+	forecastLink.appendChild(forecastValue);
 
-		this.minField = document.createElement('div');
-		this.minField.classList.add('forecast__temp--min');
-		this.forecastValue.appendChild(this.minField);
+	const maxField = document.createElement('div');
+	maxField.classList.add('forecast__temp--max');
+	maxField.textContent = tempMax(dayData) + '°C';
+	forecastValue.appendChild(maxField);
+
+	const minField = document.createElement('div');
+	minField.classList.add('forecast__temp--min');
+	minField.textContent = tempMin(dayData) + '°C';
+	forecastValue.appendChild(minField);
+
+	return forecastElement;
+}
+
+function weekDay(day) {
+	const date = day.split(' ');
+	const dayNum = new Date(date[0]).getDay();
+	let result = '';
+	switch (dayNum) {
+		case 0:
+			result = result.concat('Sun');
+			break;
+		case 1:
+			result = result.concat('Mon');
+			break;
+		case 2:
+			result = result.concat('Tue');
+			break;
+		case 3:
+			result = result.concat('Wed');
+			break;
+		case 4:
+			result = result.concat('Thu');
+			break;
+		case 5:
+			result = result.concat('Fri');
+			break;
+		case 6:
+			result = result.concat('Sat');
+			break;
 	}
 
-	setLink(data) {
-		this.forecastLink.classList.add(data);
-	}
+	return result;
+}
 
-	getLink() {
-		return this.forecastLink;
-	}
+function tempMax(dayData) {
+	let tempMax = dayData[0].main.temp_max;
+	for (let index = 0; index < dayData.length; index++) {
+		const element = dayData[index];
 
-	setDay(dayData) {
-		let currentMessage = '';
-		if (dayData) {
-			currentMessage = currentMessage.concat(this.weekDay(dayData[0].dt_txt));
-		} else {
-			currentMessage = currentMessage.concat('- -');
-		}
-		this.day = currentMessage;
-	}
-
-	getDay() {
-		this.dayField.textContent = this.day;
-	}
-
-	weekDay(day) {
-		const date = day.split(' ');
-		const dayNum = new Date(date[0]).getDay();
-		let result = '';
-		switch (dayNum) {
-			case 0:
-				result = result.concat('Sun');
-				break;
-			case 1:
-				result = result.concat('Mon');
-				break;
-			case 2:
-				result = result.concat('Tue');
-				break;
-			case 3:
-				result = result.concat('Wed');
-				break;
-			case 4:
-				result = result.concat('Thu');
-				break;
-			case 5:
-				result = result.concat('Fri');
-				break;
-			case 6:
-				result = result.concat('Sat');
-				break;
-		}
-
-		return result;
-	}
-
-	setIcon(dayData) {
-		let currentMessage = '';
-		if (dayData) {
-			let iconNum = dayData[0].weather[0].icon;
-			currentMessage = currentMessage.concat(
-				'http://openweathermap.org/img/wn/' + iconNum + '@2x.png'
-			);
-		} else {
-			currentMessage = currentMessage.concat('../img/loading.gif');
-		}
-		this.icon = currentMessage;
-	}
-
-	getIcon() {
-		this.iconField.src = this.icon;
-	}
-
-	getCurrentIcont() {
-		if (this.forecastLink.classList.contains('active')) {
-			this.iconCurrent = document.querySelector('.picture__icon--current');
-			this.iconCurrent.src = this.icon;
+		if (tempMax < element.main.temp_max) {
+			tempMax = element.main.temp_max;
 		}
 	}
 
-	setCloudsDescr(dayData) {
-		let currentMessage = '';
-		if (dayData) {
-			currentMessage = currentMessage.concat(dayData[0].weather[0].description);
-		} else {
-			currentMessage = currentMessage.concat('- -');
-		}
-		this.clouds = currentMessage;
-	}
+	tempMax = Math.round(tempMax);
+	return tempMax;
+}
 
-	getCloudsDescr() {
-		this.cloudsDescrField.textContent = this.clouds;
-	}
+function tempMin(dayData) {
+	let tempMin = dayData[0].main.temp_min;
+	for (let index = 0; index < dayData.length; index++) {
+		const element = dayData[index];
 
-	setTemp(dayData) {
-		let currentMessageMax = '';
-		let currentMessageMin = '';
-		if (dayData) {
-			let tempMax = dayData[0].main.temp_max;
-			let tempMin = dayData[0].main.temp_min;
-
-			for (let index = 0; index < dayData.length; index++) {
-				const element = dayData[index];
-
-				if (tempMax < element.main.temp_max) {
-					tempMax = element.main.temp_max;
-				}
-
-				if (tempMin > element.main.temp_min) {
-					tempMin = element.main.temp_min;
-				}
-			}
-
-			tempMax = Math.round(tempMax);
-			tempMin = Math.round(tempMin);
-
-			currentMessageMax = currentMessageMax.concat(tempMax + '°C');
-			currentMessageMin = currentMessageMin.concat(tempMin + '°C');
-		} else {
-			currentMessageMax = currentMessageMax.concat('- -');
-			currentMessageMin = currentMessageMin.concat('- -');
-		}
-
-		this.tempMax = currentMessageMax;
-		this.tempMin = currentMessageMin;
-	}
-
-	getTemp() {
-		this.maxField.textContent = this.tempMax;
-		this.minField.textContent = this.tempMin;
-	}
-
-	setTempCurrent(dayData) {
-		let currentMessage = '';
-		if (dayData) {
-			currentMessage = currentMessage.concat(
-				Math.round(dayData[0].main.temp) + '°C'
-			);
-		} else {
-			currentMessage = currentMessage.concat('--' + '°С');
-		}
-		this.tempCurrent = currentMessage;
-	}
-
-	getTempCurrent() {
-		if (this.forecastLink.classList.contains('active')) {
-			this.tempCurentField = document.querySelector('.temp__main');
-			this.tempCurentField.textContent = this.tempCurrent;
+		if (tempMin > element.main.temp_min) {
+			tempMin = element.main.temp_min;
 		}
 	}
 
-	setCurrentFeels(dayData) {
-		let currentMessage = '';
-		if (dayData) {
-			currentMessage = currentMessage.concat(
-				Math.round(dayData[0].main.feels_like) + '°C'
-			);
-		} else {
-			currentMessage = currentMessage.concat('- -');
-		}
-		this.feels = currentMessage;
-	}
-
-	getCurrentFeels() {
-		if (this.forecastLink.classList.contains('active')) {
-			this.feelsField = document.querySelector('.temp__feel-value');
-			this.feelsField.textContent = this.feels;
-		}
-	}
-
-	setCurrentClouds(dayData) {
-		let currentMessage = '';
-		if (dayData) {
-			currentMessage = currentMessage.concat(dayData[0].weather[0].main);
-		} else {
-			currentMessage = currentMessage.concat('- -');
-		}
-		this.cloudsCurrent = currentMessage;
-	}
-
-	getCurrentClouds() {
-		if (this.forecastLink.classList.contains('active')) {
-			this.cloudsField = document.querySelector('.clouds__type');
-			this.cloudsField.textContent = this.cloudsCurrent;
-		}
-	}
-
-	setCurrentLocation(dayData) {
-		let currentMessage = '';
-
-		if (dayData) {
-			currentMessage = currentMessage.concat(dayData);
-		} else {
-			currentMessage = currentMessage.concat('--');
-		}
-		this.loc.textContent = currentMessage;
-	}
-
-	setVariables(dayData) {
-		this.setDay(dayData);
-		this.setIcon(dayData);
-		this.setCloudsDescr(dayData);
-		this.setTemp(dayData);
-		this.setTempCurrent(dayData);
-		this.setCurrentClouds(dayData);
-		this.setCurrentFeels(dayData);
-	}
-
-	getVariables() {
-		this.getDay();
-		this.getIcon();
-		this.getCurrentIcont();
-		this.getCloudsDescr();
-		this.getTemp();
-		this.getTempCurrent();
-		this.getCurrentClouds();
-		this.getCurrentFeels();
-	}
+	tempMin = Math.round(tempMin);
+	return tempMin;
 }
 
 function getLocation() {
@@ -331,7 +157,7 @@ function sendRequest(requestMessage, requestType) {
 	request.send();
 
 	request.onload = function () {
-		if (request.status >= 200 && request.status < 400) {
+		try {
 			const data = request.response;
 
 			switch (requestType) {
@@ -348,12 +174,12 @@ function sendRequest(requestMessage, requestType) {
 						locationInput.value = '';
 						locationInput.placeholder = 'Oops, something went wrong...';
 					} else {
-						saveForecastArrray(data);
+						saveForecastArray(data);
 					}
 					break;
 			}
-		} else {
-			alert('Oops, something went wrong');
+		} catch (error) {
+			alert('Oops, something went wrong\n' + error);
 		}
 	};
 }
@@ -361,28 +187,29 @@ function sendRequest(requestMessage, requestType) {
 function findOption(data) {
 	cleanOptions();
 	for (let i = 0; i < data.length; i++) {
-		const forecastTemp = new Forecast(data[i]);
-		locationArray[i] = forecastTemp;
-		option = document.createElement('label');
-		option.classList.add('search__label');
-		let optionValue = data[i].name;
+		locationArray[i] = data[i];
+		optionLabel = document.createElement('label');
+		optionLabel.classList.add('search__label');
+		let name = data[i].name;
+		let localName = '';
+		let state = '';
+		let country = '';
 		if (data[i].local_names) {
 			if (data[i].local_names.uk) {
-				optionValue = optionValue.concat(', ' + data[i].local_names.uk);
+				localName = localName.concat(', ' + data[i].local_names.uk);
 			}
 		}
 		if (data[i].state) {
-			optionValue = optionValue.concat(', ' + data[i].state);
+			state = state.concat(', ' + data[i].state);
 		}
 		if (data[i].country) {
-			optionValue = optionValue.concat(', ' + data[i].country);
+			country = country.concat(', ' + data[i].country);
 		}
+		const optionValue = name + localName + state + country;
+		optionLabel.innerHTML = optionValue;
 
-		option.innerHTML = optionValue;
-		labelWrapper.classList.add('active');
-
-		labelWrapper.appendChild(option);
-		optionArray[i] = option;
+		labelWrapper.appendChild(optionLabel);
+		optionArray[i] = optionLabel;
 	}
 	setupChoise();
 }
@@ -399,24 +226,23 @@ function setupChoise() {
 				searchResult.innerHTML = element.textContent;
 				labelWrapper.classList.remove('active');
 				searchBtn.classList.add('active');
+				searchInfo.classList.add('selected');
 				optionsAfter.forEach((el) => {
 					el.remove();
 				});
-				forecast = new Forecast(locationArray[index]);
-				weatherRequest(forecast);
+				weatherRequest(locationArray[index]);
 			});
 		}
 	}
 }
 
 function weatherRequest(locationData) {
-	const selectedLocation =
-		locationData.getName() + ', ' + locationData.getCountry();
+	const selectedLocation = locationData.name + ', ' + locationData.country;
 	const forecastRequest =
 		'https://api.openweathermap.org/data/2.5/forecast?lat=' +
-		locationData.getLat() +
+		locationData.lat +
 		'&lon=' +
-		locationData.getLon() +
+		locationData.lon +
 		'&appid=eff59b9c302282748a7ceec43463dd55&units=metric';
 
 	locField.textContent = selectedLocation;
@@ -424,65 +250,85 @@ function weatherRequest(locationData) {
 }
 
 function cleanOptions() {
-	const options = document.querySelectorAll('.search__label');
-	if (options) {
-		options.forEach((element) => {
+	const optionsField = body.querySelectorAll('.search__label');
+	if (optionsField) {
+		optionsField.forEach((element) => {
 			element.remove();
 		});
-		labelWrapper.classList.remove('active');
 	}
 }
 
-function saveForecastArrray(jsonObj) {
+function cleanFields() {
+	const forecastLink = body.querySelectorAll('.forecast__item');
+	if (forecastLink) {
+		forecastLink.forEach((element) => {
+			element.remove();
+		});
+	}
+}
+
+function saveForecastArray(jsonObj) {
 	const timePeriods = 8;
 	const forecastDataArray = [];
+	const scrollBefore = checkoverflow();
+
 	for (let index = 0; index < jsonObj.list.length; index += timePeriods) {
 		forecastDataArray.push(jsonObj.list.slice(index, index + timePeriods));
 	}
 
 	for (let index = 0; index < forecastDataArray.length; index++) {
 		const element = forecastDataArray[index];
-		forecastArray[index].setVariables(element);
-		forecastArray[index].getVariables();
+		forecastArray.push(createDay(element));
 	}
+
+	widgetContent.classList.add('active');
+
+	const scrollAfter = checkoverflow();
+	fixLayout(scrollBefore, scrollAfter);
+
+	const dayLinks = document.querySelectorAll('.forecast__item');
+	setDayInfo(forecastDataArray[0][0]);
+
+	for (let index = 0; index < dayLinks.length; index++) {
+		const element = dayLinks[index];
+		element.addEventListener('click', (e) => {
+			e.preventDefault();
+			setDayInfo(forecastDataArray[index][0]);
+		});
+	}
+}
+
+function setDayInfo(dayData) {
+	const tempCurentField = document.querySelector('.temp__main');
+	tempCurentField.textContent = Math.round(dayData.main.temp) + '°C';
+
+	const feelsField = document.querySelector('.temp__feel-value');
+	feelsField.textContent = Math.round(dayData.main.feels_like) + '°C';
+
+	const cloudsField = document.querySelector('.clouds__type');
+	cloudsField.textContent = dayData.weather[0].main;
+
+	const iconCurrent = document.querySelector('.picture__icon--current');
+	const icon =
+		'http://openweathermap.org/img/wn/' + dayData.weather[0].icon + '@2x.png';
+	iconCurrent.src = icon;
 }
 
 // =========================================================
-for (let index = 0; index < 5; index++) {
-	const forecastDay = new DayForecast();
-	forecastDay.setVariables('');
-
-	if (index === 0) {
-		forecastDay.setLink('active');
-	}
-
-	forecastDay.getVariables();
-	forecastArray.push(forecastDay);
-	locField.textContent = '- -';
-
-	forecastDay.getLink().addEventListener('click', (e) => {
-		e.preventDefault();
-		for (let index = 0; index < forecastArray.length; index++) {
-			const element = forecastArray[index];
-			element.getLink().classList.remove('active');
-		}
-		forecastDay.getLink().classList.add('active');
-		forecastDay.getVariables();
-	});
-}
-
 searchBtn.addEventListener('click', (e) => {
 	e.preventDefault();
 	if (!searchBtn.classList.contains('active')) {
 		getLocation();
 	} else {
+		const scrollBefore = checkoverflow();
 		searchBtn.classList.remove('active');
+		widgetContent.classList.remove('active');
 		locationInput.value = '';
 		searchResult.innerHTML = '';
-		for (let index = 0; index < forecastArray.length; index++) {
-			forecastArray[index].setVariables('');
-			forecastArray[index].getVariables();
-			locField.textContent = '- -';
-		}
+		searchInfo.classList.remove('selected');
+		forecastArray.length = 0;
+		cleanFields();
+		const scrollAfter = checkoverflow();
+		fixLayout(scrollBefore, scrollAfter);
 	}
 });
