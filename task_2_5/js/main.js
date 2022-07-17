@@ -9,74 +9,46 @@ const searchResult = body.querySelector('.search__result');
 const labelWrapper = body.querySelector('.search__wrapper');
 const locField = body.querySelector('.clouds__place');
 
-let optionLabel = null;
 let optionArray = [];
 let forecast = null;
 let locationArray = [];
 let forecastArray = [];
 
-// Fix layout =================================================
+// reads the width of the window
 function checkoverflow() {
 	const paddingOffset = window.innerWidth - document.body.offsetWidth + 'px';
 	return paddingOffset;
 }
-
+// fixes the window when scrolling is added
 function fixLayout(before, after) {
-	console.log('before: ' + before);
-	console.log('after: ' + after);
 	if (before > after) {
 		body.style.paddingRight = before;
 	} else if (before < after) {
 		body.style.paddingRight = '0';
 	}
 }
-// ==========================
-
+// forms the HTML structure for the day and fills it with data
 function createDay(dayData) {
 	const forecastElement = body.querySelector('.forecast');
+
+	const temp = weekDay(dayData[0].dt_txt);
+	const icon =
+		'http://openweathermap.org/img/wn/' +
+		dayData[0].weather[0].icon +
+		'@2x.png';
+	const cloudsDescription = dayData[0].weather[0].description;
+	const tempMax = getTempMax(dayData) + '°C';
+	const tempMin = getTempMin(dayData) + '°C';
 
 	const forecastLink = document.createElement('a');
 	forecastLink.classList.add('forecast__item');
 	forecastElement.appendChild(forecastLink);
 
-	const dayField = document.createElement('div');
-	dayField.classList.add('forecast__day');
-	dayField.textContent = weekDay(dayData[0].dt_txt);
-	forecastLink.appendChild(dayField);
-
-	const pictureField = document.createElement('div');
-	pictureField.classList.add('picture');
-	forecastLink.appendChild(pictureField);
-
-	const iconField = document.createElement('img');
-	iconField.classList.add('picture__icon');
-	iconField.src =
-		'http://openweathermap.org/img/wn/' +
-		dayData[0].weather[0].icon +
-		'@2x.png';
-	pictureField.appendChild(iconField);
-
-	const cloudsDescrField = document.createElement('div');
-	cloudsDescrField.classList.add('forecast__clouds');
-	cloudsDescrField.textContent = dayData[0].weather[0].description;
-	forecastLink.appendChild(cloudsDescrField);
-
-	const forecastValue = document.createElement('div');
-	forecastLink.appendChild(forecastValue);
-
-	const maxField = document.createElement('div');
-	maxField.classList.add('forecast__temp--max');
-	maxField.textContent = tempMax(dayData) + '°C';
-	forecastValue.appendChild(maxField);
-
-	const minField = document.createElement('div');
-	minField.classList.add('forecast__temp--min');
-	minField.textContent = tempMin(dayData) + '°C';
-	forecastValue.appendChild(minField);
+	forecastLink.innerHTML = `<div class="forecast__day">${temp}</div><div class="picture"><img class="picture__icon" src=${icon}></div><div class="forecast__clouds">${cloudsDescription}</div><div><div class="forecast__temp--max">${tempMax}</div><div class="forecast__temp--min">${tempMin}</div></div>`;
 
 	return forecastElement;
 }
-
+// convert date to day of week
 function weekDay(day) {
 	const date = day.split(' ');
 	const dayNum = new Date(date[0]).getDay();
@@ -107,8 +79,8 @@ function weekDay(day) {
 
 	return result;
 }
-
-function tempMax(dayData) {
+// determines the maximum temperature per day
+function getTempMax(dayData) {
 	let tempMax = dayData[0].main.temp_max;
 	for (let index = 0; index < dayData.length; index++) {
 		const element = dayData[index];
@@ -121,8 +93,8 @@ function tempMax(dayData) {
 	tempMax = Math.round(tempMax);
 	return tempMax;
 }
-
-function tempMin(dayData) {
+// determines the minimum temperature per day
+function getTempMin(dayData) {
 	let tempMin = dayData[0].main.temp_min;
 	for (let index = 0; index < dayData.length; index++) {
 		const element = dayData[index];
@@ -135,60 +107,54 @@ function tempMin(dayData) {
 	tempMin = Math.round(tempMin);
 	return tempMin;
 }
-
-function getLocation() {
+// query string to search for cities with the same name
+function searchLocation() {
 	const city = locationInput.value;
+	let stringRequest = '';
 
 	if (city) {
-		const cityRequest =
+		stringRequest = stringRequest.concat(
 			'http://api.openweathermap.org/geo/1.0/direct?q=' +
-			city +
-			'&lang=uk&limit=10&appid=eff59b9c302282748a7ceec43463dd55&units=metric';
-		sendRequest(cityRequest, 'city');
+				city +
+				'&lang=uk&limit=10&appid=eff59b9c302282748a7ceec43463dd55&units=metric'
+		);
 	} else if (city === '') {
 		locationInput.placeholder = 'make a choice...';
 	}
-}
 
+	return stringRequest;
+}
+// sending a request
 function sendRequest(requestMessage, requestType) {
-	const request = new XMLHttpRequest();
-	request.open('GET', requestMessage, true);
-	request.responseType = 'json';
-	request.send();
-
-	request.onload = function () {
-		try {
-			const data = request.response;
-
-			switch (requestType) {
-				case 'city':
-					if (data.length === 0) {
-						locationInput.value = '';
-						locationInput.placeholder = 'incorrect data, make a choice...';
-					} else {
+	fetch(requestMessage)
+		.then((response) => {
+			return response.json();
+		})
+		.then((data) => {
+			if (data.length === 0) {
+				locationInput.value = '';
+				locationInput.placeholder = 'incorrect data, make a choice...';
+			} else {
+				switch (requestType) {
+					case 'city':
 						findOption(data);
-					}
-					break;
-				case 'weather':
-					if (data.length === 0) {
-						locationInput.value = '';
-						locationInput.placeholder = 'Oops, something went wrong...';
-					} else {
+						break;
+					case 'weather':
 						saveForecastArray(data);
-					}
-					break;
+						break;
+				}
 			}
-		} catch (error) {
+		})
+		.catch((error) => {
 			alert('Oops, something went wrong\n' + error);
-		}
-	};
+		});
 }
-
+// creates a list of found cities
 function findOption(data) {
-	cleanOptions();
+	cleanLabels();
 	for (let i = 0; i < data.length; i++) {
 		locationArray[i] = data[i];
-		optionLabel = document.createElement('label');
+		const optionLabel = document.createElement('label');
 		optionLabel.classList.add('search__label');
 		let name = data[i].name;
 		let localName = '';
@@ -213,7 +179,7 @@ function findOption(data) {
 	}
 	setupChoise();
 }
-
+// writes the data of the selected location, deletes an already unnecessary list
 function setupChoise() {
 	const optionsAfter = document.querySelectorAll('.search__label');
 
@@ -235,7 +201,7 @@ function setupChoise() {
 		}
 	}
 }
-
+// forecast query string for the selected location
 function weatherRequest(locationData) {
 	const selectedLocation = locationData.name + ', ' + locationData.country;
 	const forecastRequest =
@@ -248,8 +214,8 @@ function weatherRequest(locationData) {
 	locField.textContent = selectedLocation;
 	sendRequest(forecastRequest, 'weather');
 }
-
-function cleanOptions() {
+// clears the list of cities
+function cleanLabels() {
 	const optionsField = body.querySelectorAll('.search__label');
 	if (optionsField) {
 		optionsField.forEach((element) => {
@@ -257,16 +223,25 @@ function cleanOptions() {
 		});
 	}
 }
-
+// clears the form, removes forecast data
 function cleanFields() {
+	const scrollBefore = checkoverflow();
+	searchBtn.classList.remove('active');
+	widgetContent.classList.remove('active');
+	locationInput.value = '';
+	searchResult.innerHTML = '';
+	searchInfo.classList.remove('selected');
+	forecastArray.length = 0;
 	const forecastLink = body.querySelectorAll('.forecast__item');
 	if (forecastLink) {
 		forecastLink.forEach((element) => {
 			element.remove();
 		});
 	}
+	const scrollAfter = checkoverflow();
+	fixLayout(scrollBefore, scrollAfter);
 }
-
+// shows the weather of the current day, generates data for the forecast for all days
 function saveForecastArray(jsonObj) {
 	const timePeriods = 8;
 	const forecastDataArray = [];
@@ -297,38 +272,33 @@ function saveForecastArray(jsonObj) {
 		});
 	}
 }
-
+// writes data to the current day
 function setDayInfo(dayData) {
-	const tempCurentField = document.querySelector('.temp__main');
-	tempCurentField.textContent = Math.round(dayData.main.temp) + '°C';
-
-	const feelsField = document.querySelector('.temp__feel-value');
-	feelsField.textContent = Math.round(dayData.main.feels_like) + '°C';
-
-	const cloudsField = document.querySelector('.clouds__type');
-	cloudsField.textContent = dayData.weather[0].main;
-
-	const iconCurrent = document.querySelector('.picture__icon--current');
+	const temp = Math.round(dayData.main.temp) + '°C';
+	const feels = Math.round(dayData.main.feels_like) + '°C';
+	const clouds = dayData.weather[0].main;
 	const icon =
 		'http://openweathermap.org/img/wn/' + dayData.weather[0].icon + '@2x.png';
+
+	const tempCurentField = document.querySelector('.temp__main');
+	tempCurentField.textContent = temp;
+
+	const feelsField = document.querySelector('.temp__feel-value');
+	feelsField.textContent = feels;
+
+	const cloudsField = document.querySelector('.clouds__type');
+	cloudsField.textContent = clouds;
+
+	const iconCurrent = document.querySelector('.picture__icon--current');
 	iconCurrent.src = icon;
 }
-
 // =========================================================
 searchBtn.addEventListener('click', (e) => {
 	e.preventDefault();
 	if (!searchBtn.classList.contains('active')) {
-		getLocation();
+		const requestData = searchLocation();
+		sendRequest(requestData, 'city');
 	} else {
-		const scrollBefore = checkoverflow();
-		searchBtn.classList.remove('active');
-		widgetContent.classList.remove('active');
-		locationInput.value = '';
-		searchResult.innerHTML = '';
-		searchInfo.classList.remove('selected');
-		forecastArray.length = 0;
 		cleanFields();
-		const scrollAfter = checkoverflow();
-		fixLayout(scrollBefore, scrollAfter);
 	}
 });
