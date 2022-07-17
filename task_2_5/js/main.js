@@ -14,12 +14,10 @@ let forecast = null;
 let locationArray = [];
 let forecastArray = [];
 
-// reads the width of the window
 function checkoverflow() {
 	const paddingOffset = window.innerWidth - document.body.offsetWidth + 'px';
 	return paddingOffset;
 }
-// fixes the window when scrolling is added
 function fixLayout(before, after) {
 	if (before > after) {
 		body.style.paddingRight = before;
@@ -27,7 +25,6 @@ function fixLayout(before, after) {
 		body.style.paddingRight = '0';
 	}
 }
-// forms the HTML structure for the day and fills it with data
 function createDay(dayData) {
 	const forecastElement = body.querySelector('.forecast');
 
@@ -48,7 +45,6 @@ function createDay(dayData) {
 
 	return forecastElement;
 }
-// convert date to day of week
 function weekDay(day) {
 	const date = day.split(' ');
 	const dayNum = new Date(date[0]).getDay();
@@ -79,7 +75,6 @@ function weekDay(day) {
 
 	return result;
 }
-// determines the maximum temperature per day
 function getTempMax(dayData) {
 	let tempMax = dayData[0].main.temp_max;
 	for (let index = 0; index < dayData.length; index++) {
@@ -93,7 +88,6 @@ function getTempMax(dayData) {
 	tempMax = Math.round(tempMax);
 	return tempMax;
 }
-// determines the minimum temperature per day
 function getTempMin(dayData) {
 	let tempMin = dayData[0].main.temp_min;
 	for (let index = 0; index < dayData.length; index++) {
@@ -107,7 +101,6 @@ function getTempMin(dayData) {
 	tempMin = Math.round(tempMin);
 	return tempMin;
 }
-// query string to search for cities with the same name
 function searchLocation() {
 	const city = locationInput.value;
 	let stringRequest = '';
@@ -124,7 +117,6 @@ function searchLocation() {
 
 	return stringRequest;
 }
-// sending a request
 function sendRequest(requestMessage, requestType) {
 	fetch(requestMessage)
 		.then((response) => {
@@ -149,7 +141,6 @@ function sendRequest(requestMessage, requestType) {
 			alert('Oops, something went wrong\n' + error);
 		});
 }
-// creates a list of found cities
 function findOption(data) {
 	cleanLabels();
 	for (let i = 0; i < data.length; i++) {
@@ -179,7 +170,6 @@ function findOption(data) {
 	}
 	setupChoise();
 }
-// writes the data of the selected location, deletes an already unnecessary list
 function setupChoise() {
 	const optionsAfter = document.querySelectorAll('.search__label');
 
@@ -201,7 +191,6 @@ function setupChoise() {
 		}
 	}
 }
-// forecast query string for the selected location
 function weatherRequest(locationData) {
 	const selectedLocation = locationData.name + ', ' + locationData.country;
 	const forecastRequest =
@@ -214,7 +203,6 @@ function weatherRequest(locationData) {
 	locField.textContent = selectedLocation;
 	sendRequest(forecastRequest, 'weather');
 }
-// clears the list of cities
 function cleanLabels() {
 	const optionsField = body.querySelectorAll('.search__label');
 	if (optionsField) {
@@ -223,7 +211,6 @@ function cleanLabels() {
 		});
 	}
 }
-// clears the form, removes forecast data
 function cleanFields() {
 	const scrollBefore = checkoverflow();
 	searchBtn.classList.remove('active');
@@ -241,7 +228,6 @@ function cleanFields() {
 	const scrollAfter = checkoverflow();
 	fixLayout(scrollBefore, scrollAfter);
 }
-// shows the weather of the current day, generates data for the forecast for all days
 function saveForecastArray(jsonObj) {
 	const timePeriods = 8;
 	const forecastDataArray = [];
@@ -272,7 +258,6 @@ function saveForecastArray(jsonObj) {
 		});
 	}
 }
-// writes data to the current day
 function setDayInfo(dayData) {
 	const temp = Math.round(dayData.main.temp) + '°C';
 	const feels = Math.round(dayData.main.feels_like) + '°C';
@@ -292,7 +277,7 @@ function setDayInfo(dayData) {
 	const iconCurrent = document.querySelector('.picture__icon--current');
 	iconCurrent.src = icon;
 }
-// =========================================================
+
 searchBtn.addEventListener('click', (e) => {
 	e.preventDefault();
 	if (!searchBtn.classList.contains('active')) {
