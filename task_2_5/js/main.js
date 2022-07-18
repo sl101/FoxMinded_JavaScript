@@ -15,9 +15,10 @@ let locationArray = [];
 let forecastArray = [];
 
 function checkoverflow() {
-	const paddingOffset = window.innerWidth - document.body.offsetWidth + 'px';
+	const paddingOffset = `${window.innerWidth - document.body.offsetWidth}px`;
 	return paddingOffset;
 }
+
 function fixLayout(before, after) {
 	if (before > after) {
 		body.style.paddingRight = before;
@@ -25,17 +26,15 @@ function fixLayout(before, after) {
 		body.style.paddingRight = '0';
 	}
 }
+
 function createDay(dayData) {
 	const forecastElement = body.querySelector('.forecast');
 
 	const temp = weekDay(dayData[0].dt_txt);
-	const icon =
-		'http://openweathermap.org/img/wn/' +
-		dayData[0].weather[0].icon +
-		'@2x.png';
+	const icon = `http://openweathermap.org/img/wn/${dayData[0].weather[0].icon}@2x.png`;
 	const cloudsDescription = dayData[0].weather[0].description;
-	const tempMax = getTempMax(dayData) + '°C';
-	const tempMin = getTempMin(dayData) + '°C';
+	const tempMax = `${getTempMax(dayData)}°C`;
+	const tempMin = `${getTempMin(dayData)}°C`;
 
 	const forecastLink = document.createElement('a');
 	forecastLink.classList.add('forecast__item');
@@ -45,36 +44,38 @@ function createDay(dayData) {
 
 	return forecastElement;
 }
+
 function weekDay(day) {
 	const date = day.split(' ');
 	const dayNum = new Date(date[0]).getDay();
 	let result = '';
 	switch (dayNum) {
 		case 0:
-			result = result.concat('Sun');
+			result = `Sun`;
 			break;
 		case 1:
-			result = result.concat('Mon');
+			result = `Mon`;
 			break;
 		case 2:
-			result = result.concat('Tue');
+			result = `Tue`;
 			break;
 		case 3:
-			result = result.concat('Wed');
+			result = `Wed`;
 			break;
 		case 4:
-			result = result.concat('Thu');
+			result = `Thu`;
 			break;
 		case 5:
-			result = result.concat('Fri');
+			result = `Fri`;
 			break;
 		case 6:
-			result = result.concat('Sat');
+			result = `Sat`;
 			break;
 	}
 
 	return result;
 }
+
 function getTempMax(dayData) {
 	let tempMax = dayData[0].main.temp_max;
 	for (let index = 0; index < dayData.length; index++) {
@@ -88,6 +89,7 @@ function getTempMax(dayData) {
 	tempMax = Math.round(tempMax);
 	return tempMax;
 }
+
 function getTempMin(dayData) {
 	let tempMin = dayData[0].main.temp_min;
 	for (let index = 0; index < dayData.length; index++) {
@@ -101,24 +103,22 @@ function getTempMin(dayData) {
 	tempMin = Math.round(tempMin);
 	return tempMin;
 }
+
 function searchLocation() {
 	const city = locationInput.value;
 	let stringRequest = '';
 
 	if (city) {
-		stringRequest = stringRequest.concat(
-			'http://api.openweathermap.org/geo/1.0/direct?q=' +
-				city +
-				'&lang=uk&limit=10&appid=eff59b9c302282748a7ceec43463dd55&units=metric'
-		);
+		stringRequest = `http://api.openweathermap.org/geo/1.0/direct?q=${city}&lang=uk&limit=10&appid=eff59b9c302282748a7ceec43463dd55&units=metric`;
 	} else if (city === '') {
 		locationInput.placeholder = 'make a choice...';
 	}
 
 	return stringRequest;
 }
-function sendRequest(requestMessage, requestType) {
-	fetch(requestMessage)
+
+function sendRequest(requestUrl, requestType) {
+	fetch(requestUrl)
 		.then((response) => {
 			return response.json();
 		})
@@ -141,6 +141,7 @@ function sendRequest(requestMessage, requestType) {
 			alert('Oops, something went wrong\n' + error);
 		});
 }
+
 function findOption(data) {
 	cleanLabels();
 	for (let i = 0; i < data.length; i++) {
@@ -153,16 +154,16 @@ function findOption(data) {
 		let country = '';
 		if (data[i].local_names) {
 			if (data[i].local_names.uk) {
-				localName = localName.concat(', ' + data[i].local_names.uk);
+				localName = `, ${data[i].local_names.uk}`;
 			}
 		}
 		if (data[i].state) {
-			state = state.concat(', ' + data[i].state);
+			state = `, ${data[i].state}`;
 		}
 		if (data[i].country) {
-			country = country.concat(', ' + data[i].country);
+			country = `, ${data[i].country}`;
 		}
-		const optionValue = name + localName + state + country;
+		const optionValue = `${name}${localName}${state}${country}`;
 		optionLabel.innerHTML = optionValue;
 
 		labelWrapper.appendChild(optionLabel);
@@ -170,6 +171,7 @@ function findOption(data) {
 	}
 	setupChoise();
 }
+
 function setupChoise() {
 	const optionsAfter = document.querySelectorAll('.search__label');
 
@@ -191,18 +193,15 @@ function setupChoise() {
 		}
 	}
 }
+
 function weatherRequest(locationData) {
-	const selectedLocation = locationData.name + ', ' + locationData.country;
-	const forecastRequest =
-		'https://api.openweathermap.org/data/2.5/forecast?lat=' +
-		locationData.lat +
-		'&lon=' +
-		locationData.lon +
-		'&appid=eff59b9c302282748a7ceec43463dd55&units=metric';
+	const selectedLocation = `${locationData.name}, ${locationData.country}`;
+	const forecastRequest = `https://api.openweathermap.org/data/2.5/forecast?lat=${locationData.lat}&lon=${locationData.lon}&appid=eff59b9c302282748a7ceec43463dd55&units=metric`;
 
 	locField.textContent = selectedLocation;
 	sendRequest(forecastRequest, 'weather');
 }
+
 function cleanLabels() {
 	const optionsField = body.querySelectorAll('.search__label');
 	if (optionsField) {
@@ -211,6 +210,7 @@ function cleanLabels() {
 		});
 	}
 }
+
 function cleanFields() {
 	const scrollBefore = checkoverflow();
 	searchBtn.classList.remove('active');
@@ -228,6 +228,7 @@ function cleanFields() {
 	const scrollAfter = checkoverflow();
 	fixLayout(scrollBefore, scrollAfter);
 }
+
 function saveForecastArray(jsonObj) {
 	const timePeriods = 8;
 	const forecastDataArray = [];
@@ -258,12 +259,12 @@ function saveForecastArray(jsonObj) {
 		});
 	}
 }
+
 function setDayInfo(dayData) {
-	const temp = Math.round(dayData.main.temp) + '°C';
-	const feels = Math.round(dayData.main.feels_like) + '°C';
+	const temp = `${Math.round(dayData.main.temp)}°C`;
+	const feels = `${Math.round(dayData.main.feels_like)}°C`;
 	const clouds = dayData.weather[0].main;
-	const icon =
-		'http://openweathermap.org/img/wn/' + dayData.weather[0].icon + '@2x.png';
+	const icon = `http://openweathermap.org/img/wn/${dayData.weather[0].icon}@2x.png`;
 
 	const tempCurentField = document.querySelector('.temp__main');
 	tempCurentField.textContent = temp;
@@ -281,8 +282,8 @@ function setDayInfo(dayData) {
 searchBtn.addEventListener('click', (e) => {
 	e.preventDefault();
 	if (!searchBtn.classList.contains('active')) {
-		const requestData = searchLocation();
-		sendRequest(requestData, 'city');
+		const requestUrl = searchLocation();
+		sendRequest(requestUrl, 'city');
 	} else {
 		cleanFields();
 	}
