@@ -1,0 +1,320 @@
+html {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+*,
+*::after,
+*::before {
+  -webkit-box-sizing: inherit;
+          box-sizing: inherit;
+}
+
+ul,
+ol {
+  padding: 0;
+}
+
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+ul,
+ol,
+li,
+figure,
+figcaption,
+blockquote,
+dl,
+dd {
+  margin: 0;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: inherit;
+  font-size: inherit;
+}
+
+ul {
+  list-style: none;
+}
+
+img {
+  max-width: 100%;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+input,
+button,
+textarea,
+select {
+  font: inherit;
+  cursor: pointer;
+}
+
+a,
+button {
+  text-decoration: none;
+  color: inherit;
+  padding: 0;
+  margin: 0;
+}
+
+input,
+button {
+  border: none;
+  background-color: transparent;
+}
+
+a:active,
+button:active {
+  -webkit-tap-highlight-color: transparent;
+  background-color: transparent;
+}
+
+@font-face {
+  font-family: Roboto;
+  font-display: swap;
+  src: url("../fonts/Roboto-Italic.woff2") format("woff2"), url("../fonts/Roboto-Italic.ttf") format("ttf");
+  font-weight: 300;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: Roboto;
+  font-display: swap;
+  src: url("../fonts/Roboto-Regular.woff2") format("woff2"), url("../fonts/Roboto-Regular.ttf") format("ttf");
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: Roboto;
+  font-display: swap;
+  src: url("../fonts/Roboto-Medium.woff2") format("woff2"), url("../fonts/Roboto-Medium.ttf") format("ttf");
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: Roboto;
+  font-display: swap;
+  src: url("../fonts/Roboto-Bold.woff2") format("woff2"), url("../fonts/Roboto-Bold.ttf") format("ttf");
+  font-weight: 700;
+  font-style: normal;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+}
+
+body {
+  font-family: "Roboto", sans-serif;
+  font-weight: 400;
+  font-weight: 400;
+  font-size: 18px;
+  letter-spacing: 4px;
+  padding-right: 17px;
+  background-color: #f1f5f8;
+  color: #000;
+}
+
+.todo {
+  width: 100%;
+  min-height: 100vh;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.todo__content {
+  max-width: 700px;
+  width: 100%;
+  padding: 80px 40px 50px;
+  background-color: #fff;
+  border-radius: 10px;
+  text-align: center;
+  -webkit-box-shadow: 0 0 25px 0 #d6dadc;
+          box-shadow: 0 0 25px 0 #d6dadc;
+}
+
+.todo__title {
+  font-weight: 700;
+  font-size: 36px;
+  color: #012e50;
+  margin-bottom: 25px;
+}
+
+.todo__form {
+  position: relative;
+  z-index: 2;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  margin-bottom: 25px;
+  border-radius: 10px;
+  background-color: #f1f5f8;
+  overflow: hidden;
+}
+
+.todo__input {
+  position: relative;
+  z-index: 1;
+  display: block;
+  width: 100%;
+  padding: 8px 22px;
+  outline: none;
+  background-color: transparent;
+  cursor: text;
+}
+
+.todo__button {
+  padding: 0 30px;
+  letter-spacing: 2px;
+  background-color: #a6d6f8;
+  outline: none;
+  -webkit-transition: background-color 0.4s linear, color 0.4s ease, -webkit-box-shadow 0.4s ease;
+  transition: background-color 0.4s linear, color 0.4s ease, -webkit-box-shadow 0.4s ease;
+  transition: background-color 0.4s linear, color 0.4s ease, box-shadow 0.4s ease;
+  transition: background-color 0.4s linear, color 0.4s ease, box-shadow 0.4s ease, -webkit-box-shadow 0.4s ease;
+}
+
+.todo__button:focus {
+  -webkit-box-shadow: inset 0 0 15px 0 #012e50;
+          box-shadow: inset 0 0 15px 0 #012e50;
+}
+
+.todo__button:hover {
+  background-color: #012e50;
+  color: #d6dadc;
+}
+
+.todo__button:active {
+  background-color: #a6d6f8;
+  color: #000;
+}
+
+.todo__clear {
+  position: relative;
+  top: 0;
+  display: inline-block;
+  font-size: 20px;
+  margin-top: 30px;
+  color: #e76b6b;
+  letter-spacing: 4px;
+  line-height: 20px;
+  padding: 4px 10px;
+  outline: none;
+  border: 1px solid transparent;
+  -webkit-transition: color 0.4s ease, border-color 0.4s ease;
+  transition: color 0.4s ease, border-color 0.4s ease;
+}
+
+.todo__clear:focus {
+  border-bottom-color: inherit;
+}
+
+.todo__clear:hover {
+  color: #012e50;
+}
+
+.todo__clear:active {
+  top: 1px;
+}
+
+.item {
+  position: relative;
+  z-index: 1;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.item::before {
+  content: "";
+  position: absolute;
+  z-index: 3;
+  top: 0;
+  left: 0;
+  max-width: 540px;
+  width: 100%;
+  height: 100%;
+  background-color: transparent;
+}
+
+.item__input {
+  position: relative;
+  z-index: 0;
+  max-width: 540px;
+  width: 100%;
+  padding: 8px 22px;
+  font-weight: 500;
+  letter-spacing: 3px;
+  outline: none;
+  cursor: default;
+  background-color: transparent;
+}
+
+.item__btn {
+  width: 38px;
+  height: 38px;
+  opacity: 0.6;
+  cursor: pointer;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  -webkit-transition: opacity 0.4s ease;
+  transition: opacity 0.4s ease;
+}
+
+.item__btn--edit {
+  background-image: url("../img/edit.svg");
+  background-size: 24px 24px;
+}
+
+.item__btn--edit.active {
+  background-image: url("../img/save.png");
+  background-size: 20px 20px;
+}
+
+.item__btn--trush {
+  background-image: url("../img/trash.svg");
+  background-size: 24px 24px;
+}
+
+.item__btn:hover {
+  opacity: 1;
+}

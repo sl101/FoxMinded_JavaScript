@@ -1,0 +1,159 @@
+.todo {
+	width: 100%;
+	min-height: 100vh;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+
+	// .todo__content
+	&__content {
+		max-width: 700px;
+		width: 100%;
+		padding: 80px 40px 50px;
+		background-color: #fff;
+		border-radius: 10px;
+		text-align: center;
+		box-shadow: 0 0 25px 0 $color-d6d;
+	}
+
+	// .todo__title
+	&__title {
+		font-weight: 700;
+		font-size: 36px;
+		color: $color-012;
+		margin-bottom: 25px;
+	}
+
+	// .todo__form
+	&__form {
+		position: relative;
+		z-index: 2;
+		display: flex;
+		margin-bottom: 25px;
+		border-radius: 10px;
+		background-color: $color-f1f;
+		overflow: hidden;
+	}
+
+	// .todo__input
+	&__input {
+		position: relative;
+		z-index: 1;
+		display: block;
+		width: 100%;
+		padding: 8px 22px;
+		outline: none;
+		background-color: transparent;
+		cursor: text;
+	}
+
+	// .todo__button
+	&__button {
+		padding: 0 30px;
+		letter-spacing: 2px;
+		background-color: $color-a6d;
+		outline: none;
+		transition: background-color $hoverTime linear, color $hoverTime ease, box-shadow $hoverTime ease;
+
+		&:focus {
+			box-shadow: inset 0 0 15px 0 $color-012;
+		}
+
+		&:hover {
+			background-color: $color-012;
+			color: $color-d6d;
+		}
+
+		&:active {
+			background-color: $color-a6d;
+			color: $color-000;
+		}
+	}
+
+	// .todo__clear
+	&__clear {
+		position: relative;
+		top: 0;
+		display: inline-block;
+		font-size: 20px;
+		margin-top: 30px;
+		color: $color-eb8;
+		letter-spacing: 4px;
+		line-height: 20px;
+		padding: 4px 10px;
+		outline: none;
+		border: 1px solid transparent;
+		transition: color $hoverTime ease, border-color $hoverTime ease;
+
+		&:focus {
+			border-bottom-color: inherit;
+		}
+		&:hover {
+			color: $color-012;
+		}
+
+		&:active {
+			top: 1px;
+		}
+	}
+}
+
+.item {
+	position: relative;
+	z-index: 1;
+	display: flex;
+	align-items: center;
+
+	&::before {
+		content: "";
+		position: absolute;
+		z-index: 3;
+		top: 0;
+		left: 0;
+		max-width: 540px;
+		width: 100%;
+		height: 100%;
+		background-color: transparent;
+	}
+
+	// .item__input
+	&__input {
+		position: relative;
+		z-index: 0;
+		max-width: 540px;
+		width: 100%;
+		padding: 8px 22px;
+		font-weight: 500;
+		letter-spacing: 3px;
+		outline: none;
+		cursor: default;
+		background-color: transparent;
+	}
+
+	// .item__btn
+	&__btn {
+		width: 38px;
+		height: 38px;
+		opacity: 0.6;
+		cursor: pointer;
+		@include bg-cover;
+		transition: opacity $hoverTime ease;
+
+		&--edit {
+			background-image: url("../img/edit.svg");
+			background-size: 24px 24px;
+			&.active {
+				background-image: url("../img/save.png");
+				background-size: 20px 20px;
+			}
+		}
+
+		&--trush {
+			background-image: url("../img/trash.svg");
+			background-size: 24px 24px;
+		}
+		&:hover {
+			opacity: 1;
+		}
+	}
+}
