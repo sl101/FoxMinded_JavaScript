@@ -52,9 +52,15 @@ img {
 	vertical-align: middle;
 }
 
-input,
-button,
 textarea,
+input {
+	font: inherit;
+	cursor: text;
+	padding: 0;
+	margin: 0;
+}
+
+button,
 select {
 	font: inherit;
 	cursor: pointer;

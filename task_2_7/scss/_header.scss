@@ -1,0 +1,22 @@
+.header {
+	padding: 80px 70px 30px;
+	background-color: $color-fef;
+
+	// .header__content
+	&__content {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+	}
+
+	// .header__subtitle
+	&__subtitle {
+		font-weight: 700;
+		font-size: 22px;
+	}
+
+	// .header__button
+
+	&__button {
+	}
+}

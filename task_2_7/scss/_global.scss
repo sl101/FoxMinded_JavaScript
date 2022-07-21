@@ -19,8 +19,18 @@ body {
 body {
 	@include Roboto(400);
 	font-size: 18px;
-	letter-spacing: 4px;
-	padding-right: 17px;
 	background-color: $color-fff;
 	color: $color-000;
+}
+
+// .wrapper {
+// 	min-height: 100vh;
+// 	display: flex;
+// 	flex-direction: column;
+// }
+
+.container {
+	max-width: 1230px;
+	padding: 0 15px;
+	margin: 0 auto;
 }

@@ -1,0 +1,164 @@
+.page {
+	padding: 50px 70px;
+	background-color: $color-faf;
+	// .page__top
+
+	&__top {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		margin-bottom: 50px;
+	}
+
+	// .page__filter
+
+	&__filter {
+	}
+
+	// .page__list
+
+	&__list {
+	}
+}
+
+.search {
+	max-width: 40%;
+	width: 100%;
+	// .search__top
+	&__top {
+		position: relative;
+		min-height: 34px;
+		display: flex;
+		background-color: $color-fff;
+		// border: 1px solid $color-dad;
+		box-shadow: 0 0 10px $color-dad;
+		border-radius: 2px;
+	}
+
+	// .search__btn
+
+	&__btn {
+		position: relative;
+		z-index: 3;
+		top: 0;
+		left: 0;
+		// min-height: 32px;
+		// display: block;
+		padding: 0 10px 0 20px;
+		// width: 50px;
+		// padding: 0 10px;
+		// background-color: $color-fff;
+		outline: none;
+		// cursor: pointer;
+		transition: all $hoverTime linear;
+
+		&:focus {
+		}
+
+		&:hover {
+			& .search__img {
+				opacity: 1;
+			}
+		}
+
+		&:active {
+		}
+	}
+
+	// .search__img
+
+	&__img {
+		// position: relative;
+		// z-index: 5;
+		// top: 0;
+		// left: 0;
+		width: 20px;
+		height: 20px;
+		opacity: 0.5;
+		background-image: url("../img/search.svg");
+		@include bg-cover;
+		transition: opacity $hoverTime linear;
+	}
+
+	// .search__input
+
+	&__input {
+		// width: 100%;
+		padding: 4px 12px;
+		font-weight: 500;
+		font-size: 16px;
+		background-color: $color-fff;
+		color: $color-000;
+		// border: none;
+		outline: none;
+		@include line-clamp;
+		// cursor: text;
+
+		&::placeholder {
+			// font-style: italic;
+		}
+	}
+}
+
+.card {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 45px;
+	justify-content: space-between;
+	align-items: center;
+	// margin: 0 auto;
+	// .card__unit
+	&__unit {
+		max-width: 260px;
+		width: 100%;
+		display: inline-block;
+		box-shadow: 0 0 10px $color-dad;
+		border-radius: 6px;
+		overflow: hidden;
+	}
+
+	// .card__picture
+
+	&__picture {
+	}
+
+	// .card__img
+
+	&__img {
+	}
+
+	// .card__content
+
+	&__content {
+		padding: 30px 20px;
+	}
+
+	// .card__title
+
+	&__title {
+		font-weight: 700;
+		margin-bottom: 20px;
+	}
+
+	// .card__list
+
+	&__list {
+	}
+
+	// .card__item
+
+	&__item {
+		line-height: 26px;
+	}
+
+	// .card__subtitle
+
+	&__subtitle {
+		font-weight: 500;
+	}
+
+	// .card__value
+
+	&__value {
+	}
+}
