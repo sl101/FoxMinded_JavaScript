@@ -44,12 +44,12 @@ function saveCountryArray(data) {
 		const element = data[index];
 		const region = element.region;
 		allCountriesList.push(element);
+		countryNameArray.push(element.name);
 
 		if (!regionsList.includes(region)) {
 			regionsList.push(region);
 		}
 	}
-	console.log('allCountriesList__1: ' + allCountriesList.length);
 	loadCountryList();
 	createFilterList(regionsList);
 }
@@ -89,37 +89,41 @@ function loadCountryList(region = 'All regions') {
 	});
 
 	currentArray.forEach((element) => {
-		const flag = element.flags.png;
-		const country = element.name;
-		const population = element.population;
-		const region = element.region;
-		const capital = element.capital;
-
-		const cardUnit = document.createElement('li');
-		cardUnit.classList.add('card__unit');
-		cardsList.appendChild(cardUnit);
-
-		cardUnit.innerHTML = `<div class="card__picture">
-			<img class="card__img" src=${flag} alt=${country}" country flag">
-		</div>
-		<div class="card__content">
-			<div class="card__title">${country}</div>
-			<ul class="card__list">
-				<li class="card__item">
-					<span class="card__subtitle">Population:</span>
-					<span class="card__value">${population}</span>
-				</li>
-				<li class="card__item">
-					<span class="card__subtitle">Region:</span>
-					<span class="card__value">${region}</span>
-				</li>
-				<li class="card__item">
-					<span class="card__subtitle">Capital:</span>
-					<span class="card__value">${capital}</span>
-				</li>
-			</ul>
-		</div>`;
+		loadCountry(element);
 	});
+}
+
+function loadCountry(element) {
+	const flag = element.flags.png;
+	const country = element.name;
+	const population = element.population;
+	const region = element.region;
+	const capital = element.capital;
+
+	const cardUnit = document.createElement('li');
+	cardUnit.classList.add('card__unit');
+	cardsList.appendChild(cardUnit);
+
+	cardUnit.innerHTML = `<div class="card__picture">
+		<img class="card__img" src=${flag} alt=${country}" country flag">
+	</div>
+	<div class="card__content">
+		<div class="card__title">${country}</div>
+		<ul class="card__list">
+			<li class="card__item">
+				<span class="card__subtitle">Population:</span>
+				<span class="card__value">${population}</span>
+			</li>
+			<li class="card__item">
+				<span class="card__subtitle">Region:</span>
+				<span class="card__value">${region}</span>
+			</li>
+			<li class="card__item">
+				<span class="card__subtitle">Capital:</span>
+				<span class="card__value">${capital}</span>
+			</li>
+		</ul>
+	</div>`;
 }
 
 function cleanHTML() {
@@ -129,18 +133,48 @@ function cleanHTML() {
 	});
 }
 
+function readSearchData() {
+	const searchInput = body.querySelector('.search__input');
+	const searchData = searchInput.value;
+
+	if (searchData) {
+		if (!countryNameArray.includes(searchData)) {
+			searchInput.value = '';
+			searchInput.placeholder = 'Incorrectly entered data...';
+		} else {
+			for (let index = 0; index < countryNameArray.length; index++) {
+				const element = countryNameArray[index];
+				if (element === searchData) {
+					cleanHTML();
+					loadCountry(allCountriesList[index]);
+					break;
+				}
+			}
+		}
+	} else {
+		searchInput.placeholder = 'Make a choice...';
+	}
+}
+
 // ========================================================
 const body = document.querySelector('body');
 const filterList = body.querySelector('.filter__list');
 const filterButton = body.querySelector('.filter__button');
 const cardsList = body.querySelector('.page__list');
+const searchButton = body.querySelector('.search__btn');
 
 const requestUrl = 'https://restcountries.com/v2/all';
 const allCountriesList = [];
+const countryNameArray = [];
 
 filterButton.addEventListener('click', (e) => {
 	e.preventDefault();
 	openCloseFilter();
+});
+
+searchButton.addEventListener('click', (e) => {
+	e.preventDefault();
+	readSearchData();
 });
 
 sendRequest(requestUrl);

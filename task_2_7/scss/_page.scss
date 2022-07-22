@@ -18,6 +18,7 @@
 .search {
 	max-width: 40%;
 	width: 100%;
+
 	// .search__wrapper
 	&__wrapper {
 		position: relative;
@@ -36,22 +37,15 @@
 	}
 
 	// .search__btn
-
 	&__btn {
 		position: relative;
 		z-index: 3;
 		top: 0;
 		left: 0;
-		// min-height: 32px;
-		// display: block;
 		padding: 0 10px 0 20px;
-		// border: 1px solid transparent;
 		border: none;
-		// width: 50px;
-		// padding: 0 10px;
-		// background-color: $color-fff;
+		background-color: $color-fff;
 		outline: none;
-		// cursor: pointer;
 		transition: opacity $hoverTime linear;
 
 		&:focus {
