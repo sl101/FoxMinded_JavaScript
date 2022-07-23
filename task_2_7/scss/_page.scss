@@ -2,12 +2,15 @@
 	padding: 50px 70px;
 	background-color: $color-faf;
 
+	&.dark {
+		background-color: $color-4a4;
+	}
+
 	@include sm {
 		padding: 50px 0px;
 	}
 
 	// .page__top
-
 	&__top {
 		display: flex;
 		justify-content: space-between;
@@ -18,37 +21,38 @@
 			flex-direction: column;
 		}
 	}
-
-	// .page__list
-	&__list {
-	}
 }
 
 .search {
+	position: relative;
+	z-index: 1;
 	flex: 0 0 400px;
 	max-width: 400px;
 	width: 100%;
+	min-height: 34px;
+
+	display: flex;
+	border: 1px solid transparent;
+
+	background-color: $color-fff;
+	border-radius: 4px;
+	box-shadow: 0 0 10px $color-dad;
+	transition: border-color $hoverTime linear, color $hoverTime linear;
+
+	&:hover {
+		border-color: $color-teal;
+		color: $color-teal;
+	}
+
+	&.dark {
+		background-color: $color-1a1;
+		box-shadow: 0 0 10px $color-1a1;
+		color: $color-fff;
+	}
 
 	@include lg {
 		flex: 0 0 auto;
 		margin-bottom: 40px;
-	}
-
-	// .search__wrapper
-	&__wrapper {
-		position: relative;
-		min-height: 34px;
-		display: flex;
-		border: 1px solid transparent;
-		background-color: $color-fff;
-		box-shadow: 0 0 10px $color-dad;
-		border-radius: 4px;
-		transition: border-color $hoverTime linear, color $hoverTime linear;
-
-		&:hover {
-			border-color: $color-teal;
-			color: $color-teal;
-		}
 	}
 
 	// .search__btn
@@ -59,30 +63,18 @@
 		left: 0;
 		padding: 0 10px 0 20px;
 		border: none;
-		background-color: $color-fff;
 		outline: none;
 		transition: opacity $hoverTime linear;
-
-		&:focus {
-		}
 
 		&:hover {
 			& .search__img {
 				opacity: 1;
 			}
 		}
-
-		&:active {
-		}
 	}
 
 	// .search__img
-
 	&__img {
-		// position: relative;
-		// z-index: 5;
-		// top: 0;
-		// left: 0;
 		width: 20px;
 		height: 20px;
 		opacity: 0.5;
@@ -92,24 +84,15 @@
 	}
 
 	// .search__input
-
 	&__input {
 		width: 100%;
 		padding: 4px 12px;
 		font-weight: 500;
 		font-size: 16px;
-		background-color: $color-fff;
-		// border: 1px solid transparent;
 		border: none;
-		color: $color-000;
-		// border: none;
+		color: inherit;
 		outline: none;
 		@include line-clamp;
-		// cursor: text;
-
-		&::placeholder {
-			// font-style: italic;
-		}
 	}
 }
 
@@ -122,7 +105,6 @@
 
 	@include lg {
 		flex: 0 0 auto;
-		// width: 100%;
 	}
 
 	// .filter__button
@@ -138,14 +120,12 @@
 		background-color: $color-fff;
 		box-shadow: 0 0 10px $color-dad;
 		border-radius: 4px;
-		transition: border-color $hoverTime ease, color $hoverTime ease;
+		outline: none;
+		transition: border-color $hoverTime ease;
 
-		&:focus {
-		}
-
+		&:focus,
 		&:hover {
 			border-color: $color-teal;
-			color: $color-teal;
 
 			&::before,
 			&::after {
@@ -165,7 +145,7 @@
 			width: 11px;
 			height: 2px;
 			background-color: $color-1a1;
-			transition: transform $hoverTime ease, color $hoverTime ease;
+			transition: transform $hoverTime ease;
 		}
 
 		&::before {
@@ -177,14 +157,23 @@
 			transform: rotate(-45deg);
 		}
 
-		&.active {
+		&._active {
 			&::before {
-				// right: 20px;
 				transform: rotate(-45deg);
 			}
 			&::after {
-				// right: 13px;
 				transform: rotate(45deg);
+			}
+		}
+
+		&.dark {
+			background-color: $color-1a1;
+			box-shadow: 0 0 10px $color-1a1;
+			color: $color-fff;
+
+			&::before,
+			&::after {
+				background-color: $color-faf;
 			}
 		}
 	}
@@ -196,18 +185,28 @@
 		width: 100%;
 		background-color: $color-fff;
 		border-radius: 4px;
-		box-shadow: 0 0 10px $color-teal;
+		box-shadow: 0 0 10px $color-dad;
 		opacity: 0;
 		visibility: hidden;
 		overflow: hidden;
-
 		transition: transform $hoverTime ease, opacity $hoverTime ease, visibility $hoverTime ease;
 
-		&.active {
+		&._active {
 			transform: translateY(4px);
 			opacity: 1;
 			visibility: visible;
 			min-height: 100%;
+		}
+
+		&.dark {
+			background-color: $color-1a1;
+			box-shadow: 0 0 10px $color-1a1;
+		}
+
+		&.dark .filter__item {
+			&:not(:last-child) {
+				border-bottom: 1px solid $color-4a4;
+			}
 		}
 	}
 
@@ -216,7 +215,6 @@
 		display: flex;
 		align-items: center;
 		width: 100%;
-		background-color: $color-fff;
 
 		&:not(:last-child) {
 			border-bottom: 1px solid $color-dad;
@@ -231,14 +229,8 @@
 		transition: background-color $hoverTime ease, color $hoverTime ease;
 
 		&:hover {
-			background-color: $color-faf;
+			background-color: $color-dad;
 			color: $color-teal;
-		}
-
-		&:active {
-		}
-
-		&:focus {
 		}
 	}
 
@@ -264,9 +256,16 @@
 		width: 100%;
 		max-height: 345px;
 		display: inline-block;
+		background-color: $color-fff;
 		box-shadow: 0 0 10px $color-dad;
 		border-radius: 6px;
 		overflow: hidden;
+
+		&.dark {
+			color: $color-faf;
+			background-color: $color-1a1;
+			box-shadow: 0 0 10px $color-1a1;
+		}
 	}
 
 	// .card__picture

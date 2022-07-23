@@ -143,7 +143,12 @@ body {
   font-weight: 400;
   font-size: 18px;
   background-color: #fff;
-  color: #000;
+  color: #1a1c1b;
+}
+
+body.dark {
+  background-color: #1a1c1b;
+  color: #fafafa;
 }
 
 .container {
@@ -154,7 +159,6 @@ body {
 
 .header {
   padding: 80px 70px 30px;
-  background-color: #fefefe;
 }
 
 .header__content {
@@ -174,9 +178,38 @@ body {
   font-size: 22px;
 }
 
+.header__button {
+  position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  min-height: 100%;
+}
+
+.header__svg {
+  width: 20px;
+  height: 20px;
+  margin-right: 10px;
+}
+
+.header__theme-type {
+  display: block;
+  font-weight: 500;
+}
+
 .page {
   padding: 50px 70px;
   background-color: #fafafa;
+}
+
+.page.dark {
+  background-color: #303030;
 }
 
 @media only screen and (max-width: 479.98px) {
@@ -208,11 +241,36 @@ body {
 }
 
 .search {
+  position: relative;
+  z-index: 1;
   -webkit-box-flex: 0;
       -ms-flex: 0 0 400px;
           flex: 0 0 400px;
   max-width: 400px;
   width: 100%;
+  min-height: 34px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  border: 1px solid transparent;
+  background-color: #fff;
+  border-radius: 4px;
+  -webkit-box-shadow: 0 0 10px #dadada;
+          box-shadow: 0 0 10px #dadada;
+  -webkit-transition: border-color 0.4s linear, color 0.4s linear;
+  transition: border-color 0.4s linear, color 0.4s linear;
+}
+
+.search:hover {
+  border-color: teal;
+  color: teal;
+}
+
+.search.dark {
+  background-color: #1a1c1b;
+  -webkit-box-shadow: 0 0 10px #1a1c1b;
+          box-shadow: 0 0 10px #1a1c1b;
+  color: #fff;
 }
 
 @media only screen and (max-width: 991.98px) {
@@ -224,26 +282,6 @@ body {
   }
 }
 
-.search__wrapper {
-  position: relative;
-  min-height: 34px;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  border: 1px solid transparent;
-  background-color: #fff;
-  -webkit-box-shadow: 0 0 10px #dadada;
-          box-shadow: 0 0 10px #dadada;
-  border-radius: 4px;
-  -webkit-transition: border-color 0.4s linear, color 0.4s linear;
-  transition: border-color 0.4s linear, color 0.4s linear;
-}
-
-.search__wrapper:hover {
-  border-color: teal;
-  color: teal;
-}
-
 .search__btn {
   position: relative;
   z-index: 3;
@@ -251,7 +289,6 @@ body {
   left: 0;
   padding: 0 10px 0 20px;
   border: none;
-  background-color: #fff;
   outline: none;
   -webkit-transition: opacity 0.4s linear;
   transition: opacity 0.4s linear;
@@ -278,9 +315,8 @@ body {
   padding: 4px 12px;
   font-weight: 500;
   font-size: 16px;
-  background-color: #fff;
   border: none;
-  color: #000;
+  color: inherit;
   outline: none;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -322,16 +358,16 @@ body {
   -webkit-box-shadow: 0 0 10px #dadada;
           box-shadow: 0 0 10px #dadada;
   border-radius: 4px;
-  -webkit-transition: border-color 0.4s ease, color 0.4s ease;
-  transition: border-color 0.4s ease, color 0.4s ease;
+  outline: none;
+  -webkit-transition: border-color 0.4s ease;
+  transition: border-color 0.4s ease;
 }
 
-.filter__button:hover {
+.filter__button:focus, .filter__button:hover {
   border-color: teal;
-  color: teal;
 }
 
-.filter__button:hover::before, .filter__button:hover::after {
+.filter__button:focus::before, .filter__button:focus::after, .filter__button:hover::before, .filter__button:hover::after {
   background-color: teal;
 }
 
@@ -346,10 +382,10 @@ body {
   width: 11px;
   height: 2px;
   background-color: #1a1c1b;
-  -webkit-transition: color 0.4s ease, -webkit-transform 0.4s ease;
-  transition: color 0.4s ease, -webkit-transform 0.4s ease;
-  transition: transform 0.4s ease, color 0.4s ease;
-  transition: transform 0.4s ease, color 0.4s ease, -webkit-transform 0.4s ease;
+  -webkit-transition: -webkit-transform 0.4s ease;
+  transition: -webkit-transform 0.4s ease;
+  transition: transform 0.4s ease;
+  transition: transform 0.4s ease, -webkit-transform 0.4s ease;
 }
 
 .filter__button::before {
@@ -364,14 +400,25 @@ body {
           transform: rotate(-45deg);
 }
 
-.filter__button.active::before {
+.filter__button._active::before {
   -webkit-transform: rotate(-45deg);
           transform: rotate(-45deg);
 }
 
-.filter__button.active::after {
+.filter__button._active::after {
   -webkit-transform: rotate(45deg);
           transform: rotate(45deg);
+}
+
+.filter__button.dark {
+  background-color: #1a1c1b;
+  -webkit-box-shadow: 0 0 10px #1a1c1b;
+          box-shadow: 0 0 10px #1a1c1b;
+  color: #fff;
+}
+
+.filter__button.dark::before, .filter__button.dark::after {
+  background-color: #fafafa;
 }
 
 .filter__list {
@@ -380,8 +427,8 @@ body {
   width: 100%;
   background-color: #fff;
   border-radius: 4px;
-  -webkit-box-shadow: 0 0 10px teal;
-          box-shadow: 0 0 10px teal;
+  -webkit-box-shadow: 0 0 10px #dadada;
+          box-shadow: 0 0 10px #dadada;
   opacity: 0;
   visibility: hidden;
   overflow: hidden;
@@ -391,12 +438,22 @@ body {
   transition: transform 0.4s ease, opacity 0.4s ease, visibility 0.4s ease, -webkit-transform 0.4s ease;
 }
 
-.filter__list.active {
+.filter__list._active {
   -webkit-transform: translateY(4px);
           transform: translateY(4px);
   opacity: 1;
   visibility: visible;
   min-height: 100%;
+}
+
+.filter__list.dark {
+  background-color: #1a1c1b;
+  -webkit-box-shadow: 0 0 10px #1a1c1b;
+          box-shadow: 0 0 10px #1a1c1b;
+}
+
+.filter__list.dark .filter__item:not(:last-child) {
+  border-bottom: 1px solid #303030;
 }
 
 .filter__item {
@@ -407,7 +464,6 @@ body {
       -ms-flex-align: center;
           align-items: center;
   width: 100%;
-  background-color: #fff;
 }
 
 .filter__item:not(:last-child) {
@@ -423,7 +479,7 @@ body {
 }
 
 .filter__label:hover {
-  background-color: #fafafa;
+  background-color: #dadada;
   color: teal;
 }
 
@@ -454,10 +510,18 @@ body {
   width: 100%;
   max-height: 345px;
   display: inline-block;
+  background-color: #fff;
   -webkit-box-shadow: 0 0 10px #dadada;
           box-shadow: 0 0 10px #dadada;
   border-radius: 6px;
   overflow: hidden;
+}
+
+.card__unit.dark {
+  color: #fafafa;
+  background-color: #1a1c1b;
+  -webkit-box-shadow: 0 0 10px #1a1c1b;
+          box-shadow: 0 0 10px #1a1c1b;
 }
 
 .card__picture {

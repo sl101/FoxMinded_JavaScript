@@ -1,6 +1,5 @@
 .header {
 	padding: 80px 70px 30px;
-	background-color: $color-fef;
 
 	// .header__content
 	&__content {
@@ -16,7 +15,24 @@
 	}
 
 	// .header__button
-
 	&__button {
+		position: relative;
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		min-height: 100%;
+	}
+
+	// .header__svg
+	&__svg {
+		width: 20px;
+		height: 20px;
+		margin-right: 10px;
+	}
+
+	// .header__theme-type
+	&__theme-type {
+		display: block;
+		font-weight: 500;
 	}
 }
