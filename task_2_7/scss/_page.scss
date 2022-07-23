@@ -1,6 +1,11 @@
 .page {
 	padding: 50px 70px;
 	background-color: $color-faf;
+
+	@include sm {
+		padding: 50px 0px;
+	}
+
 	// .page__top
 
 	&__top {
@@ -8,6 +13,10 @@
 		justify-content: space-between;
 		align-items: center;
 		margin-bottom: 50px;
+
+		@include lg {
+			flex-direction: column;
+		}
 	}
 
 	// .page__list
@@ -16,8 +25,14 @@
 }
 
 .search {
-	max-width: 40%;
+	flex: 0 0 400px;
+	max-width: 400px;
 	width: 100%;
+
+	@include lg {
+		flex: 0 0 auto;
+		margin-bottom: 40px;
+	}
 
 	// .search__wrapper
 	&__wrapper {
@@ -99,10 +114,16 @@
 }
 
 .filter {
+	flex: 0 0 300px;
+	max-width: 300px;
 	position: relative;
-	max-width: 25%;
 	width: 100%;
 	display: inline-block;
+
+	@include lg {
+		flex: 0 0 auto;
+		// width: 100%;
+	}
 
 	// .filter__button
 	&__button {
@@ -234,7 +255,7 @@
 	display: flex;
 	flex-wrap: wrap;
 	gap: 45px;
-	justify-content: space-between;
+	justify-content: center;
 	align-items: center;
 
 	// .card__unit
