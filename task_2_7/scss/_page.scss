@@ -2,10 +2,6 @@
 	padding: 50px 70px;
 	background-color: $color-faf;
 
-	&.dark {
-		background-color: $color-4a4;
-	}
-
 	@include sm {
 		padding: 50px 0px;
 	}
@@ -44,12 +40,6 @@
 		color: $color-teal;
 	}
 
-	&.dark {
-		background-color: $color-1a1;
-		box-shadow: 0 0 10px $color-1a1;
-		color: $color-fff;
-	}
-
 	@include lg {
 		flex: 0 0 auto;
 		margin-bottom: 40px;
@@ -59,28 +49,25 @@
 	&__btn {
 		position: relative;
 		z-index: 3;
-		top: 0;
+		top: 3px;
 		left: 0;
 		padding: 0 10px 0 20px;
 		border: none;
 		outline: none;
-		transition: opacity $hoverTime linear;
+		color: $color-dad;
+		transition: color $hoverTime linear;
 
 		&:hover {
-			& .search__img {
-				opacity: 1;
-			}
+			color: $color-teal;
 		}
 	}
 
-	// .search__img
-	&__img {
+	// .search__svg
+	&__svg {
 		width: 20px;
 		height: 20px;
-		opacity: 0.5;
-		background-image: url("../img/search.svg");
-		@include bg-cover;
-		transition: opacity $hoverTime linear;
+		fill: currentColor;
+		transition: fill $hoverTime linear;
 	}
 
 	// .search__input
@@ -157,23 +144,12 @@
 			transform: rotate(-45deg);
 		}
 
-		&._active {
+		&.active {
 			&::before {
 				transform: rotate(-45deg);
 			}
 			&::after {
 				transform: rotate(45deg);
-			}
-		}
-
-		&.dark {
-			background-color: $color-1a1;
-			box-shadow: 0 0 10px $color-1a1;
-			color: $color-fff;
-
-			&::before,
-			&::after {
-				background-color: $color-faf;
 			}
 		}
 	}
@@ -191,22 +167,11 @@
 		overflow: hidden;
 		transition: transform $hoverTime ease, opacity $hoverTime ease, visibility $hoverTime ease;
 
-		&._active {
+		&.active {
 			transform: translateY(4px);
 			opacity: 1;
 			visibility: visible;
 			min-height: 100%;
-		}
-
-		&.dark {
-			background-color: $color-1a1;
-			box-shadow: 0 0 10px $color-1a1;
-		}
-
-		&.dark .filter__item {
-			&:not(:last-child) {
-				border-bottom: 1px solid $color-4a4;
-			}
 		}
 	}
 
@@ -236,8 +201,6 @@
 
 	// .filter__input
 	&__input {
-		width: 1px;
-		height: 1px;
 		opacity: 0;
 		visibility: hidden;
 	}
@@ -247,42 +210,32 @@
 	display: flex;
 	flex-wrap: wrap;
 	gap: 45px;
-	justify-content: center;
-	align-items: center;
+	justify-content: space-between;
+	align-items: flex-start;
+
+	@include md {
+		justify-content: center;
+	}
 
 	// .card__unit
 	&__unit {
-		max-width: 260px;
-		width: 100%;
-		max-height: 345px;
-		display: inline-block;
+		flex: 1 0 260px;
+		min-height: 345px;
 		background-color: $color-fff;
 		box-shadow: 0 0 10px $color-dad;
 		border-radius: 6px;
 		overflow: hidden;
-
-		&.dark {
-			color: $color-faf;
-			background-color: $color-1a1;
-			box-shadow: 0 0 10px $color-1a1;
-		}
-	}
-
-	// .card__picture
-	&__picture {
-		max-width: 260px;
 	}
 
 	// .card__img
 	&__img {
 		width: 100%;
-		height: 170px;
 		object-fit: cover;
 	}
 
 	// .card__content
 	&__content {
-		padding: 25px 25px 25px;
+		padding: 25px 25px 15px;
 	}
 
 	// .card__title

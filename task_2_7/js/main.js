@@ -1,12 +1,24 @@
 'use strict';
 
-function openCloseFilter() {
-	if (filterButton.classList.contains('_active')) {
-		filterButton.classList.remove('_active');
-		filterList.classList.remove('_active');
+const body = document.querySelector('body');
+const filterList = body.querySelector('.filter__list');
+const filterButton = body.querySelector('.filter__button');
+const cardsList = body.querySelector('.page__list');
+const searchInput = body.querySelector('.search__input');
+const searchButton = body.querySelector('.search__btn');
+const themeButton = body.querySelectorAll('.header__button');
+
+const requestUrl = 'https://restcountries.com/v2/all';
+const allCountriesList = [];
+const countryNameArray = [];
+
+function toggleFilter() {
+	if (filterButton.classList.contains('active')) {
+		filterButton.classList.remove('active');
+		filterList.classList.remove('active');
 	} else {
-		filterButton.classList.add('_active');
-		filterList.classList.add('_active');
+		filterButton.classList.add('active');
+		filterList.classList.add('active');
 	}
 }
 
@@ -17,7 +29,7 @@ function sendRequest(requestUrl) {
 		})
 		.then((data) => {
 			if (data.length) {
-				saveCountryArray(data);
+				saveCountries(data);
 			}
 		})
 		.catch((error) => {
@@ -25,7 +37,7 @@ function sendRequest(requestUrl) {
 		});
 }
 
-function saveCountryArray(data) {
+function saveCountries(data) {
 	const regionsList = ['All regions'];
 	for (let index = 0; index < data.length; index++) {
 		const element = data[index];
@@ -38,12 +50,12 @@ function saveCountryArray(data) {
 		}
 	}
 	loadCountryList();
-	createFilterList(regionsList);
+	createFilters(regionsList);
 }
 
-function createFilterList(dataArray) {
-	if (dataArray) {
-		dataArray.forEach((element) => {
+function createFilters(data) {
+	if (data) {
+		data.forEach((element) => {
 			const itemField = document.createElement('li');
 			itemField.classList.add('filter__item');
 			filterList.appendChild(itemField);
@@ -58,7 +70,7 @@ function createFilterList(dataArray) {
 				searchInput.value = '';
 
 				const region = itemField.firstElementChild.innerText;
-				openCloseFilter();
+				toggleFilter();
 				filterButton.innerHTML = region;
 				loadCountryList(region);
 			});
@@ -84,15 +96,23 @@ function loadCountryList(region = 'All regions') {
 }
 
 function loadCountry(element) {
-	const flag = element.flags.png;
-	const country = element.name;
-	const population = element.population;
-	const region = element.region;
-	const capital = element.capital;
+	let capitalStr = '';
+	if (element.capital) {
+		capitalStr = element.capital;
+	} else {
+		capitalStr = 'no data';
+	}
+
+	let [flag, country, population, region, capital] = [
+		element.flags.png,
+		element.name,
+		element.population,
+		element.region,
+		capitalStr,
+	];
 
 	const cardUnit = document.createElement('li');
 	cardUnit.classList.add('card__unit');
-	cardUnit.classList.add('change-theme');
 	cardsList.appendChild(cardUnit);
 
 	cardUnit.innerHTML = `<div class="card__picture">
@@ -115,8 +135,7 @@ function loadCountry(element) {
 			</li>
 		</ul>
 	</div>`;
-
-	getSavedTheme();
+	applyTheme(getSavedTheme());
 }
 
 function cleanHTML() {
@@ -126,7 +145,7 @@ function cleanHTML() {
 	});
 }
 
-function readSearchData() {
+function getSearchData() {
 	const searchInput = body.querySelector('.search__input');
 	const searchData = searchInput.value;
 
@@ -135,26 +154,29 @@ function readSearchData() {
 			searchInput.value = '';
 			searchInput.placeholder = 'Incorrectly entered data...';
 		} else {
-			for (let index = 0; index < countryNameArray.length; index++) {
-				const element = countryNameArray[index];
-				if (element === searchData) {
-					cleanHTML();
-					loadCountry(allCountriesList[index]);
-					break;
-				}
-			}
+			filterCountry(searchData);
 		}
 	} else {
 		searchInput.placeholder = 'Make a choice...';
 	}
 }
 
+function filterCountry(data) {
+	for (let index = 0; index < countryNameArray.length; index++) {
+		const element = countryNameArray[index];
+		if (element === data) {
+			cleanHTML();
+			loadCountry(allCountriesList[index]);
+			break;
+		}
+	}
+}
+
 function applyTheme(themeName) {
-	const changeStyleField = document.querySelectorAll('.change-theme');
-	changeStyleField.forEach((element) => {
-		element.classList.remove('dark');
-		element.classList.add(`${themeName}`);
-	});
+	body.classList.remove('dark');
+	if (themeName === 'dark') {
+		body.classList.add(`${themeName}`);
+	}
 
 	themeButton.forEach((button) => {
 		button.style.display = 'flex';
@@ -164,50 +186,45 @@ function applyTheme(themeName) {
 }
 
 function getSavedTheme() {
-	let activeTheme = localStorage.getItem('theme');
-	if (activeTheme === null || activeTheme === 'light') {
-		applyTheme('light');
-	} else if (activeTheme === 'dark') {
-		applyTheme('dark');
-	}
+	return localStorage.getItem('theme');
 }
 
-// ========================================================
-const body = document.querySelector('body');
-const filterList = body.querySelector('.filter__list');
-const filterButton = body.querySelector('.filter__button');
-const cardsList = body.querySelector('.page__list');
-const searchButton = body.querySelector('.search__btn');
-const themeButton = body.querySelectorAll('.header__button');
-
-const requestUrl = 'https://restcountries.com/v2/all';
-const allCountriesList = [];
-const countryNameArray = [];
-
-getSavedTheme();
+// Listeners ================================================
 
 filterButton.addEventListener('click', (e) => {
 	e.preventDefault();
-	openCloseFilter();
+	toggleFilter();
+});
+
+searchInput.addEventListener('input', () => {
+	if (searchInput.value) {
+		searchButton.style.color = 'teal';
+	} else {
+		searchButton.style.color = '$color-dad';
+	}
 });
 
 searchButton.addEventListener('click', (e) => {
 	e.preventDefault();
-	if (filterButton.classList.contains('_active')) {
-		filterButton.classList.remove('_active');
-		filterList.classList.remove('_active');
+	if (filterButton.classList.contains('active')) {
+		filterButton.classList.remove('active');
+		filterList.classList.remove('active');
 	}
 	filterButton.innerHTML = 'Filter by Region';
-	readSearchData();
-	getSavedTheme();
+	getSearchData();
+	applyTheme(getSavedTheme());
 });
+
+// START ===================================================
 
 themeButton.forEach((element) => {
 	element.addEventListener('click', (e) => {
 		e.preventDefault();
-		let theme = element.dataset.theme;
+		const theme = element.dataset.theme;
 		applyTheme(theme);
 	});
 });
+
+applyTheme(getSavedTheme());
 
 sendRequest(requestUrl);

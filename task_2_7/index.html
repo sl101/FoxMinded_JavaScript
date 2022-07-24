@@ -10,7 +10,7 @@
 	<title>Countries of the world</title>
 </head>
 
-<body class="change-theme">
+<body>
 	<header class="header">
 		<div class="container">
 			<h1 class="header__title sr-only">Countries of the world</h1>
@@ -49,23 +49,27 @@
 			</div>
 		</div>
 	</header>
-	<main class="page change-theme">
+	<main class="page">
 		<div class="container">
 			<div class="page__top">
 
-				<div class="page__search search change-theme">
+				<div class="page__search search">
 					<button class="search__btn" type="button">
-						<div class="search__img">
-						</div>
+						<svg class="search__svg" width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+							<path
+								d="M23.3412 20.1589L17.8348 14.6523C17.0147 15.9295 15.9293 17.0145 14.6531 17.835L20.1594 23.3408C21.0388 24.2197 22.4642 24.2197 23.3412 23.3408C24.2197 22.463 24.2197 21.0391 23.3412 20.1589Z" />
+							<path
+								d="M17.9998 9.00023C17.9998 4.0302 13.9701 0 8.99989 0C4.03044 0 0 4.0302 0 9.00023C0 13.9699 4.03044 18.0001 8.99989 18.0001C13.9701 18.0001 17.9998 13.9699 17.9998 9.00023ZM8.99989 15.7497C5.27807 15.7497 2.25027 12.7218 2.25027 9.00023C2.25027 5.27787 5.27767 2.24956 8.99989 2.24956C12.7225 2.24956 15.7503 5.27748 15.7503 9.00023C15.7503 12.7214 12.7225 15.7497 8.99989 15.7497Z" />
+						</svg>
 					</button>
 					<input class="search__input" type="text" placeholder="Search for a country...">
 				</div>
 
 				<div class="page__filter filter">
-					<button class="filter__button change-theme" type="button">
+					<button class="filter__button" type="button">
 						Filter by Region
 					</button>
-					<ul class="filter__list change-theme"></ul>
+					<ul class="filter__list"></ul>
 				</div>
 			</div>
 			<ul class="page__list card"></ul>
