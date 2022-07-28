@@ -146,12 +146,11 @@ function cleanHTML() {
 }
 
 function getSearchData() {
-	const searchInput = body.querySelector('.search__input');
 	const searchData = searchInput.value;
-
 	if (searchData) {
 		if (!countryNameArray.includes(searchData)) {
 			searchInput.value = '';
+			searchButton.style.color = '#dadada';
 			searchInput.placeholder = 'Incorrectly entered data...';
 		} else {
 			filterCountry(searchData);
@@ -189,8 +188,15 @@ function getSavedTheme() {
 	return localStorage.getItem('theme');
 }
 
-// Listeners ================================================
+function closeFilter() {
+	if (filterButton.classList.contains('active')) {
+		filterButton.classList.remove('active');
+		filterList.classList.remove('active');
+	}
+	filterButton.innerHTML = 'Filter by Region';
+}
 
+// Listeners ================================================
 filterButton.addEventListener('click', (e) => {
 	e.preventDefault();
 	toggleFilter();
@@ -200,23 +206,35 @@ searchInput.addEventListener('input', () => {
 	if (searchInput.value) {
 		searchButton.style.color = 'teal';
 	} else {
-		searchButton.style.color = '$color-dad';
+		searchButton.style.color = 'red';
+	}
+});
+
+searchInput.addEventListener('blur', (e) => {
+	e.preventDefault();
+	if (searchInput.value) {
+		closeFilter();
+		getSearchData();
+		applyTheme(getSavedTheme());
+	}
+});
+
+document.addEventListener('keydown', (e) => {
+	if (e.keyCode === 27) {
+		searchInput.value = '';
+		searchInput.placeholder = 'Make a choice...';
 	}
 });
 
 searchButton.addEventListener('click', (e) => {
 	e.preventDefault();
-	if (filterButton.classList.contains('active')) {
-		filterButton.classList.remove('active');
-		filterList.classList.remove('active');
+	const searchData = searchInput.value;
+	if (!searchData && targetEvent !== 'INPUT') {
+		searchInput.placeholder = 'Make a choice...';
 	}
-	filterButton.innerHTML = 'Filter by Region';
-	getSearchData();
-	applyTheme(getSavedTheme());
 });
 
 // START ===================================================
-
 themeButton.forEach((element) => {
 	element.addEventListener('click', (e) => {
 		e.preventDefault();

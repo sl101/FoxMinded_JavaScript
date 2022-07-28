@@ -217,6 +217,26 @@ body.dark .card__unit {
   font-size: 22px;
 }
 
+.header__theme {
+  position: relative;
+  top: 0;
+  outline: none;
+  -webkit-transition: color 0.4s ease;
+  transition: color 0.4s ease;
+}
+
+.header__theme:hover {
+  color: teal;
+}
+
+.header__theme:active {
+  top: 1px;
+}
+
+.header__theme:focus {
+  color: teal;
+}
+
 .header__button {
   position: relative;
   display: -webkit-box;
@@ -235,6 +255,7 @@ body.dark .card__unit {
   width: 20px;
   height: 20px;
   margin-right: 10px;
+  fill: currentColor;
 }
 
 .header__theme-type {
@@ -287,6 +308,7 @@ body.dark .card__unit {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  outline: none;
   border: 1px solid transparent;
   background-color: #fff;
   border-radius: 4px;
@@ -298,7 +320,6 @@ body.dark .card__unit {
 
 .search:hover {
   border-color: teal;
-  color: teal;
 }
 
 @media only screen and (max-width: 991.98px) {
@@ -313,7 +334,7 @@ body.dark .card__unit {
 .search__btn {
   position: relative;
   z-index: 3;
-  top: 3px;
+  top: 0;
   left: 0;
   padding: 0 10px 0 20px;
   border: none;
@@ -323,11 +344,20 @@ body.dark .card__unit {
   transition: color 0.4s linear;
 }
 
-.search__btn:hover {
-  color: teal;
+.search__btn::after {
+  content: "";
+  position: absolute;
+  z-index: 4;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: transparent;
 }
 
 .search__svg {
+  position: relative;
+  z-index: 1;
   width: 20px;
   height: 20px;
   fill: currentColor;
