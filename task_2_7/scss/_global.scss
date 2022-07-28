@@ -1,0 +1,73 @@
+.sr-only {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	padding: 0;
+	margin: -1px;
+	overflow: hidden;
+	clip: rect(0, 0, 0, 0);
+	white-space: nowrap;
+	border: 0;
+}
+
+html,
+body {
+	width: 100%;
+	height: 100%;
+}
+
+body {
+	@include Roboto(400);
+	font-size: 18px;
+	background-color: $color-fff;
+	color: $color-1a1;
+}
+
+.container {
+	max-width: 1230px;
+	padding: 0 15px;
+	margin: 0 auto;
+}
+
+body.dark {
+	background-color: $color-1a1;
+	color: $color-faf;
+
+	.page {
+		background-color: $color-4a4;
+	}
+
+	.search {
+		background-color: $color-1a1;
+		box-shadow: 0 0 10px $color-1a1;
+		color: $color-fff;
+	}
+
+	.filter__button {
+		background-color: $color-1a1;
+		box-shadow: 0 0 10px $color-1a1;
+		color: $color-fff;
+
+		&::before,
+		&::after {
+			background-color: $color-faf;
+		}
+	}
+
+	.filter__list {
+		background-color: $color-1a1;
+		box-shadow: 0 0 10px $color-1a1;
+	}
+
+	.filter__item {
+		&:not(:last-child) {
+			border-bottom: 1px solid $color-4a4;
+		}
+	}
+
+	.card__unit {
+		color: $color-faf;
+		background-color: $color-1a1;
+		box-shadow: 0 0 10px $color-1a1;
+	}
+}

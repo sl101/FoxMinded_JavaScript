@@ -1,0 +1,59 @@
+.header {
+	padding: 80px 70px 30px;
+
+	// .header__content
+	&__content {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+	}
+
+	// .header__subtitle
+	&__subtitle {
+		font-weight: 700;
+		font-size: 22px;
+	}
+
+	// .header__theme
+	&__theme {
+		position: relative;
+		top: 0;
+		outline: none;
+		transition: color $hoverTime ease;
+
+		&:hover {
+			color: $color-teal;
+		}
+
+		&:active {
+			top: 1px;
+		}
+
+		&:focus {
+			color: $color-teal;
+		}
+	}
+
+	// .header__button
+	&__button {
+		position: relative;
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		min-height: 100%;
+	}
+
+	// .header__svg
+	&__svg {
+		width: 20px;
+		height: 20px;
+		margin-right: 10px;
+		fill: currentColor;
+	}
+
+	// .header__theme-type
+	&__theme-type {
+		display: block;
+		font-weight: 500;
+	}
+}
