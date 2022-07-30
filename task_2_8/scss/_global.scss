@@ -19,8 +19,16 @@ body {
 body {
 	@include Roboto(400);
 	font-size: 18px;
-	background-color: $color-fff;
+	background-color: transparent;
 	color: $color-000;
+}
+
+.wrapper {
+	max-width: 2200px;
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
 }
 
 .container {

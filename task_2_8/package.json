@@ -1,0 +1,21 @@
+{
+	"name": "task_2_8",
+	"version": "1.0.0",
+	"description": "",
+	"main": "index.html",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1",
+		"start": "browser-sync start --server --files \"css/*.css\"",
+		"icons": "svgo -f img/icons -o img/icons && svg-sprite-generate -d img/icons -o img/sprite.svg"
+	},
+	"keywords": [],
+	"author": "",
+	"license": "ISC",
+	"dependencies": {
+		"svg-sprite": "^1.5.4"
+	},
+	"devDependencies": {
+		"svg-sprite-generator": "0.0.7",
+		"svgo": "^2.8.0"
+	}
+}

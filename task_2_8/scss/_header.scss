@@ -1,0 +1,167 @@
+.header {
+	position: fixed;
+	z-index: 1;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	padding: 20px 0;
+	// .header__content
+
+	&__content {
+	}
+}
+
+.menu {
+	// .menu__body
+
+	&__body {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		color: $color-fff;
+	}
+
+	// .menu__list
+
+	&__list {
+		flex: 0 0 50%;
+		display: flex;
+		justify-content: start;
+		align-items: center;
+	}
+
+	// .menu__item
+
+	&__item {
+		// position: relative;
+		// z-index: 2;
+		&:not(:last-child) {
+			margin: 0 40px 0 0;
+		}
+	}
+
+	// .menu__link
+
+	&__link {
+		position: relative;
+		top: 0;
+		padding: 4px 15px;
+		outline: none;
+		border: 1px solid transparent;
+		border-radius: 6px;
+		transition: border-color $hoverTime ease, color $hoverTime ease;
+
+		@include md-min {
+			&:focus {
+				border-color: $color-accent;
+			}
+
+			&:hover {
+				color: $color-accent;
+				border-color: transparent;
+			}
+
+			&:active {
+				top: 1px;
+				border-color: transparent;
+			}
+		}
+	}
+
+	// .menu__backet
+	&__backet {
+		position: relative;
+		min-height: 60px;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		margin-right: 15px;
+		outline: none;
+		transition: color $hoverTime ease, box-shadow $hoverTime ease;
+
+		@include md-min {
+			&:focus .menu__amount {
+				background-color: $color-fff;
+				color: $color-000;
+				box-shadow: 5px 5px 15px $color-accent;
+			}
+
+			&:hover .menu__icon {
+				color: $color-accent;
+			}
+
+			&:hover .menu__amount {
+				color: $color-000;
+				box-shadow: 5px 5px 15px transparent;
+				background-color: $color-accent;
+			}
+
+			&:active {
+				top: 1px;
+			}
+		}
+	}
+
+	// .menu__icon
+	&__icon {
+		width: 30px;
+		height: 30px;
+		fill: currentColor;
+		transition: color $hoverTime ease, box-shadow $hoverTime ease;
+	}
+
+	// .menu__amount
+	&__amount {
+		position: absolute;
+		top: 0;
+		right: -50%;
+		width: 30px;
+		height: 30px;
+		font-size: 20px;
+		line-height: 30px;
+		text-align: center;
+		border-radius: 50%;
+		background-color: $color-accent;
+		transition: background-color $hoverTime ease, box-shadow $hoverTime ease, color $hoverTime ease;
+	}
+
+	// .menu__burger
+	&__burger {
+	}
+}
+
+// .logo
+.logo {
+	width: 100%;
+	transform: translate(-55px, 0);
+	&__link {
+		position: relative;
+		top: 0;
+		@include Caveat(600);
+		font-size: 56px;
+		text-transform: lowercase;
+		padding: 2px 10px;
+		outline: none;
+		border: 1px solid transparent;
+		border-radius: 6px;
+		text-shadow: 5px 5px 15px $color-777;
+		transition: color $hoverTime ease, text-shadow $hoverTime ease;
+
+		@include md-min {
+			&:focus {
+				text-shadow: 5px 5px 15px $color-accent;
+			}
+
+			&:hover {
+				color: $color-accent;
+				text-shadow: 5px 5px 15px $color-777;
+			}
+
+			&:active {
+				top: 1px;
+				text-shadow: 5px 5px 15px $color-777;
+			}
+		}
+	}
+}

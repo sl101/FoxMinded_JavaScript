@@ -6,12 +6,75 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="stylesheet" href="css/style.css">
-	<link rel="stylesheet" title="theme" href="#">
-	<title>Comfy</title>
+	<title>Comfy store</title>
 </head>
 
 <body>
+	<div class="wrapper">
 
+		<header class="header">
+			<div class="container">
+				<div class="header__content menu">
+
+					<nav class="menu__body">
+						<ul class="menu__list">
+							<li class="menu__item">
+								<a class="menu__link" href="#">Home</a>
+							</li>
+
+							<li class="menu__item">
+								<a class="menu__link" href="#">Products</a>
+							</li>
+
+							<li class="menu__item">
+								<a class="menu__link" href="#">About</a>
+							</li>
+						</ul>
+
+						<div class="menu__logo logo">
+							<a class="logo__link" href="#">comfy</a>
+						</div>
+
+						<a class="menu__backet" href="#">
+							<svg class="menu__icon">
+								<use xlink:href="img/sprite.svg#backet"></use>
+							</svg>
+							<span class="menu__amount">0</span>
+						</a>
+
+						<button class="menu__burger burger" type="button">
+							<span></span>
+							<span></span>
+							<span></span>
+						</button>
+					</nav>
+
+				</div>
+			</div>
+		</header>
+
+		<main>
+			<section class="home" style="background-image: url(img/bg/bg-main.jpg);">
+				<!-- <picture class="home__picture">
+					<source media="(min-width:768px)" srcset="img/bg/bg-main.jpg">
+					<source media="(min-width:320px)" srcset="img/bg/bg-phone.jpg">
+					<img src="img/bg/bg-main.jpg" alt="Cup of coffe amd camera in the bed" style="width:auto;">
+				</picture> -->
+				<div class="container">
+
+					<div class="home__content">
+						<h1 class="home__title">
+							Rest, Relax, Unwind
+						</h1>
+						<span class="home__subtitle">
+							Embrace your choices - we do
+						</span>
+						<button class="home__button" type="button">Show now</button>
+					</div>
+				</div>
+			</section>
+		</main>
+	</div>
 
 	<script src="js/main.js"></script>
 </body>

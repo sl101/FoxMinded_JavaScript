@@ -1,1 +1,2 @@
-README.md
+./task_2_8/node_modules/
+./task_2_8/package-lock.json
