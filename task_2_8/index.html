@@ -17,6 +17,13 @@
 				<div class="header__content menu">
 
 					<nav class="menu__body">
+
+						<button class="menu__burger burger" type="button">
+							<span></span>
+							<span></span>
+							<span></span>
+						</button>
+
 						<ul class="menu__list">
 							<li class="menu__item">
 								<a class="menu__link" href="#">Home</a>
@@ -42,11 +49,7 @@
 							<span class="menu__amount">0</span>
 						</a>
 
-						<button class="menu__burger burger" type="button">
-							<span></span>
-							<span></span>
-							<span></span>
-						</button>
+
 					</nav>
 
 				</div>
@@ -54,12 +57,7 @@
 		</header>
 
 		<main>
-			<section class="home" style="background-image: url(img/bg/bg-main.jpg);">
-				<!-- <picture class="home__picture">
-					<source media="(min-width:768px)" srcset="img/bg/bg-main.jpg">
-					<source media="(min-width:320px)" srcset="img/bg/bg-phone.jpg">
-					<img src="img/bg/bg-main.jpg" alt="Cup of coffe amd camera in the bed" style="width:auto;">
-				</picture> -->
+			<section class="home">
 				<div class="container">
 
 					<div class="home__content">
@@ -71,6 +69,54 @@
 						</span>
 						<button class="home__button" type="button">Show now</button>
 					</div>
+				</div>
+			</section>
+
+			<section class="featured">
+				<div class="container">
+					<h2 class="featured__title">
+						Featured
+					</h2>
+					<ul class="featured__list">
+						<li class="featured__item product">
+							<a class="product__link" href="#">
+								<div class="product__picture">
+									<img class="product__img" src="img/bg/bg-main.jpg" alt="#">
+								</div>
+							</a>
+							<div class="product__content">
+								<div class="product__title">Sofa</div>
+								<span class="product__price">$10</span>
+							</div>
+						</li>
+
+						<li class="featured__item product">
+							<a class="product__link" href="#">
+								<div class="product__picture">
+									<img class="product__img" src="img/bg/bg-main.jpg" alt="#">
+								</div>
+							</a>
+							<div class="product__content">
+								<div class="product__title">Sofa</div>
+								<span class="product__price">$10</span>
+							</div>
+						</li>
+
+						<li class="featured__item product">
+							<a class="product__link" href="#">
+								<div class="product__picture">
+									<img class="product__img" src="img/bg/bg-main.jpg" alt="#">
+								</div>
+							</a>
+							<div class="product__content">
+								<div class="product__title">Sofa</div>
+								<span class="product__price">$10</span>
+							</div>
+						</li>
+					</ul>
+					<a class="featured__button" href="#">
+						All products
+					</a>
 				</div>
 			</section>
 		</main>

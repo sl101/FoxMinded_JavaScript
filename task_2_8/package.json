@@ -5,8 +5,8 @@
 	"main": "index.html",
 	"scripts": {
 		"test": "echo \"Error: no test specified\" && exit 1",
-		"start": "browser-sync start --server --files \"css/*.css\"",
-		"icons": "svgo -f img/icons -o img/icons && svg-sprite-generate -d img/icons -o img/sprite.svg"
+		"icons": "svgo -f img/icons -o img/icons && svg-sprite-generate -d img/icons -o img/sprite.svg",
+		"start": "browser-sync start --server --files \"css/*.css\""
 	},
 	"keywords": [],
 	"author": "",

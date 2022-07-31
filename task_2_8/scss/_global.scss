@@ -23,16 +23,20 @@ body {
 	color: $color-000;
 }
 
+.lock {
+	overflow: hidden;
+}
+
 .wrapper {
 	max-width: 2200px;
 	height: 100%;
 	display: flex;
 	flex-direction: column;
-	justify-content: center;
+	justify-content: space-between;
 }
 
 .container {
-	max-width: 1230px;
+	max-width: $max-width + 30px;
 	padding: 0 15px;
 	margin: 0 auto;
 }
