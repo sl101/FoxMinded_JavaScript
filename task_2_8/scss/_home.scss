@@ -3,6 +3,7 @@
 	background-color: $color-777;
 	background-image: url("../img/bg/bg-main.jpg");
 	@include bg-cover;
+	overflow: hidden;
 
 	@include md {
 		background-image: url("../img/bg/bg-phone.jpg");

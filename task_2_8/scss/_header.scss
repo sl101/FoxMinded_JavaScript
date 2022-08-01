@@ -106,12 +106,11 @@
 		align-items: center;
 		margin-right: 15px;
 		outline: none;
-		transition: color $hoverTime ease, box-shadow $hoverTime ease;
 
 		@include md-min {
 			&:focus .menu__amount {
 				background-color: $color-fff;
-				color: $color-000;
+				color: $color-132;
 				box-shadow: 5px 5px 15px $color-accent;
 			}
 
@@ -120,12 +119,12 @@
 			}
 
 			&:hover .menu__amount {
-				color: $color-000;
+				color: $color-132;
 				box-shadow: 5px 5px 15px transparent;
 				background-color: $color-accent;
 			}
 
-			&:active {
+			&:active .menu__icon {
 				top: 1px;
 			}
 		}
@@ -174,7 +173,7 @@
 	&__link {
 		position: relative;
 		top: -10px;
-		@include Caveat(600);
+		@include Caveat(700);
 		font-size: 56px;
 		text-transform: lowercase;
 		padding: 0 10px;
