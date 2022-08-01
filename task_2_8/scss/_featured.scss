@@ -6,22 +6,6 @@
 		padding: 50px 0;
 	}
 
-	// .featured__title
-	&__title {
-		position: relative;
-		width: 100%;
-		font-size: 38px;
-		text-align: center;
-		margin-bottom: 30px;
-
-		&::before {
-			content: "/";
-			position: absolute;
-			transform: translate(-30px, 0px);
-			color: $color-accent;
-		}
-	}
-
 	// .featured__list
 	&__list {
 		display: flex;

@@ -43,7 +43,22 @@ body {
 	margin: 0 auto;
 }
 
-// .btn
+.title {
+	position: relative;
+	width: 100%;
+	font-size: 38px;
+	text-align: center;
+	text-transform: capitalize;
+	@include adaptiv-value(margin-bottom, 30, 20);
+
+	&::before {
+		content: "/";
+		position: absolute;
+		transform: translate(-30px, 0px);
+		color: $color-accent;
+	}
+}
+
 .btn {
 	position: relative;
 	top: 0;

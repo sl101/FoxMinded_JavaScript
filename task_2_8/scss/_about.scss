@@ -1,9 +1,51 @@
 .about {
+	padding: 120px 0 80px;
+
 	& .menu__body {
 		color: $color-132;
 	}
 
 	& .burger span {
 		background-color: $color-132;
+	}
+
+	// .about__content
+	&__content {
+	}
+
+	// .about__top
+
+	&__top {
+		@include adaptiv-value(padding-top, 70, 20);
+		@include adaptiv-value(padding-bottom, 70, 20);
+		@include adaptiv-value(margin-bottom, 70, 20);
+		background-color: $color-f1f;
+	}
+
+	// .about__crumbs
+	&__crumbs {
+		font-weight: 500;
+		font-size: 26px;
+		color: $color-617;
+	}
+
+	// .about__body
+
+	&__body {
+		max-width: 880px;
+		margin: 0 auto;
+		@include sm {
+			max-width: 100%;
+		}
+	}
+
+	// .about__title
+
+	&__title {
+	}
+
+	// .about__description
+
+	&__description {
 	}
 }
