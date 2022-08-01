@@ -5,7 +5,8 @@
 	right: 0;
 	bottom: 0;
 	max-width: 480px;
-	min-height: 100vh;
+	height: 100vh;
+	// min-height: 100vh;
 	background-color: $color-f1f;
 	@include adaptiv-value(padding, 30, 20);
 	transform: translate(100%, 0);
@@ -67,6 +68,7 @@
 	// .bag__list
 	&__list {
 		height: 100%;
+		overflow: auto;
 	}
 
 	// .bag__footer
@@ -99,6 +101,7 @@
 	display: flex;
 	justify-content: space-between;
 	min-height: 72px;
+	margin-bottom: 25px;
 
 	// .order__picture
 	&__picture {

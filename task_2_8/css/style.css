@@ -288,7 +288,7 @@ body {
   right: 0;
   bottom: 0;
   max-width: 480px;
-  min-height: 100vh;
+  height: 100vh;
   background-color: #f1f5f8;
   padding: calc(20px + 10 * ((100vw - 320px) / 880));
   -webkit-transform: translate(100%, 0);
@@ -366,6 +366,7 @@ body {
 
 .bag__list {
   height: 100%;
+  overflow: auto;
 }
 
 .bag__footer {
@@ -387,6 +388,7 @@ body {
       -ms-flex-pack: justify;
           justify-content: space-between;
   min-height: 72px;
+  margin-bottom: 25px;
 }
 
 .order__picture {
@@ -987,6 +989,14 @@ body {
   color: #132742;
 }
 
+.products .burger span {
+  background-color: #132742;
+}
+
 .about .menu__body {
   color: #132742;
+}
+
+.about .burger span {
+  background-color: #132742;
 }
