@@ -10,226 +10,227 @@
 </head>
 
 <body>
-	<div class="products">
+	<div class="wrapper">
+		<div class="products">
 
-		<header class="header">
-			<div class="container">
-				<div class="header__content menu">
+			<header class="header">
+				<div class="container">
+					<div class="header__content menu">
 
-					<nav class="menu__body">
+						<nav class="menu__body">
 
-						<button class="menu__burger burger" type="button">
-							<span></span>
-							<span></span>
-							<span></span>
-						</button>
+							<button class="menu__burger burger" type="button">
+								<span></span>
+								<span></span>
+								<span></span>
+							</button>
 
-						<ul class="menu__list">
-							<li class="menu__item">
-								<a class="menu__link" href="index.html">Home</a>
-							</li>
+							<ul class="menu__list">
+								<li class="menu__item">
+									<a class="menu__link" href="index.html">Home</a>
+								</li>
 
-							<li class="menu__item">
-								<a class="menu__link" href="#">Products</a>
-							</li>
+								<li class="menu__item">
+									<a class="menu__link" href="#">Products</a>
+								</li>
 
-							<li class="menu__item">
-								<a class="menu__link" href="about.html">About</a>
-							</li>
-						</ul>
+								<li class="menu__item">
+									<a class="menu__link" href="about.html">About</a>
+								</li>
+							</ul>
 
-						<div class="menu__logo logo">
-							<a class="logo__link" href="#">comfy</a>
-						</div>
+							<div class="menu__logo logo">
+								<a class="logo__link" href="#">comfy</a>
+							</div>
 
-						<a class="menu__backet" href="#">
-							<svg class="menu__icon">
-								<use xlink:href="img/sprite.svg#backet"></use>
-							</svg>
-							<span class="menu__amount">0</span>
-						</a>
+							<a class="menu__backet" href="#">
+								<svg class="menu__icon">
+									<use xlink:href="img/sprite.svg#backet"></use>
+								</svg>
+								<span class="menu__amount">0</span>
+							</a>
 
 
-					</nav>
+						</nav>
 
-				</div>
-			</div>
-		</header>
-
-		<main>
-			<div class="products__content">
-
-				<div class="products__top">
-					<div class="container">
-						<span class="products__crumbs">Home / Products</span>
 					</div>
 				</div>
+			</header>
 
-				<div class="container">
-					<div class="products__body">
-						<aside class="products__filter filter">
-							<input class="filter__search" type="text" placeholder="Search...">
+			<main>
+				<div class="products__content">
 
-							<div class="filter__choice choice">
-								<h3 class="choice__title filter__title">
-									company
-								</h3>
-								<ul class="choice__list">
-									<li class="choice__item">
-										<button class="choice__button" type="button">All</button>
+					<div class="products__top">
+						<div class="container">
+							<span class="products__crumbs">Home / Products</span>
+						</div>
+					</div>
+
+					<div class="container">
+						<div class="products__body">
+							<aside class="products__filter filter">
+								<input class="filter__search" type="text" placeholder="Search...">
+
+								<div class="filter__choice choice">
+									<h3 class="choice__title filter__title">
+										company
+									</h3>
+									<ul class="choice__list">
+										<li class="choice__item">
+											<button class="choice__button" type="button">All</button>
+										</li>
+
+										<li class="choice__item">
+											<button class="choice__button" type="button">Ikea</button>
+										</li>
+
+										<li class="choice__item">
+											<button class="choice__button" type="button">Marcos</button>
+										</li>
+
+										<li class="choice__item">
+											<button class="choice__button" type="button">Caressa</button>
+										</li>
+
+										<li class="choice__item">
+											<button class="choice__button" type="button">Liddy</button>
+										</li>
+									</ul>
+								</div>
+
+								<div class="filter__range range">
+									<h3 class="range__title filter__title">Price</h3>
+									<div class="range__box">
+										<input class="range__input" type="range" min="50" max="1000" step="50" value="200" name="income"
+											id="incomeInputId" oninput="incomeOutputId.value = incomeInputId.value">
+										<span class="range__amount">
+											Value: $<output name="income" id="incomeOutputId">0</output>
+										</span>
+									</div>
+								</div>
+							</aside>
+
+							<div class="products__gallery">
+								<ul class="products__list">
+									<li class="pruducts__item pruduct">
+										<a class="product__link" href="#">
+											<div class="product__picture">
+												<img class="product__img" src="img/bg/bg-main.jpg" alt="#">
+											</div>
+										</a>
+										<div class="product__content">
+											<div class="product__title">Sofa</div>
+											<span class="product__price">$10</span>
+										</div>
 									</li>
 
-									<li class="choice__item">
-										<button class="choice__button" type="button">Ikea</button>
+									<li class="pruducts__item pruduct">
+										<a class="product__link" href="#">
+											<div class="product__picture">
+												<img class="product__img" src="img/bg/bg-main.jpg" alt="#">
+											</div>
+										</a>
+										<div class="product__content">
+											<div class="product__title">Sofa</div>
+											<span class="product__price">$10</span>
+										</div>
 									</li>
 
-									<li class="choice__item">
-										<button class="choice__button" type="button">Marcos</button>
+									<li class="pruducts__item pruduct">
+										<a class="product__link" href="#">
+											<div class="product__picture">
+												<img class="product__img" src="img/bg/bg-main.jpg" alt="#">
+											</div>
+										</a>
+										<div class="product__content">
+											<div class="product__title">Sofa</div>
+											<span class="product__price">$10</span>
+										</div>
 									</li>
 
-									<li class="choice__item">
-										<button class="choice__button" type="button">Caressa</button>
+									<li class="pruducts__item pruduct">
+										<a class="product__link" href="#">
+											<div class="product__picture">
+												<img class="product__img" src="img/bg/bg-main.jpg" alt="#">
+											</div>
+										</a>
+										<div class="product__content">
+											<div class="product__title">Sofa</div>
+											<span class="product__price">$10</span>
+										</div>
 									</li>
 
-									<li class="choice__item">
-										<button class="choice__button" type="button">Liddy</button>
+									<li class="pruducts__item pruduct">
+										<a class="product__link" href="#">
+											<div class="product__picture">
+												<img class="product__img" src="img/bg/bg-main.jpg" alt="#">
+											</div>
+										</a>
+										<div class="product__content">
+											<div class="product__title">Sofa</div>
+											<span class="product__price">$10</span>
+										</div>
 									</li>
+
 								</ul>
 							</div>
 
-							<div class="filter__range range">
-								<h3 class="range__title filter__title">Price</h3>
-								<div class="range__box">
-									<input class="range__input" type="range" min="50" max="1000" step="50" value="200" name="income"
-										id="incomeInputId" oninput="incomeOutputId.value = incomeInputId.value">
-									<span class="range__amount">
-										Value: $<output name="income" id="incomeOutputId">0</output>
-									</span>
-								</div>
-							</div>
-						</aside>
-
-						<div class="products__gallery">
-							<ul class="products__list">
-								<li class="pruducts__item pruduct">
-									<a class="product__link" href="#">
-										<div class="product__picture">
-											<img class="product__img" src="img/bg/bg-main.jpg" alt="#">
-										</div>
-									</a>
-									<div class="product__content">
-										<div class="product__title">Sofa</div>
-										<span class="product__price">$10</span>
-									</div>
-								</li>
-
-								<li class="pruducts__item pruduct">
-									<a class="product__link" href="#">
-										<div class="product__picture">
-											<img class="product__img" src="img/bg/bg-main.jpg" alt="#">
-										</div>
-									</a>
-									<div class="product__content">
-										<div class="product__title">Sofa</div>
-										<span class="product__price">$10</span>
-									</div>
-								</li>
-
-								<li class="pruducts__item pruduct">
-									<a class="product__link" href="#">
-										<div class="product__picture">
-											<img class="product__img" src="img/bg/bg-main.jpg" alt="#">
-										</div>
-									</a>
-									<div class="product__content">
-										<div class="product__title">Sofa</div>
-										<span class="product__price">$10</span>
-									</div>
-								</li>
-
-								<li class="pruducts__item pruduct">
-									<a class="product__link" href="#">
-										<div class="product__picture">
-											<img class="product__img" src="img/bg/bg-main.jpg" alt="#">
-										</div>
-									</a>
-									<div class="product__content">
-										<div class="product__title">Sofa</div>
-										<span class="product__price">$10</span>
-									</div>
-								</li>
-
-								<li class="pruducts__item pruduct">
-									<a class="product__link" href="#">
-										<div class="product__picture">
-											<img class="product__img" src="img/bg/bg-main.jpg" alt="#">
-										</div>
-									</a>
-									<div class="product__content">
-										<div class="product__title">Sofa</div>
-										<span class="product__price">$10</span>
-									</div>
-								</li>
-
-							</ul>
 						</div>
-
 					</div>
+
 				</div>
 
-			</div>
+				<aside class="bag">
+					<button class="bag__burger burger" type="button">
+						<span></span>
+						<span></span>
+						<span></span>
+					</button>
 
-			<aside class="bag">
-				<button class="bag__burger burger" type="button">
-					<span></span>
-					<span></span>
-					<span></span>
-				</button>
+					<div class="bag__content">
+						<h2 class="bag__title">
+							your bag
+						</h2>
 
-				<div class="bag__content">
-					<h2 class="bag__title">
-						your bag
-					</h2>
-
-					<ul class="bag__list">
-						<li class="bag__item order">
-							<div class="order__picture">
-								<img class="order__img" src="img/bg/bg-main.jpg" alt="#">
-							</div>
-							<div class="order__content">
-								<div class="order__description">
-									<h3 class="order__title">
-										dining table
-									</h3>
-									<span class="order__price">
-										$ 9.99
-									</span>
+						<ul class="bag__list">
+							<li class="bag__item order">
+								<div class="order__picture">
+									<img class="order__img" src="img/bg/bg-main.jpg" alt="#">
 								</div>
-								<button class="order__action" type="button">
-									remove
-								</button>
-							</div>
-							<div class="order__amount amount-order">
-								<button class="amount-order__top" type="button"></button>
-								<span class="amount-order__value">0</span>
-								<button class="amount-order__bottom" type="button"></button>
-							</div>
-						</li>
-					</ul>
+								<div class="order__content">
+									<div class="order__description">
+										<h3 class="order__title">
+											dining table
+										</h3>
+										<span class="order__price">
+											$ 9.99
+										</span>
+									</div>
+									<button class="order__action" type="button">
+										remove
+									</button>
+								</div>
+								<div class="order__amount amount-order">
+									<button class="amount-order__top" type="button"></button>
+									<span class="amount-order__value">0</span>
+									<button class="amount-order__bottom" type="button"></button>
+								</div>
+							</li>
+						</ul>
 
-					<div class="bag__footer">
-						<div class="bag__value">
-							<span class="bag__total">Total : </span>
-							<span class="bag__summ">$99.99</span>
+						<div class="bag__footer">
+							<div class="bag__value">
+								<span class="bag__total">Total : </span>
+								<span class="bag__summ">$99.99</span>
+							</div>
+							<button class="bag__button btn">checkout</button>
 						</div>
-						<button class="bag__button btn">checkout</button>
 					</div>
-				</div>
-			</aside>
+				</aside>
 
-		</main>
+			</main>
+		</div>
 	</div>
-
 	<script src="js/main.js"></script>
 </body>
 
