@@ -335,7 +335,7 @@ body {
 
 .bag__burger {
   display: block;
-  top: 0;
+  top: 10px;
   outline: none;
   margin-bottom: calc(10px + 5 * ((100vw - 320px) / 880));
 }
@@ -922,7 +922,6 @@ body {
 
 .product__link {
   position: relative;
-  z-index: 1;
   top: 0;
   display: block;
   margin-bottom: 15px;
@@ -986,12 +985,105 @@ body {
   color: #132742;
 }
 
+.products {
+  padding: 120px 0 80px;
+}
+
 .products .menu__body {
   color: #132742;
 }
 
 .products .burger span {
   background-color: #132742;
+}
+
+.products__top {
+  padding-top: calc(20px + 50 * ((100vw - 320px) / 880));
+  padding-bottom: calc(20px + 50 * ((100vw - 320px) / 880));
+  margin-bottom: calc(20px + 50 * ((100vw - 320px) / 880));
+  background-color: #f1f5f8;
+}
+
+.products__crumbs {
+  font-weight: 500;
+  font-size: 26px;
+  color: #617e99;
+}
+
+.products__body {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  gap: calc(15px + 15 * ((100vw - 320px) / 880));
+}
+
+.products__list {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 1fr 1fr 1fr;
+      grid-template-columns: 1fr 1fr 1fr;
+  grid-gap: calc(10px + 5 * ((100vw - 320px) / 880));
+  text-align: center;
+}
+
+@media only screen and (max-width: 991.98px) {
+  .products__list {
+    -ms-grid-columns: 1fr 1fr;
+        grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media only screen and (max-width: 767.98px) {
+  .products__list {
+    -ms-grid-columns: 1fr;
+        grid-template-columns: 1fr;
+  }
+}
+
+.filter {
+  color: #617e99;
+  max-width: 160px;
+}
+
+.filter__title {
+  font-weight: 500;
+  font-size: 22px;
+  text-transform: capitalize;
+  color: #132742;
+  margin-bottom: calc(10px + 4 * ((100vw - 320px) / 880));
+}
+
+.filter__search {
+  width: 100%;
+  padding: 5px 10px;
+  border-radius: 4px;
+  background-color: #f1f5f8;
+  margin-bottom: calc(20px + 10 * ((100vw - 320px) / 880));
+}
+
+.choice {
+  margin-bottom: calc(20px + 10 * ((100vw - 320px) / 880));
+}
+
+.choice__list {
+  padding: 0 0 0 10px;
+}
+
+.choice__item {
+  margin-bottom: calc(10px + 4 * ((100vw - 320px) / 880));
+}
+
+.range__input {
+  cursor: pointer;
+  margin-bottom: calc(10px + 4 * ((100vw - 320px) / 880));
+}
+
+.range__amount {
+  display: block;
+  color: #617e99;
 }
 
 .about {

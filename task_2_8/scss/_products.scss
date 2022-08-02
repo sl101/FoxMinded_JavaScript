@@ -1,9 +1,141 @@
 .products {
+	padding: 120px 0 80px;
 	& .menu__body {
 		color: $color-132;
 	}
 
 	& .burger span {
 		background-color: $color-132;
+	}
+
+	// .products__content
+
+	&__content {
+	}
+
+	// .products__top
+	&__top {
+		@include adaptiv-value(padding-top, 70, 20);
+		@include adaptiv-value(padding-bottom, 70, 20);
+		@include adaptiv-value(margin-bottom, 70, 20);
+		background-color: $color-f1f;
+	}
+
+	// .products__crumbs
+	&__crumbs {
+		font-weight: 500;
+		font-size: 26px;
+		color: $color-617;
+	}
+
+	// .products__body
+
+	&__body {
+		display: flex;
+		justify-content: space-between;
+
+		@include adaptiv-value(gap, 30, 15);
+	}
+
+	// .products__filter
+
+	&__filter {
+	}
+
+	// .products__gallery
+
+	&__gallery {
+	}
+
+	// .products__list
+
+	&__list {
+		display: grid;
+		grid-template-columns: 1fr 1fr 1fr;
+		@include adaptiv-value(grid-gap, 15, 10);
+		text-align: center;
+
+		@include lg {
+			grid-template-columns: 1fr 1fr;
+		}
+
+		@include md {
+			grid-template-columns: 1fr;
+		}
+	}
+}
+
+.filter {
+	color: $color-617;
+	max-width: 160px;
+
+	// .filter__title
+	&__title {
+		font-weight: 500;
+		font-size: 22px;
+		text-transform: capitalize;
+		color: $color-132;
+		@include adaptiv-value(margin-bottom, 14, 10);
+	}
+
+	// .filter__search
+	&__search {
+		width: 100%;
+		padding: 5px 10px;
+		border-radius: 4px;
+		background-color: $color-f1f;
+		@include adaptiv-value(margin-bottom, 30, 20);
+	}
+}
+
+.choice {
+	@include adaptiv-value(margin-bottom, 30, 20);
+
+	// .choice__title
+	&__title {
+	}
+
+	// .choice__list
+
+	&__list {
+		padding: 0 0 0 10px;
+	}
+
+	// .choice__item
+
+	&__item {
+		@include adaptiv-value(margin-bottom, 14, 10);
+	}
+
+	// .choice__button
+
+	&__button {
+	}
+}
+
+.range {
+	// .range__title
+
+	&__title {
+	}
+
+	// .range__box
+
+	&__box {
+	}
+
+	// .range__input
+
+	&__input {
+		// display: block;
+		cursor: pointer;
+		@include adaptiv-value(margin-bottom, 14, 10);
+	}
+
+	// .range__amount
+
+	&__amount {
+		display: block;
+		color: $color-617;
 	}
 }

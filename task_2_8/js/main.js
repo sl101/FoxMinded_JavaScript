@@ -36,12 +36,19 @@ function burger_open(paddingOffset, burger) {
 			el.style.paddingRight = paddingOffset;
 		});
 	}
+	if (document.body.classList.contains('lock')) {
+		const activeBurgers = document.querySelectorAll('.burger.active');
+		activeBurgers.forEach((element) => {
+			burger_close(element);
+		});
+	}
 	document.body.style.paddingRight = paddingOffset;
 	document.body.classList.add('lock');
 	burger.classList.add('active');
 	if (!burger.classList.contains('bag__burger')) {
 		menuLink.classList.add('active');
 	} else {
+		// burger_close(burger);
 		bag.classList.add('active');
 	}
 }

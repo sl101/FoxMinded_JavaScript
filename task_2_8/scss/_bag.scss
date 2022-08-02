@@ -27,7 +27,7 @@
 	// .bag__burger
 	&__burger {
 		display: block;
-		top: 0;
+		top: 10px;
 		outline: none;
 		@include adaptiv-value(margin-bottom, 15, 10);
 
