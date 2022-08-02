@@ -37,18 +37,12 @@
 		@include adaptiv-value(gap, 30, 15);
 	}
 
-	// .products__filter
-
-	&__filter {
-	}
-
 	// .products__gallery
 
 	&__gallery {
 	}
 
 	// .products__list
-
 	&__list {
 		display: grid;
 		grid-template-columns: 1fr 1fr 1fr;
@@ -66,8 +60,12 @@
 }
 
 .filter {
+	flex: 0 0 130px;
 	color: $color-617;
-	max-width: 160px;
+
+	@include sm {
+		flex: 0 0 100px;
+	}
 
 	// .filter__title
 	&__title {
@@ -84,7 +82,30 @@
 		padding: 5px 10px;
 		border-radius: 4px;
 		background-color: $color-f1f;
+		outline: none;
 		@include adaptiv-value(margin-bottom, 30, 20);
+		transition: all $hoverTime ease;
+
+		&::placeholder {
+			transition: color $hoverTime ease;
+		}
+
+		@include md-min {
+			&:hover {
+				&::placeholder {
+					color: $color-accent;
+				}
+			}
+
+			&:active {
+			}
+
+			&:focus {
+				&::placeholder {
+					color: $color-132;
+				}
+			}
+		}
 	}
 }
 
@@ -110,6 +131,23 @@
 	// .choice__button
 
 	&__button {
+		position: relative;
+		top: 0;
+		outline: none;
+		transition: color $hoverTime ease;
+		@include md-min {
+			&:focus {
+				color: $color-132;
+			}
+
+			&:hover {
+				color: $color-accent;
+			}
+
+			&:active {
+				top: 1px;
+			}
+		}
 	}
 }
 
@@ -125,11 +163,24 @@
 	}
 
 	// .range__input
-
 	&__input {
-		// display: block;
+		width: 100%;
+		height: 20px;
 		cursor: pointer;
+		outline: none;
 		@include adaptiv-value(margin-bottom, 14, 10);
+
+		&::-webkit-slider-thumb {
+			background-color: $color-132;
+			border-radius: 100%;
+			transition: box-shadow $hoverTime linear;
+		}
+
+		&:focus {
+			&::-webkit-slider-thumb {
+				box-shadow: 0 0 15px $color-132;
+			}
+		}
 	}
 
 	// .range__amount
