@@ -10,6 +10,7 @@ const fixedBlocks = document.querySelectorAll('.fixed');
 const productList = document.querySelectorAll('.products__item.product');
 
 const searchField = document.querySelector('.filter__search');
+const choiceButton = document.querySelectorAll('.choice__button');
 
 // Burgers =============================================
 if (burgers) {
@@ -95,11 +96,11 @@ if (productList) {
 	});
 }
 
-// Filters =================================================
-
+// Search =================================================
 function loadSearchTarget(searchProducts) {
 	const listGallery = document.querySelector('.products__list');
 	searchProducts.forEach((element) => {
+		const productLink = element.querySelector('.product__link').href;
 		const productImg = element.querySelector('.product__img').src;
 		const productAlt = element.querySelector('.product__img').alt;
 		const productTitle = element.querySelector('.product__title').innerHTML;
@@ -108,10 +109,11 @@ function loadSearchTarget(searchProducts) {
 		const productUnit = document.createElement('li');
 		productUnit.classList.add('products__item');
 		productUnit.classList.add('product');
+		productUnit.classList.add('all');
 		listGallery.appendChild(productUnit);
 
 		productUnit.innerHTML = `
-		<a class="product__link" href="#">
+		<a class="product__link" href=${productLink}>
 		<div class="product__picture">
 			<img class="product__img" src=${productImg} alt="${productAlt}">
 		</div>
@@ -158,5 +160,31 @@ if (searchField) {
 			searchField.innerHTML = '';
 			searchField.value = '';
 		}
+	});
+}
+
+// Filters ================================================
+function setAnimation(data) {
+	if (productList) {
+		const animatProducts = [];
+		productList.forEach((element) => {
+			if (element.dataset.company.includes(data)) {
+				animatProducts.push(element);
+			}
+		});
+		cleanGallery();
+		loadSearchTarget(animatProducts);
+	}
+}
+
+if (choiceButton) {
+	choiceButton.forEach((element) => {
+		element.addEventListener('click', (e) => {
+			e.preventDefault();
+			searchField.innerHTML = '';
+			searchField.value = '';
+			const filterData = element.dataset.filter;
+			setAnimation(filterData);
+		});
 	});
 }
