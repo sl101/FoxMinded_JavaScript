@@ -1,17 +1,19 @@
-'use strict';
+const body = document.querySelector('body');
+const burgers = body.querySelectorAll('.burger');
+const backet = body.querySelector('.menu__backet');
+const bag = body.querySelector('.bag');
+const menuLink = body.querySelector('.menu__list');
+const menuLinks = body.querySelectorAll('.menu__link');
+const fixedBlocks = body.querySelectorAll('.fixed');
 
-const burgers = document.querySelectorAll('.burger');
-const backet = document.querySelector('.menu__backet');
-const bag = document.querySelector('.bag');
-const menuLink = document.querySelector('.menu__list');
-const menuLinks = document.querySelectorAll('.menu__link');
-const fixedBlocks = document.querySelectorAll('.fixed');
+const productList = body.querySelectorAll('.products__item.product');
 
-const productList = document.querySelectorAll('.products__item.product');
+const searchField = body.querySelector('.filter__search');
+const choiceButton = body.querySelectorAll('.choice__button');
 
-const searchField = document.querySelector('.filter__search');
-const choiceButton = document.querySelectorAll('.choice__button');
+const rangeInput = body.querySelector('.range__input');
 
+loadLocalStorageData();
 // Burgers =============================================
 if (burgers) {
 	burgers.forEach((element) => {
@@ -97,31 +99,40 @@ if (productList) {
 }
 
 // Search =================================================
-function loadSearchTarget(searchProducts) {
+function loadGallery(data) {
 	const listGallery = document.querySelector('.products__list');
-	searchProducts.forEach((element) => {
-		const productLink = element.querySelector('.product__link').href;
-		const productImg = element.querySelector('.product__img').src;
-		const productAlt = element.querySelector('.product__img').alt;
-		const productTitle = element.querySelector('.product__title').innerHTML;
-		const productPrice = element.querySelector('.product__price').innerHTML;
+	data.forEach((element) => {
+		const product = element.product;
+		const productLink = element.productLink;
+		const productImg = element.productImg;
+		const productAlt = element.productAlt;
+		const productTitle = element.productTitle;
+		const productPrice = element.productPrice;
 
-		const productUnit = document.createElement('li');
-		productUnit.classList.add('products__item');
-		productUnit.classList.add('product');
-		productUnit.classList.add('all');
-		listGallery.appendChild(productUnit);
+		const rangeInput = body.querySelector('.range__input');
+		if (Number(productPrice) <= Number(rangeInput.value)) {
+			const productUnit = document.createElement('li');
+			productUnit.classList.add('products__item');
+			productUnit.classList.add('product');
+			productUnit.dataset.compaty = `${product}`;
+			listGallery.appendChild(productUnit);
 
-		productUnit.innerHTML = `
+			productUnit.innerHTML = `
 		<a class="product__link" href=${productLink}>
-		<div class="product__picture">
-			<img class="product__img" src=${productImg} alt="${productAlt}">
+			<div class="product__picture">
+				<img class="product__img" src=${productImg} alt="${productAlt}">
+			</div>
+		</a>
+		<div class="product__content">
+			<div class="product__description">
+				<div class="product__title">${productTitle}</div>
+				<span class="product__currency">$</span>
+				<span class="product__price">${productPrice}</span>
+			</div>
+			<button class="product__add" type="button"></button>
 		</div>
-	</a>
-	<div class="product__content">
-		<div class="product__title">${productTitle}</div>
-		<span class="product__price">${productPrice}</span>
-	</div>`;
+		`;
+		}
 	});
 }
 
@@ -135,20 +146,33 @@ function cleanGallery() {
 function findSearchTarget(target) {
 	const searchProducts = [];
 	let value = false;
-	for (let index = 0; index < productsNames.length; index++) {
-		const element = productsNames[index];
-		if (element.toLowerCase().includes(target.value.toLowerCase())) {
-			searchProducts.push(productList[index]);
-			value = true;
+	if (target.value) {
+		for (let index = 0; index < productsNames.length; index++) {
+			const elementArray = productsNames[index].split(' ');
+			elementArray.forEach((element) => {
+				if (element.toLowerCase() === target.value.toLowerCase()) {
+					searchProducts.push(productList[index]);
+					value = true;
+				}
+			});
 		}
-	}
-	if (value) {
-		cleanGallery();
-		loadSearchTarget(searchProducts);
+		if (value) {
+			cleanGallery();
+			localStorage.setItem(
+				'searchList',
+				JSON.stringify(getObjectsList(searchProducts))
+			);
+			const currentData = JSON.parse(localStorage.getItem('searchList'));
+			loadGallery(currentData);
+		} else {
+			target.innerHTML = '';
+			target.value = '';
+			target.placeholder = 'no data';
+		}
 	} else {
 		target.innerHTML = '';
 		target.value = '';
-		target.placeholder = 'no data';
+		target.placeholder = 'Search...';
 	}
 }
 
@@ -159,21 +183,74 @@ if (searchField) {
 		} else if (element.keyCode === 27) {
 			searchField.innerHTML = '';
 			searchField.value = '';
+			searchField.placeholder = 'Search...';
 		}
 	});
 }
 
-// Filters ================================================
+// Company Filters ================================================
+function loadLocalStorageData(data) {
+	const rangeInput = body.querySelector('.range__input');
+	const rangeOutput = body.querySelector('.range__output');
+	const rangeValue = localStorage.getItem('price');
+	if (rangeValue) {
+		rangeInput.value = rangeValue;
+		rangeOutput.innerHTML = rangeValue;
+	} else {
+		localStorage.setItem('price', rangeInput.value);
+		rangeOutput.innerHTML = rangeInput.value;
+	}
+
+	if (data) {
+		const currentData = JSON.parse(localStorage.getItem(data));
+		cleanGallery();
+		loadGallery(currentData);
+	} else {
+		const productList = body.querySelectorAll('.products__item.product');
+		const productData = getObjectsList(productList);
+		localStorage.setItem('productList', JSON.stringify(productData));
+		cleanGallery();
+		const currentData = JSON.parse(localStorage.getItem('productList'));
+		loadGallery(currentData);
+	}
+}
+
+function getObjectsList(productList) {
+	const productObjectList = [];
+	productList.forEach((element) => {
+		const product = {
+			product: element.dataset.company,
+			productLink: element.querySelector('.product__link').href,
+			productImg: element.querySelector('.product__img').src,
+			productAlt: element.querySelector('.product__img').alt,
+			productTitle: element.querySelector('.product__title').innerHTML,
+			productPrice: element.querySelector('.product__price').innerHTML,
+		};
+		productObjectList.push(product);
+	});
+	return productObjectList;
+}
+
 function setAnimation(data) {
 	if (productList) {
-		const animatProducts = [];
+		const animateProducts = [];
 		productList.forEach((element) => {
 			if (element.dataset.company.includes(data)) {
-				animatProducts.push(element);
+				animateProducts.push(element);
 			}
 		});
-		cleanGallery();
-		loadSearchTarget(animatProducts);
+		if (
+			localStorage.getItem('savedCompany') ||
+			localStorage.getItem('searchList')
+		) {
+			localStorage.removeItem('savedCompany');
+			localStorage.removeItem('searchList');
+		}
+		localStorage.setItem(
+			'savedCompany',
+			JSON.stringify(getObjectsList(animateProducts))
+		);
+		loadLocalStorageData('savedCompany');
 	}
 }
 
@@ -183,8 +260,41 @@ if (choiceButton) {
 			e.preventDefault();
 			searchField.innerHTML = '';
 			searchField.value = '';
+			searchField.placeholder = 'Search...';
 			const filterData = element.dataset.filter;
 			setAnimation(filterData);
 		});
 	});
 }
+
+// Range ==========================================
+if (rangeInput) {
+	rangeInput.addEventListener('change', () => {
+		localStorage.setItem('price', rangeInput.value);
+
+		if (localStorage.getItem('searchList') !== null) {
+			loadLocalStorageData('searchList');
+		} else if (localStorage.getItem('savedCompany') !== null) {
+			loadLocalStorageData('savedCompany');
+		} else {
+			loadLocalStorageData('productList');
+		}
+	});
+}
+
+// Backet ==============================================
+function addToCart(data) {
+	console.log('data: ' + data.className);
+}
+const backetAddList = body.querySelectorAll('.product__add');
+
+// if (productList) {
+// 	productList.forEach((element) => {
+// 		const backetAdd = element.querySelector('.product__add');
+// 		backetAdd.addEventListener('click', (e) => {
+// 			e.preventDefault();
+// 			addToCart(element);
+// 			// console.log('backetAdd: ' + backetAdd.className);
+// 		});
+// 	});
+// }

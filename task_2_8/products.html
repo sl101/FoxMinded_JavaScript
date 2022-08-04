@@ -101,10 +101,10 @@
 								<div class="filter__range range">
 									<h3 class="range__title filter__title">Price</h3>
 									<div class="range__box">
-										<input class="range__input" type="range" min="10" max="1000" step="10" value="80" name="income"
+										<input class="range__input" type="range" min="10" max="1000" step="10" value="1000" name="income"
 											id="incomeInputId" oninput="incomeOutputId.value = incomeInputId.value">
 										<span class="range__amount">
-											Value: $<output name="income" id="incomeOutputId">80</output>
+											Value: $<output class="range__output" name="income" id="incomeOutputId"></output>
 										</span>
 									</div>
 								</div>
@@ -119,8 +119,11 @@
 											</div>
 										</a>
 										<div class="product__content">
-											<div class="product__title">Soft Sofa</div>
-											<span class="product__price">$420</span>
+											<div class="product__description">
+												<div class="product__title">Soft Sofa</div>
+												<span class="product__currency">$</span><span class="product__price">420</span>
+											</div>
+											<button class="product__add" type="button"></button>
 										</div>
 									</li>
 
@@ -131,8 +134,11 @@
 											</div>
 										</a>
 										<div class="product__content">
-											<div class="product__title">Hand Made Table</div>
-											<span class="product__price">$379.99</span>
+											<div class="product__description">
+												<div class="product__title">Hand Made Table</div>
+												<span class="product__currency">$</span><span class="product__price">379.99</span>
+											</div>
+											<button class="product__add" type="button"></button>
 										</div>
 									</li>
 
@@ -143,8 +149,11 @@
 											</div>
 										</a>
 										<div class="product__content">
-											<div class="product__title">Wooden Chear</div>
-											<span class="product__price">$100.00</span>
+											<div class="product__description">
+												<div class="product__title">Wooden Chear</div>
+												<span class="product__currency">$</span><span class="product__price">100.00</span>
+											</div>
+											<button class="product__add" type="button"></button>
 										</div>
 									</li>
 
@@ -155,8 +164,11 @@
 											</div>
 										</a>
 										<div class="product__content">
-											<div class="product__title">Wooden Sofa</div>
-											<span class="product__price">$555.00</span>
+											<div class="product__description">
+												<div class="product__title">Wooden Sofa</div>
+												<span class="product__currency">$</span><span class="product__price">555.00</span>
+											</div>
+											<button class="product__add" type="button"></button>
 										</div>
 									</li>
 
@@ -167,8 +179,11 @@
 											</div>
 										</a>
 										<div class="product__content">
-											<div class="product__title">Dinner Table</div>
-											<span class="product__price">$399.99</span>
+											<div class="product__description">
+												<div class="product__title">Dinner Table</div>
+												<span class="product__currency">$</span><span class="product__price">399.99</span>
+											</div>
+											<button class="product__add" type="button"></button>
 										</div>
 									</li>
 
@@ -179,8 +194,11 @@
 											</div>
 										</a>
 										<div class="product__content">
-											<div class="product__title">Light Sofa</div>
-											<span class="product__price">$99.99</span>
+											<div class="product__description">
+												<div class="product__title">Light Sofa</div>
+												<span class="product__currency">$</span><span class="product__price">99.99</span>
+											</div>
+											<button class="product__add" type="button"></button>
 										</div>
 									</li>
 
@@ -191,8 +209,11 @@
 											</div>
 										</a>
 										<div class="product__content">
-											<div class="product__title">Conference Table</div>
-											<span class="product__price">$280.99</span>
+											<div class="product__description">
+												<div class="product__title">Conference Table</div>
+												<span class="product__currency">$</span><span class="product__price">280.99</span>
+											</div>
+											<button class="product__add" type="button"></button>
 										</div>
 									</li>
 
@@ -203,8 +224,11 @@
 											</div>
 										</a>
 										<div class="product__content">
-											<div class="product__title">Relax Chear</div>
-											<span class="product__price">$149.99</span>
+											<div class="product__description">
+												<div class="product__title">Relax Chear</div>
+												<span class="product__currency">$</span><span class="product__price">149.99</span>
+											</div>
+											<button class="product__add" type="button"></button>
 										</div>
 									</li>
 
@@ -215,8 +239,11 @@
 											</div>
 										</a>
 										<div class="product__content">
-											<div class="product__title">Leather sofa</div>
-											<span class="product__price">$777.77</span>
+											<div class="product__description">
+												<div class="product__title">Leather sofa</div>
+												<span class="product__currency">$</span><span class="product__price">777.77</span>
+											</div>
+											<button class="product__add" type="button"></button>
 										</div>
 									</li>
 								</ul>
