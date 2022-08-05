@@ -1089,11 +1089,15 @@ body {
   gap: calc(15px + 15 * ((100vw - 320px) / 880));
 }
 
+.products__gallery {
+  width: 100%;
+}
+
 .products__list {
   display: -ms-grid;
   display: grid;
-  -ms-grid-columns: 1fr 1fr 1fr;
-      grid-template-columns: 1fr 1fr 1fr;
+  -ms-grid-columns: (1fr)[3];
+      grid-template-columns: repeat(3, 1fr);
   grid-gap: calc(10px + 5 * ((100vw - 320px) / 880));
   text-align: center;
 }
@@ -1109,6 +1113,7 @@ body {
   .products__list {
     -ms-grid-columns: 1fr;
         grid-template-columns: 1fr;
+    text-align: left;
   }
 }
 

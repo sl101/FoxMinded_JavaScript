@@ -9,10 +9,6 @@
 		background-color: $color-132;
 	}
 
-	// .about__content
-	&__content {
-	}
-
 	// .about__top
 	&__top {
 		@include adaptiv-value(padding-top, 70, 20);
@@ -29,22 +25,11 @@
 	}
 
 	// .about__body
-
 	&__body {
 		max-width: 880px;
 		margin: 0 auto;
 		@include sm {
 			max-width: 100%;
 		}
-	}
-
-	// .about__title
-
-	&__title {
-	}
-
-	// .about__description
-
-	&__description {
 	}
 }

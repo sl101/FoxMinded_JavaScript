@@ -1,6 +1,7 @@
 /*jshint esversion: 6 */
 
 const body = document.querySelector('body');
+const productPage = document.querySelector('.products');
 const bag = body.querySelector('.bag');
 const burgers = body.querySelectorAll('.burger');
 const backet = body.querySelector('.menu__backet');
@@ -93,7 +94,6 @@ function burger_close(burger) {
 		bag.classList.remove('active');
 	}
 }
-
 // Products ================================================
 const productsNames = [];
 if (productList) {
@@ -202,28 +202,30 @@ if (searchField) {
 
 // Company Filters ================================================
 function loadLocalStorageData(data) {
-	const rangeInput = body.querySelector('.range__input');
-	const rangeOutput = body.querySelector('.range__output');
-	const rangeValue = localStorage.getItem('price');
-	if (rangeValue) {
-		rangeInput.value = rangeValue;
-		rangeOutput.innerHTML = rangeValue;
-	} else {
-		localStorage.setItem('price', rangeInput.value);
-		rangeOutput.innerHTML = rangeInput.value;
-	}
+	if (productPage) {
+		const rangeInput = productPage.querySelector('.range__input');
+		const rangeOutput = productPage.querySelector('.range__output');
+		const rangeValue = localStorage.getItem('price');
+		if (rangeValue) {
+			rangeInput.value = rangeValue;
+			rangeOutput.innerHTML = rangeValue;
+		} else {
+			localStorage.setItem('price', rangeInput.value);
+			rangeOutput.innerHTML = rangeInput.value;
+		}
 
-	if (data) {
-		const currentData = JSON.parse(localStorage.getItem(data));
-		cleanGallery();
-		loadGallery(currentData);
-	} else {
-		const productList = body.querySelectorAll('.products__item.product');
-		const productData = getObjectsList(productList);
-		localStorage.setItem('productList', JSON.stringify(productData));
-		cleanGallery();
-		const currentData = JSON.parse(localStorage.getItem('productList'));
-		loadGallery(currentData);
+		if (data) {
+			const currentData = JSON.parse(localStorage.getItem(data));
+			cleanGallery();
+			loadGallery(currentData);
+		} else {
+			const productList = body.querySelectorAll('.products__item.product');
+			const productData = getObjectsList(productList);
+			localStorage.setItem('productList', JSON.stringify(productData));
+			cleanGallery();
+			const currentData = JSON.parse(localStorage.getItem('productList'));
+			loadGallery(currentData);
+		}
 	}
 }
 
