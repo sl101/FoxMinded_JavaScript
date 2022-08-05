@@ -8,11 +8,6 @@
 		background-color: $color-132;
 	}
 
-	// .products__content
-
-	&__content {
-	}
-
 	// .products__top
 	&__top {
 		@include adaptiv-value(padding-top, 70, 20);

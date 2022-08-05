@@ -75,21 +75,24 @@
 	&__footer {
 		width: 100%;
 		text-align: center;
-		@include adaptiv-value(padding-right, 60, 20);
-		@include adaptiv-value(padding-left, 60, 20);
+		@include adaptiv-value(padding-right, 40, 20);
+		@include adaptiv-value(padding-left, 40, 20);
 	}
 
 	// .bag__value
 	&__value {
+		font-size: 0;
 	}
 
 	// .bag__total
-	&__total {
+	&__total,
+	&__summ {
+		@include adaptiv-value(font-size, 40, 18);
 	}
 
 	// .bag__summ
-	&__summ {
-	}
+	// &__summ {
+	// }
 
 	// .bag__button
 	&__button {

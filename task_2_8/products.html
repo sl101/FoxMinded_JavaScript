@@ -112,22 +112,7 @@
 
 							<div class="products__gallery">
 								<ul class="products__list">
-									<li class="products__item product" data-company="ikea all">
-										<a class="product__link" href="img/gallery/ikea-sofa-soft.jpg">
-											<div class="product__picture">
-												<img class="product__img" src="img/gallery/ikea-sofa-soft.jpg" alt="Soft Sofa">
-											</div>
-										</a>
-										<div class="product__content">
-											<div class="product__description">
-												<div class="product__title">Soft Sofa</div>
-												<span class="product__currency">$</span><span class="product__price">420</span>
-											</div>
-											<button class="product__add" type="button"></button>
-										</div>
-									</li>
-
-									<li class="products__item product" data-company="caressa all">
+									<li class="products__item product" data-company="caressa all" id="1">
 										<a class="product__link" href="img/gallery/caressa-table-hand-made.jpg">
 											<div class="product__picture">
 												<img class="product__img" src="img/gallery/caressa-table-hand-made.jpg" alt="Hand Made Table">
@@ -142,7 +127,7 @@
 										</div>
 									</li>
 
-									<li class="products__item product" data-company="liddy all">
+									<li class="products__item product" data-company="liddy all" id="2">
 										<a class="product__link" href="img/gallery/liddy-chear-wooden.jpg">
 											<div class="product__picture">
 												<img class="product__img" src="img/gallery/liddy-chear-wooden.jpg" alt="Wooden Chear">
@@ -157,7 +142,7 @@
 										</div>
 									</li>
 
-									<li class="products__item product" data-company="caressa all">
+									<li class="products__item product" data-company="caressa all" id="3">
 										<a class="product__link" href="img/gallery/caressa-sofa-wooden.jpg">
 											<div class="product__picture">
 												<img class="product__img" src="img/gallery/caressa-sofa-wooden.jpg" alt="Wooden Sofa">
@@ -172,7 +157,7 @@
 										</div>
 									</li>
 
-									<li class="products__item product" data-company="marcos all">
+									<li class="products__item product" data-company="marcos all" id="4">
 										<a class="product__link" href="img//gallery/marcos-dinner-table.webp">
 											<div class="product__picture">
 												<img class="product__img" src="img//gallery/marcos-dinner-table.webp" alt="Dinner Table">
@@ -187,7 +172,7 @@
 										</div>
 									</li>
 
-									<li class="products__item product" data-company="caressa all">
+									<li class="products__item product" data-company="caressa all" id="5">
 										<a class="product__link" href="img/gallery/caressa-sofa-light.jpg">
 											<div class="product__picture">
 												<img class="product__img" src="img/gallery/caressa-sofa-light.jpg" alt="Light Sofa">
@@ -202,7 +187,7 @@
 										</div>
 									</li>
 
-									<li class="products__item product" data-company="marcos all">
+									<li class="products__item product" data-company="marcos all" id="6">
 										<a class="product__link" href="img/gallery/marcos-table-conference.jpg">
 											<div class="product__picture">
 												<img class="product__img" src="img/gallery/marcos-table-conference.jpg" alt="Conference Table">
@@ -217,7 +202,7 @@
 										</div>
 									</li>
 
-									<li class="products__item product" data-company="ikea all">
+									<li class="products__item product" data-company="ikea all" id="7">
 										<a class="product__link" href="img/gallery/ikea-chear-relax.jpg">
 											<div class="product__picture">
 												<img class="product__img" src="img/gallery/ikea-chear-relax.jpg" alt="Relax Chear">
@@ -232,7 +217,7 @@
 										</div>
 									</li>
 
-									<li class="products__item product" data-company="liddy all">
+									<li class="products__item product" data-company="liddy all" id="8">
 										<a class="product__link" href="img/gallery/liddy-sofa-leather.jpg">
 											<div class="product__picture">
 												<img class="product__img" src="img/gallery/liddy-sofa-leather.jpg" alt="Leather sofa">
@@ -242,6 +227,21 @@
 											<div class="product__description">
 												<div class="product__title">Leather sofa</div>
 												<span class="product__currency">$</span><span class="product__price">777.77</span>
+											</div>
+											<button class="product__add" type="button"></button>
+										</div>
+									</li>
+
+									<li class="products__item product" data-company="ikea all" id="9">
+										<a class="product__link" href="img/gallery/ikea-sofa-soft.jpg">
+											<div class="product__picture">
+												<img class="product__img" src="img/gallery/ikea-sofa-soft.jpg" alt="Soft Sofa">
+											</div>
+										</a>
+										<div class="product__content">
+											<div class="product__description">
+												<div class="product__title">Soft Sofa</div>
+												<span class="product__currency">$</span><span class="product__price">420</span>
 											</div>
 											<button class="product__add" type="button"></button>
 										</div>
@@ -265,36 +265,12 @@
 							your bag
 						</h2>
 
-						<ul class="bag__list">
-							<li class="bag__item order">
-								<div class="order__picture">
-									<img class="order__img" src="img/bg/bg-main.jpg" alt="#">
-								</div>
-								<div class="order__content">
-									<div class="order__description">
-										<h3 class="order__title">
-											dining table
-										</h3>
-										<span class="order__price">
-											$ 9.99
-										</span>
-									</div>
-									<button class="order__action" type="button">
-										remove
-									</button>
-								</div>
-								<div class="order__amount amount-order">
-									<button class="amount-order__top" type="button"></button>
-									<span class="amount-order__value">0</span>
-									<button class="amount-order__bottom" type="button"></button>
-								</div>
-							</li>
-						</ul>
+						<ul class="bag__list"></ul>
 
 						<div class="bag__footer">
 							<div class="bag__value">
-								<span class="bag__total">Total : </span>
-								<span class="bag__summ">$99.99</span>
+								<span class="bag__total">Total : $</span>
+								<span class="bag__summ">0.00</span>
 							</div>
 							<button class="bag__button btn">checkout</button>
 						</div>

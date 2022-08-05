@@ -347,7 +347,20 @@ body {
   right: 0;
   width: 40px;
   height: 40px;
-  background-color: salmon;
+  outline: none;
+  background-color: transparent;
+}
+
+@media only screen and (min-width: 767.98px) {
+  .product__add:focus:before, .product__add:focus:after {
+    background-color: #617e99;
+  }
+  .product__add:hover:before, .product__add:hover:after {
+    background-color: #bb5d28;
+  }
+  .product__add:active {
+    top: 1px;
+  }
 }
 
 .product__add:before, .product__add:after {
@@ -359,7 +372,9 @@ body {
   left: 5px;
   -webkit-transform: translateY(-50%);
           transform: translateY(-50%);
-  background-color: #132742;
+  background-color: #617e99;
+  -webkit-transition: background-color 0.4s ease;
+  transition: background-color 0.4s ease;
 }
 
 .product__add:after {
@@ -514,8 +529,16 @@ body {
 .bag__footer {
   width: 100%;
   text-align: center;
-  padding-right: calc(20px + 40 * ((100vw - 320px) / 880));
-  padding-left: calc(20px + 40 * ((100vw - 320px) / 880));
+  padding-right: calc(20px + 20 * ((100vw - 320px) / 880));
+  padding-left: calc(20px + 20 * ((100vw - 320px) / 880));
+}
+
+.bag__value {
+  font-size: 0;
+}
+
+.bag__total, .bag__summ {
+  font-size: calc(18px + 22 * ((100vw - 320px) / 880));
 }
 
 .bag__button {

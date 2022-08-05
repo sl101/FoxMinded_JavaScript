@@ -1,7 +1,9 @@
+/*jshint esversion: 6 */
+
 const body = document.querySelector('body');
+const bag = body.querySelector('.bag');
 const burgers = body.querySelectorAll('.burger');
 const backet = body.querySelector('.menu__backet');
-const bag = body.querySelector('.bag');
 const menuLink = body.querySelector('.menu__list');
 const menuLinks = body.querySelectorAll('.menu__link');
 const fixedBlocks = body.querySelectorAll('.fixed');
@@ -14,6 +16,7 @@ const choiceButton = body.querySelectorAll('.choice__button');
 const rangeInput = body.querySelector('.range__input');
 
 loadLocalStorageData();
+rewriteBacketAmount();
 // Burgers =============================================
 if (burgers) {
 	burgers.forEach((element) => {
@@ -32,6 +35,7 @@ if (backet) {
 	backet.addEventListener('click', (e) => {
 		e.preventDefault();
 		let paddingOffset = window.innerWidth - document.body.offsetWidth + 'px';
+		loadBasketStorage();
 		const bagBurger = document.querySelector('.bag__burger');
 		burger_open(paddingOffset, bagBurger);
 	});
@@ -101,8 +105,10 @@ if (productList) {
 // Search =================================================
 function loadGallery(data) {
 	const listGallery = document.querySelector('.products__list');
-	data.forEach((element) => {
-		const product = element.product;
+	for (let index = 0; index < data.length; index++) {
+		const element = data[index];
+		const productData = element.productData;
+		const productId = element.productId;
 		const productLink = element.productLink;
 		const productImg = element.productImg;
 		const productAlt = element.productAlt;
@@ -114,7 +120,8 @@ function loadGallery(data) {
 			const productUnit = document.createElement('li');
 			productUnit.classList.add('products__item');
 			productUnit.classList.add('product');
-			productUnit.dataset.compaty = `${product}`;
+			productUnit.dataset.company = `${productData}`;
+			productUnit.id = `${productId}`;
 			listGallery.appendChild(productUnit);
 
 			productUnit.innerHTML = `
@@ -132,8 +139,13 @@ function loadGallery(data) {
 			<button class="product__add" type="button"></button>
 		</div>
 		`;
+			const backetAdd = productUnit.querySelector('.product__add');
+			backetAdd.addEventListener('click', (e) => {
+				e.preventDefault();
+				addToStorage(productUnit);
+			});
 		}
-	});
+	}
 }
 
 function cleanGallery() {
@@ -218,17 +230,23 @@ function loadLocalStorageData(data) {
 function getObjectsList(productList) {
 	const productObjectList = [];
 	productList.forEach((element) => {
-		const product = {
-			product: element.dataset.company,
-			productLink: element.querySelector('.product__link').href,
-			productImg: element.querySelector('.product__img').src,
-			productAlt: element.querySelector('.product__img').alt,
-			productTitle: element.querySelector('.product__title').innerHTML,
-			productPrice: element.querySelector('.product__price').innerHTML,
-		};
-		productObjectList.push(product);
+		productObjectList.push(writeProduct(element));
 	});
 	return productObjectList;
+}
+
+function writeProduct(data, amount = 1) {
+	const element = {
+		productId: data.id,
+		productData: data.dataset.company,
+		productLink: data.querySelector('.product__link').href,
+		productImg: data.querySelector('.product__img').src,
+		productAlt: data.querySelector('.product__img').alt,
+		productTitle: data.querySelector('.product__title').innerHTML,
+		productPrice: data.querySelector('.product__price').innerHTML,
+		productAmount: amount,
+	};
+	return element;
 }
 
 function setAnimation(data) {
@@ -283,18 +301,198 @@ if (rangeInput) {
 }
 
 // Backet ==============================================
-function addToCart(data) {
-	console.log('data: ' + data.className);
+function addToStorage(data) {
+	const element = writeProduct(data);
+	let existingEntries = JSON.parse(localStorage.getItem('backet'));
+	if (existingEntries == null) existingEntries = [];
+	existingEntries.push(element);
+	localStorage.setItem('backet', JSON.stringify(existingEntries));
+	loadBasketStorage();
 }
-const backetAddList = body.querySelectorAll('.product__add');
 
-// if (productList) {
-// 	productList.forEach((element) => {
-// 		const backetAdd = element.querySelector('.product__add');
-// 		backetAdd.addEventListener('click', (e) => {
-// 			e.preventDefault();
-// 			addToCart(element);
-// 			// console.log('backetAdd: ' + backetAdd.className);
-// 		});
-// 	});
-// }
+function cleanBagList() {
+	const itemList = document.querySelectorAll('.bag__item');
+	itemList.forEach((element) => {
+		element.remove();
+	});
+}
+
+function loadBasketStorage() {
+	cleanBagList();
+
+	let existingEntries = JSON.parse(localStorage.getItem('backet'));
+	const bagList = document.querySelector('.bag__list');
+
+	if (existingEntries) {
+		rewriteBacketAmount();
+
+		existingEntries.forEach((element) => {
+			let execute = true;
+
+			const orderLink = element.productLink;
+			const orderData = element.productData;
+			const orderId = element.productId;
+			const orderImg = element.productImg;
+			const orderAlt = element.productAlt;
+			const orderTitle = element.productTitle;
+			const orderPrice = element.productPrice;
+			let orderValue = element.productAmount;
+
+			const showedProducts = bagList.querySelectorAll('.bag__item.order');
+
+			showedProducts.forEach((element) => {
+				const elementId = element.id;
+				const valueField = element.querySelector(
+					'.amount-order__value'
+				).innerHTML;
+				if (elementId === orderId) {
+					orderValue = Number(orderValue) + Number(valueField);
+					element.querySelector('.amount-order__value').innerHTML = orderValue;
+					element.querySelector('.amount-order__bottom').style.opacity = 1;
+					element.querySelector('.amount-order__bottom').style.cursor =
+						'pointer';
+					execute = false;
+				}
+			});
+
+			if (execute) {
+				const orderUnit = document.createElement('li');
+				orderUnit.classList.add('bag__item');
+				orderUnit.classList.add('order');
+				orderUnit.dataset.company = `${orderData}`;
+				orderUnit.id = `${orderId}`;
+				bagList.appendChild(orderUnit);
+
+				orderUnit.innerHTML = `
+				<div class="order__picture">
+				<img class="order__img" src=${orderImg} alt="${orderAlt}">
+			</div>
+			<div class="order__content">
+				<div class="order__description">
+					<h3 class="order__title">
+						${orderTitle}
+					</h3>
+					<span class="product__currency">$</span>
+					<span class="order__price">${orderPrice}</span>
+				</div>
+				<button class="order__action" type="button">
+					remove
+				</button>
+			</div>
+			<div class="order__amount amount-order">
+				<button class="amount-order__top" type="button"></button>
+				<span class="amount-order__value">${orderValue}</span>
+				<button class="amount-order__bottom" type="button"></button>
+			</div>
+			`;
+
+				const removeBtn = orderUnit.querySelector('.order__action');
+				removeBtn.addEventListener('click', (e) => {
+					e.preventDefault();
+					removeOrder(orderUnit);
+				});
+
+				const orderUp = orderUnit.querySelector('.amount-order__top');
+				orderUp.addEventListener('click', (e) => {
+					e.preventDefault();
+					increaseAmount(orderUnit);
+				});
+
+				const orderDown = orderUnit.querySelector('.amount-order__bottom');
+				if (orderValue === 1) {
+					orderDown.style.opacity = 0.2;
+					orderDown.style.cursor = 'default';
+				}
+
+				orderDown.addEventListener('click', (e) => {
+					e.preventDefault();
+					decreaseAmount(orderUnit);
+				});
+			}
+		});
+	}
+}
+
+function removeOrder(product) {
+	const existingEntries = JSON.parse(localStorage.getItem('backet'));
+	const newArray = [];
+	for (let index = 0; index < existingEntries.length; index++) {
+		const element = existingEntries[index];
+		if (product.id !== element.productId) {
+			newArray.push(element);
+		}
+	}
+	localStorage.setItem('backet', JSON.stringify(newArray));
+	product.remove();
+
+	rewriteBacketAmount();
+}
+
+function rewriteBacketAmount() {
+	const existingEntries = JSON.parse(localStorage.getItem('backet'));
+	if (existingEntries) {
+		const backetAmount = document.querySelector('.menu__amount');
+		backetAmount.innerHTML = existingEntries.length;
+		const bagSumm = document.querySelector('.bag__summ');
+		let totalSumm = '';
+		existingEntries.forEach((element) => {
+			totalSumm = Number(totalSumm) + Number(element.productPrice);
+		});
+		bagSumm.innerHTML = totalSumm.toFixed(2);
+	}
+}
+
+function increaseAmount(product) {
+	const valueField = product.querySelector('.amount-order__value');
+	const value = valueField.innerHTML;
+	valueField.innerHTML = Number(value) + 1;
+	const orderDown = product.querySelector('.amount-order__bottom');
+	orderDown.style.opacity = 1;
+	orderDown.style.cursor = 'pointer';
+
+	const existingEntries = JSON.parse(localStorage.getItem('backet'));
+	let newElement = '';
+	let rewrite = true;
+	for (let index = 0; index < existingEntries.length; index++) {
+		if (rewrite) {
+			const element = existingEntries[index];
+			if (product.id === element.productId) {
+				newElement = index;
+				rewrite = false;
+			}
+		}
+	}
+	existingEntries.push(existingEntries[newElement]);
+	localStorage.setItem('backet', JSON.stringify(existingEntries));
+	rewriteBacketAmount();
+}
+
+function decreaseAmount(product) {
+	const valueField = product.querySelector('.amount-order__value');
+	let value = valueField.innerHTML;
+	if (value >= 2) {
+		valueField.innerHTML = Number(value) - 1;
+		value = Number(value) - 1;
+		if (value === 1) {
+			const orderDown = product.querySelector('.amount-order__bottom');
+			orderDown.style.opacity = 0.2;
+			orderDown.style.cursor = 'default';
+		}
+	}
+
+	const existingEntries = JSON.parse(localStorage.getItem('backet'));
+	let newElement = '';
+	let rewrite = true;
+	for (let index = 0; index < existingEntries.length; index++) {
+		if (rewrite) {
+			const element = existingEntries[index];
+			if (product.id === element.productId) {
+				newElement = index;
+				rewrite = false;
+			}
+		}
+	}
+	existingEntries.splice(newElement, 1);
+	localStorage.setItem('backet', JSON.stringify(existingEntries));
+	rewriteBacketAmount();
+}
