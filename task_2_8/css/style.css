@@ -456,11 +456,6 @@ body {
   transition: transform 0.4s ease, -webkit-transform 0.4s ease;
 }
 
-.bag.active {
-  -webkit-transform: translate(0, 0);
-          transform: translate(0, 0);
-}
-
 @media only screen and (max-width: 1199.98px) {
   .bag {
     max-width: 380px;
@@ -471,6 +466,11 @@ body {
   .bag {
     max-width: 100%;
   }
+}
+
+.bag.active {
+  -webkit-transform: translate(0, 0);
+          transform: translate(0, 0);
 }
 
 .bag__burger {
@@ -661,7 +661,7 @@ body {
 }
 
 .amount-order__bottom {
-  bottom: 0px;
+  bottom: 0;
 }
 
 .amount-order__bottom::before {

@@ -4,8 +4,8 @@
 		"productData": "caressa all",
 		"productAlt": "Hand Made Table",
 		"productAmount": 1,
-		"productImg": "http://localhost:3000/img/gallery/caressa-table-hand-made.jpg",
-		"productLink": "http://localhost:3000/img/gallery/caressa-table-hand-made.jpg",
+		"productImg": "img/gallery/caressa-table-hand-made.jpg",
+		"productLink": "img/gallery/caressa-table-hand-made.jpg",
 		"productPrice": 379.99,
 		"productTitle": "Hand Made Table"
 	},
@@ -14,8 +14,8 @@
 		"productData": "liddy all",
 		"productAlt": "Wooden Chear",
 		"productAmount": 1,
-		"productImg": "http://localhost:3000/img/gallery/liddy-chear-wooden.jpg",
-		"productLink": "http://localhost:3000/img/gallery/liddy-chear-wooden.jpg",
+		"productImg": "img/gallery/liddy-chear-wooden.jpg",
+		"productLink": "img/gallery/liddy-chear-wooden.jpg",
 		"productPrice": 100.0,
 		"productTitle": "Wooden Chear"
 	},
@@ -34,8 +34,8 @@
 		"productData": "marcos all",
 		"productAlt": "Dinner Table",
 		"productAmount": 1,
-		"productImg": "img//gallery/marcos-dinner-table.webp",
-		"productLink": "img//gallery/marcos-dinner-table.webp",
+		"productImg": "img/gallery/marcos-dinner-table.webp",
+		"productLink": "img/gallery/marcos-dinner-table.webp",
 		"productPrice": 399.99,
 		"productTitle": "Dinner Table"
 	},

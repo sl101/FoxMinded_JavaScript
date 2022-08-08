@@ -39,7 +39,7 @@
 			flex-direction: column;
 			padding-top: 120px;
 			background-color: $color-777;
-			transition: transform $hoverTime ease;
+			transition: transform $transitionTime ease;
 		}
 
 		&.active {
@@ -74,7 +74,7 @@
 		outline: none;
 		border: 1px solid transparent;
 		border-radius: 6px;
-		transition: border-color $hoverTime ease, color $hoverTime ease;
+		transition: border-color $transitionTime ease, color $transitionTime ease;
 
 		@include md-min {
 			&:focus {
@@ -139,7 +139,7 @@
 		width: 30px;
 		height: 30px;
 		fill: currentColor;
-		transition: color $hoverTime ease, box-shadow $hoverTime ease;
+		transition: color $transitionTime ease, box-shadow $transitionTime ease;
 	}
 
 	// .menu__amount
@@ -154,7 +154,7 @@
 		text-align: center;
 		border-radius: 50%;
 		background-color: $color-accent;
-		transition: background-color $hoverTime ease, box-shadow $hoverTime ease, color $hoverTime ease;
+		transition: background-color $transitionTime ease, box-shadow $transitionTime ease, color $transitionTime ease;
 	}
 }
 
@@ -180,7 +180,7 @@
 		outline: none;
 		border: 1px solid transparent;
 		text-shadow: 5px 5px 15px $color-777;
-		transition: color $hoverTime ease, text-shadow $hoverTime ease;
+		transition: color $transitionTime ease, text-shadow $transitionTime ease;
 
 		@include md-min {
 			&:focus {

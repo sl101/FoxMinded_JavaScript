@@ -78,10 +78,10 @@
 		background-color: $color-f1f;
 		outline: none;
 		@include adaptiv-value(margin-bottom, 30, 20);
-		transition: all $hoverTime ease;
+		transition: all $transitionTime ease;
 
 		&::placeholder {
-			transition: color $hoverTime ease;
+			transition: color $transitionTime ease;
 		}
 
 		@include md-min {
@@ -118,7 +118,7 @@
 		position: relative;
 		top: 0;
 		outline: none;
-		transition: color $hoverTime ease;
+		transition: color $transitionTime ease;
 		@include md-min {
 			&:focus {
 				color: $color-132;
@@ -147,7 +147,7 @@
 		&::-webkit-slider-thumb {
 			background-color: $color-132;
 			border-radius: 100%;
-			transition: box-shadow $hoverTime linear;
+			transition: box-shadow $transitionTime linear;
 		}
 
 		&:focus {

@@ -42,7 +42,7 @@
 		border: 1px solid $color-fff;
 		border-radius: 6px;
 		outline: none;
-		transition: border-color $hoverTime ease, background-color $hoverTime ease;
+		transition: border-color $transitionTime ease, background-color $transitionTime ease;
 
 		@include md-min {
 			&:focus {

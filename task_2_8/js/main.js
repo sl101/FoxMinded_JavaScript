@@ -11,8 +11,6 @@ const menuLinks = body.querySelectorAll('.menu__link');
 
 const productPage = document.querySelector('.products');
 
-// const productList = body.querySelectorAll('.products__item.product');
-
 const searchField = body.querySelector('.filter__search');
 const choiceButton = body.querySelectorAll('.choice__button');
 
@@ -24,44 +22,42 @@ if (burgers) {
 		element.addEventListener('click', (e) => {
 			let paddingOffset = window.innerWidth - document.body.offsetWidth + 'px';
 			if (document.body.classList.contains('lock')) {
-				burger_close(element);
+				closeBurger(element);
 			} else {
-				burger_open(paddingOffset, element);
+				openBurger(paddingOffset, element);
 			}
 		});
 	});
 }
 
-if (backet) {
-	backet.addEventListener('click', (e) => {
-		e.preventDefault();
-		let paddingOffset = window.innerWidth - document.body.offsetWidth + 'px';
-		loadBasketStorage();
-		const bagBurger = document.querySelector('.bag__burger');
-		burger_open(paddingOffset, bagBurger);
-	});
-}
+backet.addEventListener('click', (e) => {
+	e.preventDefault();
+	const paddingOffset = window.innerWidth - document.body.offsetWidth + 'px';
+	loadBasketStorage();
+	const bagBurger = document.querySelector('.bag__burger');
+	openBurger(paddingOffset, bagBurger);
+});
 
 if (menuLinks.length > 0) {
-	menuLinks.forEach((element) => {
-		element.addEventListener('click', (e) => {
+	menuLinks.forEach((el) => {
+		el.addEventListener('click', () => {
 			burgers.forEach((element) => {
 				if (
 					element.classList.contains('active') &&
 					!element.classList.contains('bag__burger')
 				) {
-					burger_close(element);
+					closeBurger(element);
 				}
 			});
 		});
 	});
 }
 
-function burger_open(paddingOffset, burger) {
+function openBurger(paddingOffset, burger) {
 	if (document.body.classList.contains('lock')) {
 		const activeBurgers = document.querySelectorAll('.burger.active');
 		activeBurgers.forEach((element) => {
-			burger_close(element);
+			closeBurger(element);
 		});
 	}
 	document.body.style.paddingRight = paddingOffset;
@@ -74,7 +70,7 @@ function burger_open(paddingOffset, burger) {
 	}
 }
 
-function burger_close(burger) {
+function closeBurger(burger) {
 	document.body.style.paddingRight = '0';
 	document.body.classList.remove('lock');
 	burger.classList.remove('active');
@@ -91,17 +87,6 @@ if (productPage) {
 }
 
 function loadLocalStorageData(data) {
-	const rangeInput = productPage.querySelector('.range__input');
-	const rangeOutput = productPage.querySelector('.range__output');
-	const rangeValue = localStorage.getItem('price');
-	if (rangeValue) {
-		rangeInput.value = rangeValue;
-		rangeOutput.innerHTML = rangeValue;
-	} else {
-		localStorage.setItem('price', rangeInput.value);
-		rangeOutput.innerHTML = rangeInput.value;
-	}
-
 	if (data) {
 		const currentData = JSON.parse(localStorage.getItem(data));
 		cleanGallery();
@@ -142,6 +127,24 @@ function cleanGallery() {
 
 function loadGallery(data) {
 	const listGallery = document.querySelector('.products__list');
+
+	let maxPrice = 0;
+
+	const rangeInput = productPage.querySelector('.range__input');
+	const rangeOutput = productPage.querySelector('.range__output');
+	const rangeValue = localStorage.getItem('price');
+
+	data.forEach((element) => {
+		if (maxPrice < element.productPrice) {
+			maxPrice = Math.ceil(Math.round(element.productPrice) / 100) * 100;
+		}
+	});
+
+	if (!rangeValue) {
+		rangeOutput.innerHTML = maxPrice;
+	}
+	rangeInput.max = maxPrice;
+
 	for (let index = 0; index < data.length; index++) {
 		const element = data[index];
 		const productData = element.productData;
@@ -152,8 +155,7 @@ function loadGallery(data) {
 		const productTitle = element.productTitle;
 		const productPrice = element.productPrice;
 
-		const rangeInput = body.querySelector('.range__input');
-		if (Number(productPrice) <= Number(rangeInput.value)) {
+		if (Number(productPrice) <= Number(rangeOutput.value)) {
 			const productUnit = document.createElement('li');
 			productUnit.classList.add('products__item');
 			productUnit.classList.add('product');
@@ -221,7 +223,6 @@ function loadBasketStorage() {
 		existingEntries.forEach((element) => {
 			let execute = true;
 
-			const orderLink = element.productLink;
 			const orderData = element.productData;
 			const orderId = element.productId;
 			const orderImg = element.productImg;
@@ -303,7 +304,7 @@ function loadBasketStorage() {
 			}
 		});
 	}
-	rewriteBacketAmount();
+	rewriteBasketAmount();
 }
 
 function cleanBagList() {
@@ -313,7 +314,7 @@ function cleanBagList() {
 	});
 }
 
-function rewriteBacketAmount() {
+function rewriteBasketAmount() {
 	const existingEntries = JSON.parse(localStorage.getItem('backet'));
 	if (existingEntries) {
 		const backetAmount = document.querySelector('.menu__amount');
@@ -339,7 +340,7 @@ function removeOrder(product) {
 	localStorage.setItem('backet', JSON.stringify(newArray));
 	product.remove();
 
-	rewriteBacketAmount();
+	rewriteBasketAmount();
 }
 
 function increaseAmount(product) {
@@ -364,7 +365,7 @@ function increaseAmount(product) {
 	}
 	existingEntries.push(existingEntries[newElement]);
 	localStorage.setItem('backet', JSON.stringify(existingEntries));
-	rewriteBacketAmount();
+	rewriteBasketAmount();
 }
 
 function decreaseAmount(product) {
@@ -394,7 +395,7 @@ function decreaseAmount(product) {
 	}
 	existingEntries.splice(newElement, 1);
 	localStorage.setItem('backet', JSON.stringify(existingEntries));
-	rewriteBacketAmount();
+	rewriteBasketAmount();
 }
 
 // Search =================================================
@@ -454,11 +455,13 @@ function findSearchTarget(target) {
 // Range ==========================================
 if (rangeInput) {
 	rangeInput.addEventListener('change', () => {
+		const rangeInput = productPage.querySelector('.range__input');
+		console.log('rangeInput: ' + rangeInput.value);
 		localStorage.setItem('price', rangeInput.value);
 
-		if (localStorage.getItem('searchList') !== null) {
+		if (localStorage.getItem('searchList')) {
 			loadLocalStorageData('searchList');
-		} else if (localStorage.getItem('savedCompany') !== null) {
+		} else if (localStorage.getItem('savedCompany')) {
 			loadLocalStorageData('savedCompany');
 		} else {
 			loadLocalStorageData('productList');

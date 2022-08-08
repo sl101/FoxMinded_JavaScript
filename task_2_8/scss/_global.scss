@@ -81,7 +81,7 @@ body {
 	border: 1px solid $color-accent;
 	border-radius: 6px;
 	outline: none;
-	transition: border-color $hoverTime ease, background-color $hoverTime ease, color $hoverTime ease;
+	transition: border-color $transitionTime ease, background-color $transitionTime ease, color $transitionTime ease;
 
 	@include md-min {
 		&:focus {
@@ -121,7 +121,7 @@ body {
 		border: 1px solid transparent;
 		border-radius: 6px;
 		box-shadow: 0 0 15px transparent;
-		transition: transform $hoverTime linear, border-color $hoverTime linear, box-shadow $hoverTime linear;
+		transition: transform $transitionTime linear, border-color $transitionTime linear, box-shadow $transitionTime linear;
 
 		@include md-min {
 			&:focus {
@@ -149,7 +149,7 @@ body {
 		width: 100%;
 		height: 200px;
 		object-fit: cover;
-		transition: transform $hoverTime ease;
+		transition: transform $transitionTime ease;
 	}
 
 	// .product__content
@@ -210,7 +210,7 @@ body {
 			left: 5px;
 			transform: translateY(-50%);
 			background-color: $color-617;
-			transition: background-color $hoverTime ease;
+			transition: background-color $transitionTime ease;
 		}
 
 		&:after {

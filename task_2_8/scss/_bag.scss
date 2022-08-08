@@ -6,15 +6,10 @@
 	bottom: 0;
 	max-width: 480px;
 	height: 100vh;
-	// min-height: 100vh;
 	background-color: $color-f1f;
 	@include adaptiv-value(padding, 30, 20);
 	transform: translate(100%, 0);
-	transition: transform $hoverTime ease;
-
-	&.active {
-		transform: translate(0, 0);
-	}
+	transition: transform $transitionTime ease;
 
 	@include xl {
 		max-width: 380px;
@@ -22,6 +17,10 @@
 
 	@include lg {
 		max-width: 100%;
+	}
+
+	&.active {
+		transform: translate(0, 0);
 	}
 
 	// .bag__burger
@@ -33,7 +32,7 @@
 
 		span {
 			background-color: $color-777;
-			transition: background-color $hoverTime ease;
+			transition: background-color $transitionTime ease;
 		}
 
 		@include md-min {
@@ -89,10 +88,6 @@
 	&__summ {
 		@include adaptiv-value(font-size, 40, 18);
 	}
-
-	// .bag__summ
-	// &__summ {
-	// }
 
 	// .bag__button
 	&__button {
@@ -151,7 +146,7 @@
 		top: 0;
 		color: $color-617;
 		outline: none;
-		transition: color $hoverTime ease;
+		transition: color $transitionTime ease;
 
 		@include md-min {
 			&:focus {
@@ -202,7 +197,7 @@
 
 	// .amount-order__bottom
 	&__bottom {
-		bottom: 0px;
+		bottom: 0;
 		&::before {
 			bottom: 5px;
 			left: 7px;
@@ -237,7 +232,7 @@
 			height: 3px;
 			border-radius: 3px;
 			background-color: $color-accent;
-			transition: background-color $hoverTime ease;
+			transition: background-color $transitionTime ease;
 		}
 
 		@include md-min {
