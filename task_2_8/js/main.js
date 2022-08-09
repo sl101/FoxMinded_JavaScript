@@ -1,6 +1,8 @@
 /*jshint esversion: 6 */
 'use strict';
 
+import productsJSON from './products.json' assert { type: 'json' };
+
 const body = document.querySelector('body');
 const burgers = body.querySelectorAll('.burger');
 const menuList = body.querySelector('.menu__list');
@@ -87,28 +89,16 @@ if (productPage) {
 }
 
 function loadLocalStorageData(data) {
+	console.log(data);
 	if (data) {
 		const currentData = JSON.parse(localStorage.getItem(data));
 		cleanGallery();
 		loadGallery(currentData);
 	} else {
-		sendRequest('js/products.json');
+		JSON.parse(localStorage.getItem('savedCompany'))
+			? loadGallery(JSON.parse(localStorage.getItem('savedCompany')))
+			: setProductList(productsJSON);
 	}
-}
-
-function sendRequest(requestUrl) {
-	fetch(requestUrl)
-		.then((response) => {
-			return response.json();
-		})
-		.then((data) => {
-			if (data.length) {
-				setProductList(data);
-			}
-		})
-		.catch((error) => {
-			alert('Oops, something went wrong\n' + error);
-		});
 }
 
 function setProductList(data) {
@@ -142,23 +132,36 @@ function loadGallery(data) {
 
 	if (!rangeValue) {
 		rangeOutput.innerHTML = maxPrice;
+	} else if (rangeValue > maxPrice) {
+		rangeOutput.innerHTML = maxPrice;
+	} else {
+		rangeOutput.innerHTML = rangeValue;
 	}
 	rangeInput.max = maxPrice;
 
 	for (let index = 0; index < data.length; index++) {
 		const element = data[index];
-		const productData = element.productData;
-		const productId = element.productId;
-		const productLink = element.productLink;
-		const productImg = element.productImg;
-		const productAlt = element.productAlt;
-		const productTitle = element.productTitle;
-		const productPrice = element.productPrice;
+		const [
+			productData,
+			productId,
+			productLink,
+			productImg,
+			productAlt,
+			productTitle,
+			productPrice,
+		] = [
+			element.productData,
+			element.productId,
+			element.productLink,
+			element.productImg,
+			element.productAlt,
+			element.productTitle,
+			element.productPrice,
+		];
 
 		if (Number(productPrice) <= Number(rangeOutput.value)) {
 			const productUnit = document.createElement('li');
-			productUnit.classList.add('products__item');
-			productUnit.classList.add('product');
+			productUnit.classList.add('products__item', 'product');
 			productUnit.dataset.company = `${productData}`;
 			productUnit.id = `${productId}`;
 			listGallery.appendChild(productUnit);
@@ -190,7 +193,7 @@ function loadGallery(data) {
 function addToStorage(data) {
 	const element = createObjectProduct(data);
 	let existingEntries = JSON.parse(localStorage.getItem('backet'));
-	if (existingEntries == null) existingEntries = [];
+	existingEntries === null ? (existingEntries = []) : existingEntries;
 	existingEntries.push(element);
 	localStorage.setItem('backet', JSON.stringify(existingEntries));
 	loadBasketStorage();
@@ -221,15 +224,25 @@ function loadBasketStorage() {
 
 	if (existingEntries) {
 		existingEntries.forEach((element) => {
-			let execute = true;
+			let isExecute = true;
 
-			const orderData = element.productData;
-			const orderId = element.productId;
-			const orderImg = element.productImg;
-			const orderAlt = element.productAlt;
-			const orderTitle = element.productTitle;
-			const orderPrice = element.productPrice;
-			let orderValue = element.productAmount;
+			let [
+				orderData,
+				orderId,
+				orderImg,
+				orderAlt,
+				orderTitle,
+				orderPrice,
+				orderValue,
+			] = [
+				element.productData,
+				element.productId,
+				element.productImg,
+				element.productAlt,
+				element.productTitle,
+				element.productPrice,
+				element.productAmount,
+			];
 
 			const showedProducts = bagList.querySelectorAll('.bag__item.order');
 
@@ -244,14 +257,13 @@ function loadBasketStorage() {
 					element.querySelector('.amount-order__bottom').style.opacity = 1;
 					element.querySelector('.amount-order__bottom').style.cursor =
 						'pointer';
-					execute = false;
+					isExecute = false;
 				}
 			});
 
-			if (execute) {
+			if (isExecute) {
 				const orderUnit = document.createElement('li');
-				orderUnit.classList.add('bag__item');
-				orderUnit.classList.add('order');
+				orderUnit.classList.add('bag__item', 'order');
 				orderUnit.dataset.company = `${orderData}`;
 				orderUnit.id = `${orderId}`;
 				bagList.appendChild(orderUnit);
@@ -330,17 +342,30 @@ function rewriteBasketAmount() {
 
 function removeOrder(product) {
 	const existingEntries = JSON.parse(localStorage.getItem('backet'));
-	const newArray = [];
-	for (let index = 0; index < existingEntries.length; index++) {
-		const element = existingEntries[index];
-		if (product.id !== element.productId) {
-			newArray.push(element);
-		}
-	}
+	const newArray = existingEntries.filter(
+		(element) => product.id !== element.productId
+	);
+
 	localStorage.setItem('backet', JSON.stringify(newArray));
 	product.remove();
 
 	rewriteBasketAmount();
+}
+
+function findSameElement(product) {
+	const existingEntries = JSON.parse(localStorage.getItem('backet'));
+	let newElement = '';
+	let isRewrite = true;
+	for (let index = 0; index < existingEntries.length; index++) {
+		if (rewrite) {
+			const element = existingEntries[index];
+			if (product.id === element.productId) {
+				newElement = index;
+				isRewrite = false;
+			}
+		}
+	}
+	return newElement;
 }
 
 function increaseAmount(product) {
@@ -351,19 +376,7 @@ function increaseAmount(product) {
 	orderDown.style.opacity = 1;
 	orderDown.style.cursor = 'pointer';
 
-	const existingEntries = JSON.parse(localStorage.getItem('backet'));
-	let newElement = '';
-	let rewrite = true;
-	for (let index = 0; index < existingEntries.length; index++) {
-		if (rewrite) {
-			const element = existingEntries[index];
-			if (product.id === element.productId) {
-				newElement = index;
-				rewrite = false;
-			}
-		}
-	}
-	existingEntries.push(existingEntries[newElement]);
+	existingEntries.push(existingEntries[findSameElement(product)]);
 	localStorage.setItem('backet', JSON.stringify(existingEntries));
 	rewriteBasketAmount();
 }
@@ -381,19 +394,7 @@ function decreaseAmount(product) {
 		}
 	}
 
-	const existingEntries = JSON.parse(localStorage.getItem('backet'));
-	let newElement = '';
-	let rewrite = true;
-	for (let index = 0; index < existingEntries.length; index++) {
-		if (rewrite) {
-			const element = existingEntries[index];
-			if (product.id === element.productId) {
-				newElement = index;
-				rewrite = false;
-			}
-		}
-	}
-	existingEntries.splice(newElement, 1);
+	existingEntries.splice(findSameElement(product), 1);
 	localStorage.setItem('backet', JSON.stringify(existingEntries));
 	rewriteBasketAmount();
 }
@@ -412,10 +413,10 @@ if (searchField) {
 }
 
 function getProductNameList() {
-	const productsNames = [];
+	let productsNames = new Map();
 	const productList = JSON.parse(localStorage.getItem('productList'));
 	productList.forEach((element) => {
-		productsNames.push(element.productTitle);
+		productsNames.set(element.productId, element.productTitle);
 	});
 	return productsNames;
 }
@@ -423,20 +424,23 @@ function getProductNameList() {
 function findSearchTarget(target) {
 	const productsNames = getProductNameList();
 	const searchProducts = [];
-	let value = false;
+	let isValueExist = false;
 	if (target.value) {
-		for (let index = 0; index < productsNames.length; index++) {
-			const elementArray = productsNames[index].split(' ');
-			elementArray.forEach((element) => {
-				if (element.toLowerCase() === target.value.toLowerCase()) {
-					searchProducts.push(
-						JSON.parse(localStorage.getItem('productList'))[index]
-					);
-					value = true;
-				}
-			});
+		for (let index = 0; index < productsNames.size; index++) {
+			if (
+				productsNames
+					.get(index + 1)
+					.toLowerCase()
+					.includes(target.value.toLowerCase())
+			) {
+				searchProducts.push(
+					JSON.parse(localStorage.getItem('productList'))[index]
+				);
+				isValueExist = true;
+			}
 		}
-		if (value) {
+		console.log('searchProducts: = ' + searchProducts);
+		if (isValueExist) {
 			cleanGallery();
 			localStorage.setItem('searchList', JSON.stringify(searchProducts));
 			loadGallery(searchProducts);
@@ -456,7 +460,6 @@ function findSearchTarget(target) {
 if (rangeInput) {
 	rangeInput.addEventListener('change', () => {
 		const rangeInput = productPage.querySelector('.range__input');
-		console.log('rangeInput: ' + rangeInput.value);
 		localStorage.setItem('price', rangeInput.value);
 
 		if (localStorage.getItem('searchList')) {
