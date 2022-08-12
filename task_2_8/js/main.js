@@ -22,7 +22,8 @@ const rangeInput = body.querySelector('.range__input');
 if (burgers) {
 	burgers.forEach((element) => {
 		element.addEventListener('click', (e) => {
-			let paddingOffset = window.innerWidth - document.body.offsetWidth + 'px';
+			const paddingOffset =
+				window.innerWidth - document.body.offsetWidth + 'px';
 			if (document.body.classList.contains('lock')) {
 				closeBurger(element);
 			} else {
@@ -35,7 +36,6 @@ if (burgers) {
 backet.addEventListener('click', (e) => {
 	e.preventDefault();
 	const paddingOffset = window.innerWidth - document.body.offsetWidth + 'px';
-	loadBasketStorage();
 	const bagBurger = document.querySelector('.bag__burger');
 	openBurger(paddingOffset, bagBurger);
 });
@@ -85,27 +85,46 @@ function closeBurger(burger) {
 
 // Storage ============================================
 if (productPage) {
-	loadLocalStorageData();
+	showProducts();
+	loadBasketStorage();
+
+	searchField.addEventListener('keydown', (element) => {
+		if (element.keyCode === 13) {
+			const stringData = searchField.value;
+			if (stringData) {
+				showTargets(stringData);
+			}
+		} else if (element.keyCode === 27) {
+			const stringData = 'Search...';
+			rewriteSearch(stringData);
+		}
+	});
+
+	choiceButton.forEach((element) => {
+		element.addEventListener('click', (e) => {
+			e.preventDefault();
+			const searchData = 'Search...';
+			rewriteSearch(searchData);
+			const companyFilter = element.dataset.filter;
+			showTargets(companyFilter);
+		});
+	});
+
+	rangeInput.addEventListener('change', () => {
+		const rangeInput = productPage.querySelector('.range__input');
+		localStorage.setItem('price', rangeInput.value);
+		showProducts();
+	});
 }
 
-function loadLocalStorageData(data) {
-	console.log(data);
-	if (data) {
-		const currentData = JSON.parse(localStorage.getItem(data));
-		cleanGallery();
-		loadGallery(currentData);
-	} else {
-		JSON.parse(localStorage.getItem('savedCompany'))
-			? loadGallery(JSON.parse(localStorage.getItem('savedCompany')))
-			: setProductList(productsJSON);
-	}
-}
-
-function setProductList(data) {
-	localStorage.setItem('productList', JSON.stringify(data));
+function showProducts() {
+	const data = JSON.parse(localStorage.getItem('selectedList'));
 	cleanGallery();
-	const currentData = JSON.parse(localStorage.getItem('productList'));
-	loadGallery(currentData);
+	if (data) {
+		loadGallery(data);
+	} else {
+		loadGallery(productsJSON);
+	}
 }
 
 function cleanGallery() {
@@ -115,16 +134,14 @@ function cleanGallery() {
 	});
 }
 
-function loadGallery(data) {
-	const listGallery = document.querySelector('.products__list');
-
+function setRangeValue(productList) {
 	let maxPrice = 0;
 
 	const rangeInput = productPage.querySelector('.range__input');
 	const rangeOutput = productPage.querySelector('.range__output');
 	const rangeValue = localStorage.getItem('price');
 
-	data.forEach((element) => {
+	productList.forEach((element) => {
 		if (maxPrice < element.productPrice) {
 			maxPrice = Math.ceil(Math.round(element.productPrice) / 100) * 100;
 		}
@@ -134,195 +151,148 @@ function loadGallery(data) {
 		rangeOutput.innerHTML = maxPrice;
 	} else if (rangeValue > maxPrice) {
 		rangeOutput.innerHTML = maxPrice;
+		localStorage.setItem('price', JSON.stringify(maxPrice));
 	} else {
 		rangeOutput.innerHTML = rangeValue;
 	}
+	rangeInput.value = rangeOutput.innerHTML;
 	rangeInput.max = maxPrice;
 
-	for (let index = 0; index < data.length; index++) {
-		const element = data[index];
-		const [
-			productData,
-			productId,
-			productLink,
-			productImg,
-			productAlt,
-			productTitle,
-			productPrice,
-		] = [
-			element.productData,
-			element.productId,
-			element.productLink,
-			element.productImg,
-			element.productAlt,
-			element.productTitle,
-			element.productPrice,
-		];
+	return rangeOutput.innerHTML;
+}
 
-		if (Number(productPrice) <= Number(rangeOutput.value)) {
-			const productUnit = document.createElement('li');
-			productUnit.classList.add('products__item', 'product');
-			productUnit.dataset.company = `${productData}`;
-			productUnit.id = `${productId}`;
-			listGallery.appendChild(productUnit);
-
-			productUnit.innerHTML = `
-		<a class="product__link" href=${productLink}>
-			<div class="product__picture">
-				<img class="product__img" src=${productImg} alt="${productAlt}">
-			</div>
-		</a>
-		<div class="product__content">
-			<div class="product__description">
-				<div class="product__title">${productTitle}</div>
-				<span class="product__currency">$</span>
-				<span class="product__price">${productPrice}</span>
-			</div>
-			<button class="product__add" type="button"></button>
-		</div>
-		`;
-			const backetAdd = productUnit.querySelector('.product__add');
-			backetAdd.addEventListener('click', (e) => {
-				e.preventDefault();
-				addToStorage(productUnit);
-			});
+function loadGallery(productList) {
+	for (let index = 0; index < productList.length; index++) {
+		const element = productList[index];
+		if (Number(element.productPrice) <= Number(setRangeValue(productList))) {
+			renderGalleryItem(element);
 		}
 	}
 }
 
-function addToStorage(data) {
-	const element = createObjectProduct(data);
-	let existingEntries = JSON.parse(localStorage.getItem('backet'));
-	existingEntries === null ? (existingEntries = []) : existingEntries;
-	existingEntries.push(element);
-	localStorage.setItem('backet', JSON.stringify(existingEntries));
-	loadBasketStorage();
-}
+function renderGalleryItem(element) {
+	const listGallery = document.querySelector('.products__list');
 
-function createObjectProduct(data, amount = 1) {
-	const element = {
-		productId: data.id,
-		productData: data.dataset.company,
-		productLink: data.querySelector('.product__link').href,
-		productImg: data.querySelector('.product__img').src,
-		productAlt: data.querySelector('.product__img').alt,
-		productTitle: data.querySelector('.product__title').innerHTML,
-		productPrice: data.querySelector('.product__price').innerHTML,
-		productAmount: amount,
-	};
-	return element;
+	const productUnit = document.createElement('li');
+	productUnit.classList.add('products__item', 'product');
+	productUnit.dataset.company = `${element.productData}`;
+	productUnit.id = `${element.productId}`;
+	listGallery.appendChild(productUnit);
+
+	productUnit.innerHTML = `
+		<a class="product__link" href=${element.productLink}>
+			<div class="product__picture">
+				<img class="product__img" src=${element.productImg} alt="${element.productAlt}">
+			</div>
+		</a>
+		<div class="product__content">
+			<div class="product__description">
+				<div class="product__title">${element.productTitle}</div>
+				<span class="product__currency">$</span>
+				<span class="product__price">${element.productPrice}</span>
+			</div>
+			<button class="product__add" type="button"></button>
+		</div>
+		`;
+	const backetAdd = productUnit.querySelector('.product__add');
+	backetAdd.addEventListener('click', (e) => {
+		e.preventDefault();
+		addToBasket(productUnit);
+	});
 }
 
 // Basket Storage ============================================
-loadBasketStorage();
-
 function loadBasketStorage() {
-	cleanBagList();
+	cleanBasketList();
 
-	let existingEntries = JSON.parse(localStorage.getItem('backet'));
+	const existingEntries = JSON.parse(localStorage.getItem('backet'));
 	const bagList = document.querySelector('.bag__list');
 
 	if (existingEntries) {
 		existingEntries.forEach((element) => {
-			let isExecute = true;
-
-			let [
-				orderData,
-				orderId,
-				orderImg,
-				orderAlt,
-				orderTitle,
-				orderPrice,
-				orderValue,
-			] = [
-				element.productData,
-				element.productId,
-				element.productImg,
-				element.productAlt,
-				element.productTitle,
-				element.productPrice,
-				element.productAmount,
-			];
-
+			let isRender = true;
 			const showedProducts = bagList.querySelectorAll('.bag__item.order');
-
-			showedProducts.forEach((element) => {
-				const elementId = element.id;
-				const valueField = element.querySelector(
-					'.amount-order__value'
-				).innerHTML;
-				if (elementId === orderId) {
-					orderValue = Number(orderValue) + Number(valueField);
-					element.querySelector('.amount-order__value').innerHTML = orderValue;
-					element.querySelector('.amount-order__bottom').style.opacity = 1;
-					element.querySelector('.amount-order__bottom').style.cursor =
-						'pointer';
-					isExecute = false;
+			showedProducts.forEach((field) => {
+				if (Number(field.id) === Number(element.productId)) {
+					increaseItemNumbers(field);
+					isRender = false;
 				}
 			});
 
-			if (isExecute) {
-				const orderUnit = document.createElement('li');
-				orderUnit.classList.add('bag__item', 'order');
-				orderUnit.dataset.company = `${orderData}`;
-				orderUnit.id = `${orderId}`;
-				bagList.appendChild(orderUnit);
-
-				orderUnit.innerHTML = `
-				<div class="order__picture">
-				<img class="order__img" src=${orderImg} alt="${orderAlt}">
-			</div>
-			<div class="order__content">
-				<div class="order__description">
-					<h3 class="order__title">
-						${orderTitle}
-					</h3>
-					<span class="product__currency">$</span>
-					<span class="order__price">${orderPrice}</span>
-				</div>
-				<button class="order__action" type="button">
-					remove
-				</button>
-			</div>
-			<div class="order__amount amount-order">
-				<button class="amount-order__top" type="button"></button>
-				<span class="amount-order__value">${orderValue}</span>
-				<button class="amount-order__bottom" type="button"></button>
-			</div>
-			`;
-
-				const removeBtn = orderUnit.querySelector('.order__action');
-				removeBtn.addEventListener('click', (e) => {
-					e.preventDefault();
-					removeOrder(orderUnit);
-				});
-
-				const orderUp = orderUnit.querySelector('.amount-order__top');
-				orderUp.addEventListener('click', (e) => {
-					e.preventDefault();
-					increaseAmount(orderUnit);
-				});
-
-				const orderDown = orderUnit.querySelector('.amount-order__bottom');
-				if (orderValue === 1) {
-					orderDown.style.opacity = 0.2;
-					orderDown.style.cursor = 'default';
-				}
-
-				orderDown.addEventListener('click', (e) => {
-					e.preventDefault();
-					decreaseAmount(orderUnit);
-				});
+			if (isRender) {
+				renderBasketItem(element);
 			}
 		});
 	}
 	rewriteBasketAmount();
 }
 
-function cleanBagList() {
+function cleanBasketList() {
 	const itemList = document.querySelectorAll('.bag__item');
 	itemList.forEach((element) => {
 		element.remove();
+	});
+}
+
+function renderBasketItem(element) {
+	const bagList = document.querySelector('.bag__list');
+	const orderUnit = document.createElement('li');
+	orderUnit.classList.add('bag__item', 'order');
+	orderUnit.dataset.company = `${element.productData}`;
+	orderUnit.id = `${element.productId}`;
+	bagList.appendChild(orderUnit);
+
+	orderUnit.innerHTML = `
+		<div class="order__picture">
+		<img class="order__img" src=${element.productImg} alt="${element.productAlt}">
+	</div>
+	<div class="order__content">
+		<div class="order__description">
+			<h3 class="order__title">
+				${element.productTitle}
+			</h3>
+			<span class="product__currency">$</span>
+			<span class="order__price">${element.productPrice}</span>
+		</div>
+		<button class="order__action" type="button">
+			remove
+		</button>
+	</div>
+	<div class="order__amount amount-order">
+		<button class="amount-order__top" type="button"></button>
+		<span class="amount-order__value">${element.productAmount}</span>
+		<button class="amount-order__bottom" type="button"></button>
+	</div>
+	`;
+
+	addListeners(orderUnit);
+}
+
+function addListeners(element) {
+	const removeBtn = element.querySelector('.order__action');
+	removeBtn.addEventListener('click', (e) => {
+		e.preventDefault();
+		removeBasketItem(element);
+	});
+
+	const orderUp = element.querySelector('.amount-order__top');
+	orderUp.addEventListener('click', (e) => {
+		e.preventDefault();
+		addToBasket(element);
+		increaseItemNumbers(element);
+	});
+
+	const orderDown = element.querySelector('.amount-order__bottom');
+	const orderValue = element.querySelector('.amount-order__value').innerHTML;
+	if (Number(orderValue) === 1) {
+		orderDown.style.opacity = 0.2;
+		orderDown.style.cursor = 'default';
+	}
+
+	orderDown.addEventListener('click', (e) => {
+		e.preventDefault();
+		deleteFromBasket(element);
+		decreaseItemNumbers(element);
 	});
 }
 
@@ -340,48 +310,44 @@ function rewriteBasketAmount() {
 	}
 }
 
-function removeOrder(product) {
-	const existingEntries = JSON.parse(localStorage.getItem('backet'));
-	const newArray = existingEntries.filter(
-		(element) => product.id !== element.productId
-	);
+function addToBasket(item) {
+	const product = productsJSON[Number(item.id) - 1];
+	const existingEntries = JSON.parse(localStorage.getItem('backet')) || [];
+	existingEntries.push(product);
 
-	localStorage.setItem('backet', JSON.stringify(newArray));
-	product.remove();
+	localStorage.setItem('backet', JSON.stringify(existingEntries));
 
-	rewriteBasketAmount();
+	loadBasketStorage();
 }
 
-function findSameElement(product) {
+function deleteFromBasket(item) {
 	const existingEntries = JSON.parse(localStorage.getItem('backet'));
-	let newElement = '';
-	let isRewrite = true;
+	let target = '';
 	for (let index = 0; index < existingEntries.length; index++) {
-		if (rewrite) {
-			const element = existingEntries[index];
-			if (product.id === element.productId) {
-				newElement = index;
-				isRewrite = false;
-			}
+		const element = existingEntries[index];
+		if (Number(element.productId) === Number(item.id)) {
+			target = index;
 		}
 	}
-	return newElement;
+
+	existingEntries.splice(target, 1);
+
+	localStorage.setItem('backet', JSON.stringify(existingEntries));
+	loadBasketStorage();
 }
 
-function increaseAmount(product) {
-	const valueField = product.querySelector('.amount-order__value');
+function increaseItemNumbers(field) {
+	const valueField = field.querySelector('.amount-order__value');
 	const value = valueField.innerHTML;
 	valueField.innerHTML = Number(value) + 1;
-	const orderDown = product.querySelector('.amount-order__bottom');
+	const orderDown = field.querySelector('.amount-order__bottom');
 	orderDown.style.opacity = 1;
 	orderDown.style.cursor = 'pointer';
 
-	existingEntries.push(existingEntries[findSameElement(product)]);
-	localStorage.setItem('backet', JSON.stringify(existingEntries));
 	rewriteBasketAmount();
 }
 
-function decreaseAmount(product) {
+function decreaseItemNumbers(product) {
 	const valueField = product.querySelector('.amount-order__value');
 	let value = valueField.innerHTML;
 	if (value >= 2) {
@@ -394,115 +360,53 @@ function decreaseAmount(product) {
 		}
 	}
 
-	existingEntries.splice(findSameElement(product), 1);
-	localStorage.setItem('backet', JSON.stringify(existingEntries));
+	rewriteBasketAmount();
+}
+
+function removeBasketItem(product) {
+	const existingEntries = JSON.parse(localStorage.getItem('backet'));
+	const newArray = existingEntries.filter(
+		(element) => Number(product.id) !== Number(element.productId)
+	);
+
+	localStorage.setItem('backet', JSON.stringify(newArray));
+	product.remove();
+
 	rewriteBasketAmount();
 }
 
 // Search =================================================
-if (searchField) {
-	searchField.addEventListener('keydown', (element) => {
-		if (element.keyCode === 13) {
-			findSearchTarget(searchField);
-		} else if (element.keyCode === 27) {
-			searchField.innerHTML = '';
-			searchField.value = '';
-			searchField.placeholder = 'Search...';
-		}
-	});
+
+function rewriteSearch(string) {
+	searchField.innerHTML = '';
+	searchField.value = '';
+	searchField.placeholder = string;
 }
 
-function getProductNameList() {
-	let productsNames = new Map();
-	const productList = JSON.parse(localStorage.getItem('productList'));
-	productList.forEach((element) => {
-		productsNames.set(element.productId, element.productTitle);
+function selectList(value) {
+	const selectedList = [];
+
+	productsJSON.forEach((element) => {
+		if (
+			element.productTitle.toLowerCase().includes(value.toLowerCase()) ||
+			element.productData.toLowerCase().includes(value.toLowerCase())
+		) {
+			isValueExist = true;
+			selectedList.push(element);
+		}
 	});
-	return productsNames;
+	return selectedList;
 }
 
-function findSearchTarget(target) {
-	const productsNames = getProductNameList();
-	const searchProducts = [];
-	let isValueExist = false;
-	if (target.value) {
-		for (let index = 0; index < productsNames.size; index++) {
-			if (
-				productsNames
-					.get(index + 1)
-					.toLowerCase()
-					.includes(target.value.toLowerCase())
-			) {
-				searchProducts.push(
-					JSON.parse(localStorage.getItem('productList'))[index]
-				);
-				isValueExist = true;
-			}
-		}
-		console.log('searchProducts: = ' + searchProducts);
-		if (isValueExist) {
-			cleanGallery();
-			localStorage.setItem('searchList', JSON.stringify(searchProducts));
-			loadGallery(searchProducts);
-		} else {
-			target.innerHTML = '';
-			target.value = '';
-			target.placeholder = 'no data';
-		}
+function showTargets(stringData) {
+	const selectedList = selectList(stringData);
+
+	if (selectedList.length != 0) {
+		cleanGallery();
+		localStorage.setItem('selectedList', JSON.stringify(selectedList));
+		loadGallery(selectedList);
 	} else {
-		target.innerHTML = '';
-		target.value = '';
-		target.placeholder = 'Search...';
+		const stringData = 'no data';
+		rewriteSearch(stringData);
 	}
-}
-
-// Range ==========================================
-if (rangeInput) {
-	rangeInput.addEventListener('change', () => {
-		const rangeInput = productPage.querySelector('.range__input');
-		localStorage.setItem('price', rangeInput.value);
-
-		if (localStorage.getItem('searchList')) {
-			loadLocalStorageData('searchList');
-		} else if (localStorage.getItem('savedCompany')) {
-			loadLocalStorageData('savedCompany');
-		} else {
-			loadLocalStorageData('productList');
-		}
-	});
-}
-
-// Company Filters ================================================
-if (choiceButton) {
-	choiceButton.forEach((element) => {
-		element.addEventListener('click', (e) => {
-			e.preventDefault();
-			searchField.innerHTML = '';
-			searchField.value = '';
-			searchField.placeholder = 'Search...';
-			const filterData = element.dataset.filter;
-			setAnimation(filterData);
-		});
-	});
-}
-
-function setAnimation(data) {
-	const productList = JSON.parse(localStorage.getItem('productList'));
-	const animateProducts = [];
-
-	productList.forEach((element) => {
-		if (element.productData.includes(data)) {
-			animateProducts.push(element);
-		}
-	});
-
-	if (
-		localStorage.getItem('savedCompany') ||
-		localStorage.getItem('searchList')
-	) {
-		localStorage.removeItem('savedCompany');
-		localStorage.removeItem('searchList');
-	}
-	localStorage.setItem('savedCompany', JSON.stringify(animateProducts));
-	loadLocalStorageData('savedCompany');
 }
