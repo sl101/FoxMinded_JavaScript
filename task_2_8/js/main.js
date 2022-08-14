@@ -165,31 +165,41 @@ function loadGallery(productList) {
 	for (let index = 0; index < productList.length; index++) {
 		const element = productList[index];
 		if (Number(element.productPrice) <= Number(setRangeValue(productList))) {
+			console.log('element in gallery:\n' + element);
+
 			renderGalleryItem(element);
 		}
 	}
 }
 
-function renderGalleryItem(element) {
+function renderGalleryItem({
+	productId,
+	productData,
+	productLink,
+	productImg,
+	productAlt,
+	productTitle,
+	productPrice,
+}) {
 	const listGallery = document.querySelector('.products__list');
 
 	const productUnit = document.createElement('li');
 	productUnit.classList.add('products__item', 'product');
-	productUnit.dataset.company = `${element.productData}`;
-	productUnit.id = `${element.productId}`;
+	productUnit.dataset.company = `${productData}`;
+	productUnit.id = `${productId}`;
 	listGallery.appendChild(productUnit);
 
 	productUnit.innerHTML = `
-		<a class="product__link" href=${element.productLink}>
+		<a class="product__link" href=${productLink}>
 			<div class="product__picture">
-				<img class="product__img" src=${element.productImg} alt="${element.productAlt}">
+				<img class="product__img" src=${productImg} alt="${productAlt}">
 			</div>
 		</a>
 		<div class="product__content">
 			<div class="product__description">
-				<div class="product__title">${element.productTitle}</div>
+				<div class="product__title">${productTitle}</div>
 				<span class="product__currency">$</span>
-				<span class="product__price">${element.productPrice}</span>
+				<span class="product__price">${productPrice}</span>
 			</div>
 			<button class="product__add" type="button"></button>
 		</div>
@@ -220,6 +230,7 @@ function loadBasketStorage() {
 			});
 
 			if (isRender) {
+				console.log('element in basket:\n' + element);
 				renderBasketItem(element);
 			}
 		});
@@ -234,25 +245,33 @@ function cleanBasketList() {
 	});
 }
 
-function renderBasketItem(element) {
+function renderBasketItem({
+	productId,
+	productData,
+	productAmount,
+	productImg,
+	productAlt,
+	productTitle,
+	productPrice,
+}) {
 	const bagList = document.querySelector('.bag__list');
 	const orderUnit = document.createElement('li');
 	orderUnit.classList.add('bag__item', 'order');
-	orderUnit.dataset.company = `${element.productData}`;
-	orderUnit.id = `${element.productId}`;
+	orderUnit.dataset.company = `${productData}`;
+	orderUnit.id = `${productId}`;
 	bagList.appendChild(orderUnit);
 
 	orderUnit.innerHTML = `
 		<div class="order__picture">
-		<img class="order__img" src=${element.productImg} alt="${element.productAlt}">
+		<img class="order__img" src=${productImg} alt="${productAlt}">
 	</div>
 	<div class="order__content">
 		<div class="order__description">
 			<h3 class="order__title">
-				${element.productTitle}
+				${productTitle}
 			</h3>
 			<span class="product__currency">$</span>
-			<span class="order__price">${element.productPrice}</span>
+			<span class="order__price">${productPrice}</span>
 		</div>
 		<button class="order__action" type="button">
 			remove
@@ -260,7 +279,7 @@ function renderBasketItem(element) {
 	</div>
 	<div class="order__amount amount-order">
 		<button class="amount-order__top" type="button"></button>
-		<span class="amount-order__value">${element.productAmount}</span>
+		<span class="amount-order__value">${productAmount}</span>
 		<button class="amount-order__bottom" type="button"></button>
 	</div>
 	`;
@@ -391,7 +410,6 @@ function selectList(value) {
 			element.productTitle.toLowerCase().includes(value.toLowerCase()) ||
 			element.productData.toLowerCase().includes(value.toLowerCase())
 		) {
-			isValueExist = true;
 			selectedList.push(element);
 		}
 	});
@@ -401,7 +419,7 @@ function selectList(value) {
 function showTargets(stringData) {
 	const selectedList = selectList(stringData);
 
-	if (selectedList.length != 0) {
+	if (selectedList.length !== 0) {
 		cleanGallery();
 		localStorage.setItem('selectedList', JSON.stringify(selectedList));
 		loadGallery(selectedList);
