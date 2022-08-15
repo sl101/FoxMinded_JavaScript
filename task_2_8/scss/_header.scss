@@ -1,0 +1,201 @@
+.header {
+	position: absolute;
+	z-index: 1;
+	top: 0;
+	left: 0;
+	width: 100%;
+	@include adaptiv-value(padding-top, 20, 5);
+	@include adaptiv-value(padding-bottom, 20, 5);
+}
+
+.menu {
+	// .menu__body
+	&__body {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		color: $color-fff;
+
+		@include md {
+			align-items: start;
+			height: 100vh;
+		}
+	}
+
+	// .menu__list
+	&__list {
+		flex: 0 0 50%;
+		display: flex;
+		justify-content: start;
+		align-items: center;
+
+		@include md {
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			transform: translate(-100%, 0);
+			flex-direction: column;
+			padding-top: 120px;
+			background-color: $color-777;
+			transition: transform $transitionTime ease;
+		}
+
+		&.active {
+			transform: translate(0, 0);
+		}
+	}
+
+	// .menu__item
+	&__item {
+		&:not(:last-child) {
+			margin-right: 40px;
+		}
+
+		@include lg {
+			&:not(:last-child) {
+				margin-right: 0px;
+			}
+		}
+
+		@include md {
+			&:not(:last-child) {
+				margin: 0 0 25px 0;
+			}
+		}
+	}
+
+	// .menu__link
+	&__link {
+		position: relative;
+		top: 0;
+		padding: 4px 15px;
+		outline: none;
+		border: 1px solid transparent;
+		border-radius: 6px;
+		transition: border-color $transitionTime ease, color $transitionTime ease;
+
+		@include md-min {
+			&:focus {
+				border-color: $color-accent;
+			}
+
+			&:hover {
+				color: $color-accent;
+				border-color: transparent;
+			}
+
+			&:active {
+				top: 1px;
+				border-color: transparent;
+			}
+		}
+
+		@include md {
+			font-size: 22px;
+		}
+	}
+
+	// .menu__backet
+	&__backet {
+		position: relative;
+		min-height: 60px;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		margin-right: 15px;
+		outline: none;
+
+		@include md-min {
+			&:focus .menu__amount {
+				background-color: $color-fff;
+				color: $color-132;
+				box-shadow: 5px 5px 15px $color-accent;
+			}
+
+			&:hover .menu__icon {
+				color: $color-accent;
+			}
+
+			&:hover .menu__amount {
+				color: $color-132;
+				box-shadow: 5px 5px 15px transparent;
+				background-color: $color-accent;
+			}
+
+			&:active .menu__icon {
+				top: 1px;
+			}
+		}
+
+		@include md {
+			top: 4px;
+		}
+	}
+
+	// .menu__icon
+	&__icon {
+		width: 30px;
+		height: 30px;
+		fill: currentColor;
+		transition: color $transitionTime ease, box-shadow $transitionTime ease;
+	}
+
+	// .menu__amount
+	&__amount {
+		position: absolute;
+		top: 0;
+		right: -50%;
+		width: 30px;
+		height: 30px;
+		font-size: 20px;
+		line-height: 30px;
+		text-align: center;
+		border-radius: 50%;
+		background-color: $color-accent;
+		transition: background-color $transitionTime ease, box-shadow $transitionTime ease, color $transitionTime ease;
+	}
+}
+
+// .logo
+.logo {
+	position: relative;
+	width: 100%;
+	transform: translate(-55px, 0);
+
+	@include md {
+		width: auto;
+		transform: translate(0, 0);
+	}
+
+	// .logo__link
+	&__link {
+		position: relative;
+		top: -10px;
+		@include Caveat(700);
+		font-size: 56px;
+		text-transform: lowercase;
+		padding: 0 10px;
+		outline: none;
+		border: 1px solid transparent;
+		text-shadow: 5px 5px 15px $color-777;
+		transition: color $transitionTime ease, text-shadow $transitionTime ease;
+
+		@include md-min {
+			&:focus {
+				text-shadow: 5px 5px 15px $color-accent;
+			}
+
+			&:hover {
+				color: $color-accent;
+				text-shadow: 5px 5px 15px $color-777;
+			}
+		}
+
+		&:active {
+			top: -9px;
+			text-shadow: 5px 5px 15px $color-777;
+		}
+	}
+}

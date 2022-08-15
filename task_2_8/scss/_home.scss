@@ -1,0 +1,61 @@
+.home {
+	width: 100%;
+	background-color: $color-777;
+	background-image: url("../img/bg/bg-main.jpg");
+	@include bg-cover;
+	overflow: hidden;
+
+	@include md {
+		background-image: url("../img/bg/bg-phone.jpg");
+	}
+
+	// .home__content
+	&__content {
+		min-height: 100vh;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: start;
+		color: $color-fff;
+	}
+
+	// .home__title
+	&__title {
+		@include Caveat(700);
+		@include adaptiv-value(font-size, 98, 38);
+	}
+
+	// .home__subtitle
+	&__subtitle {
+		@include adaptiv-value(font-size, 38, 18);
+		@include adaptiv-value(margin-bottom, 20, 12);
+	}
+
+	// .home__button
+	&__button {
+		position: relative;
+		top: 0;
+		z-index: 0;
+		text-transform: uppercase;
+		padding: 8px 15px;
+		background-color: transparent;
+		border: 1px solid $color-fff;
+		border-radius: 6px;
+		outline: none;
+		transition: border-color $transitionTime ease, background-color $transitionTime ease;
+
+		@include md-min {
+			&:focus {
+				border-color: $color-accent;
+			}
+
+			&:hover {
+				background-color: $color-accent;
+				border-color: $color-accent;
+			}
+		}
+		&:active {
+			top: 1px;
+		}
+	}
+}

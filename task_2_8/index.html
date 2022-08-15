@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="css/style.css">
+	<title>Comfy store</title>
+</head>
+
+<body>
+	<div class="wrapper">
+
+		<header class="header">
+			<div class="container">
+				<div class="header__content menu">
+
+					<nav class="menu__body">
+
+						<button class="menu__burger burger" type="button">
+							<span></span>
+							<span></span>
+							<span></span>
+						</button>
+
+						<ul class="menu__list">
+							<li class="menu__item">
+								<a class="menu__link" href="#">Home</a>
+							</li>
+
+							<li class="menu__item">
+								<a class="menu__link" href="products.html">Products</a>
+							</li>
+
+							<li class="menu__item">
+								<a class="menu__link" href="about.html">About</a>
+							</li>
+						</ul>
+
+						<div class="menu__logo logo">
+							<a class="logo__link" href="#">comfy</a>
+						</div>
+
+						<button class="menu__backet" type="button">
+							<svg class="menu__icon">
+								<use xlink:href="img/sprite.svg#backet"></use>
+							</svg>
+							<span class="menu__amount">0</span>
+						</button>
+					</nav>
+
+				</div>
+			</div>
+		</header>
+
+		<main>
+			<section class="home">
+				<div class="container">
+
+					<div class="home__content">
+						<h1 class="home__title">
+							Rest, Relax, Unwind
+						</h1>
+						<span class="home__subtitle">
+							Embrace your choices - we do
+						</span>
+						<button class="home__button" type="button">Show now</button>
+					</div>
+				</div>
+			</section>
+
+			<section class="featured">
+				<div class="container">
+					<h2 class="featured__title title">
+						Featured
+					</h2>
+					<ul class="featured__list">
+						<li class="featured__item product">
+							<a class="product__link" href="img/gallery/caressa-sofa-light.jpg">
+								<div class="product__picture">
+									<img class="product__img" src="img/gallery/caressa-sofa-light.jpg" data-company="caressa"
+										alt="Light Sofa">
+								</div>
+							</a>
+							<div class="product__content">
+								<div class="product__title">Light Sofa</div>
+								<span class="product__price">$99.99</span>
+							</div>
+						</li>
+
+						<li class="featured__item product">
+							<a class="product__link" href="img/gallery/ikea-chear-relax.jpg">
+								<div class="product__picture">
+									<img class="product__img" src="img/gallery/ikea-chear-relax.jpg" data-company="Ikea"
+										alt="Relax Chear">
+								</div>
+							</a>
+							<div class="product__content">
+								<div class="product__title">Relax Chear</div>
+								<span class="product__price">$149.99</span>
+							</div>
+						</li>
+
+						<li class="featured__item product">
+							<a class="product__link" href="img/gallery/liddy-sofa-leather.jpg">
+								<div class="product__picture">
+									<img class="product__img" src="img/gallery/liddy-sofa-leather.jpg" data-company="liddy"
+										alt="Leather sofa">
+								</div>
+							</a>
+							<div class="product__content">
+								<div class="product__title">Leather sofa</div>
+								<span class="product__price">$777.77</span>
+							</div>
+						</li>
+					</ul>
+					<a class="featured__button btn" href="products.html">
+						all products
+					</a>
+				</div>
+			</section>
+
+			<aside class="bag">
+				<button class="bag__burger burger" type="button">
+					<span></span>
+					<span></span>
+					<span></span>
+				</button>
+
+				<div class="bag__content">
+					<h2 class="bag__title">
+						your bag
+					</h2>
+
+					<ul class="bag__list">
+						<li class="bag__item order">
+							<div class="order__picture">
+								<img class="order__img" src="img/bg/bg-main.jpg" alt="#">
+							</div>
+							<div class="order__content">
+								<div class="order__description">
+									<h3 class="order__title">
+										dining table
+									</h3>
+									<span class="order__price">
+										$ 9.99
+									</span>
+								</div>
+								<button class="order__action" type="button">
+									remove
+								</button>
+							</div>
+							<div class="order__amount amount-order">
+								<button class="amount-order__top" type="button"></button>
+								<span class="amount-order__value">0</span>
+								<button class="amount-order__bottom" type="button"></button>
+							</div>
+						</li>
+					</ul>
+
+					<div class="bag__footer">
+						<div class="bag__value">
+							<span class="bag__total">Total : $</span>
+							<span class="bag__summ">0.00</span>
+						</div>
+						<button class="bag__button btn">checkout</button>
+					</div>
+				</div>
+			</aside>
+		</main>
+	</div>
+
+	<script type="module" src="js/main.js"></script>
+</body>
+
+</html>

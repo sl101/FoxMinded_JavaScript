@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="css/style.css">
+	<title>Products</title>
+</head>
+
+<body>
+	<div class="wrapper">
+		<div class="products">
+
+			<header class="header">
+				<div class="container">
+					<div class="header__content menu">
+
+						<nav class="menu__body">
+
+							<button class="menu__burger burger" type="button">
+								<span></span>
+								<span></span>
+								<span></span>
+							</button>
+
+							<ul class="menu__list">
+								<li class="menu__item">
+									<a class="menu__link" href="index.html">Home</a>
+								</li>
+
+								<li class="menu__item">
+									<a class="menu__link" href="#">Products</a>
+								</li>
+
+								<li class="menu__item">
+									<a class="menu__link" href="about.html">About</a>
+								</li>
+							</ul>
+
+							<div class="menu__logo logo">
+								<a class="logo__link" href="#">comfy</a>
+							</div>
+
+							<a class="menu__backet" href="#">
+								<svg class="menu__icon">
+									<use xlink:href="img/sprite.svg#backet"></use>
+								</svg>
+								<span class="menu__amount">0</span>
+							</a>
+
+
+						</nav>
+
+					</div>
+				</div>
+			</header>
+
+			<main>
+				<div class="products__content">
+
+					<div class="products__top">
+						<div class="container">
+							<span class="products__crumbs">Home / Products</span>
+						</div>
+					</div>
+
+					<div class="container">
+						<div class="products__body">
+							<aside class="products__filter filter">
+								<input class="filter__search" type="text" placeholder="Search...">
+
+								<div class="filter__choice choice">
+									<h3 class="choice__title filter__title">
+										company
+									</h3>
+									<ul class="choice__list">
+										<li class="choice__item">
+											<button class="choice__button" type="button" data-filter="all">All</button>
+										</li>
+
+										<li class="choice__item">
+											<button class="choice__button" type="button" data-filter="ikea">Ikea</button>
+										</li>
+
+										<li class="choice__item">
+											<button class="choice__button" type="button" data-filter="marcos">Marcos</button>
+										</li>
+
+										<li class="choice__item">
+											<button class="choice__button" type="button" data-filter="caressa">Caressa</button>
+										</li>
+
+										<li class="choice__item">
+											<button class="choice__button" type="button" data-filter="liddy">Liddy</button>
+										</li>
+									</ul>
+								</div>
+
+								<div class="filter__range range">
+									<h3 class="range__title filter__title">Price</h3>
+									<div class="range__box">
+										<input class="range__input" type="range" min="10" max="1000" step="10" value="1000" name="income"
+											id="incomeInputId" oninput="incomeOutputId.value = incomeInputId.value">
+										<span class="range__amount">
+											Value: $<output class="range__output" name="income" id="incomeOutputId"></output>
+										</span>
+									</div>
+								</div>
+							</aside>
+
+							<div class="products__gallery">
+								<ul class="products__list"></ul>
+							</div>
+
+						</div>
+					</div>
+				</div>
+
+				<aside class="bag">
+					<button class="bag__burger burger" type="button">
+						<span></span>
+						<span></span>
+						<span></span>
+					</button>
+
+					<div class="bag__content">
+						<h2 class="bag__title">
+							your bag
+						</h2>
+
+						<ul class="bag__list"></ul>
+
+						<div class="bag__footer">
+							<div class="bag__value">
+								<span class="bag__total">Total : $</span>
+								<span class="bag__summ">0.00</span>
+							</div>
+							<button class="bag__button btn">checkout</button>
+						</div>
+					</div>
+				</aside>
+			</main>
+		</div>
+	</div>
+	<script type="module" src="js/main.js"></script>
+</body>
+
+</html>

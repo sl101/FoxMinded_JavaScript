@@ -11,6 +11,7 @@ const themeButton = body.querySelectorAll('.header__button');
 const requestUrl = 'https://restcountries.com/v2/all';
 const allCountriesList = [];
 const countryNameArray = [];
+let targetEvent = '';
 
 function toggleFilter() {
 	if (filterButton.classList.contains('active')) {
@@ -212,6 +213,8 @@ searchInput.addEventListener('input', () => {
 
 searchInput.addEventListener('blur', (e) => {
 	e.preventDefault();
+	targetEvent = e.target.tagName;
+
 	if (searchInput.value) {
 		closeFilter();
 		getSearchData();

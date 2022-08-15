@@ -1,0 +1,165 @@
+.products {
+	padding: 120px 0 80px;
+	& .menu__body {
+		color: $color-132;
+	}
+
+	& .burger span {
+		background-color: $color-132;
+	}
+
+	// .products__top
+	&__top {
+		@include adaptiv-value(padding-top, 70, 20);
+		@include adaptiv-value(padding-bottom, 70, 20);
+		@include adaptiv-value(margin-bottom, 70, 20);
+		background-color: $color-f1f;
+	}
+
+	// .products__crumbs
+	&__crumbs {
+		font-weight: 500;
+		font-size: 26px;
+		color: $color-617;
+	}
+
+	// .products__body
+	&__body {
+		display: flex;
+		justify-content: space-between;
+		@include adaptiv-value(gap, 30, 15);
+	}
+
+	// .products__gallery
+	&__gallery {
+		width: 100%;
+	}
+
+	// .products__list
+	&__list {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		@include adaptiv-value(grid-gap, 15, 10);
+		text-align: center;
+
+		@include lg {
+			grid-template-columns: 1fr 1fr;
+		}
+
+		@include md {
+			grid-template-columns: 1fr;
+			text-align: left;
+		}
+	}
+}
+
+.filter {
+	flex: 0 0 130px;
+	color: $color-617;
+
+	@include sm {
+		flex: 0 0 100px;
+	}
+
+	// .filter__title
+	&__title {
+		font-weight: 500;
+		font-size: 22px;
+		text-transform: capitalize;
+		color: $color-132;
+		@include adaptiv-value(margin-bottom, 14, 10);
+	}
+
+	// .filter__search
+	&__search {
+		width: 100%;
+		padding: 5px 10px;
+		border-radius: 4px;
+		background-color: $color-f1f;
+		outline: none;
+		@include adaptiv-value(margin-bottom, 30, 20);
+		transition: all $transitionTime ease;
+
+		&::placeholder {
+			transition: color $transitionTime ease;
+		}
+
+		@include md-min {
+			&:hover {
+				&::placeholder {
+					color: $color-accent;
+				}
+			}
+
+			&:focus {
+				&::placeholder {
+					color: $color-132;
+				}
+			}
+		}
+	}
+}
+
+.choice {
+	@include adaptiv-value(margin-bottom, 30, 20);
+
+	// .choice__list
+	&__list {
+		padding: 0 0 0 10px;
+	}
+
+	// .choice__item
+	&__item {
+		@include adaptiv-value(margin-bottom, 14, 10);
+	}
+
+	// .choice__button
+	&__button {
+		position: relative;
+		top: 0;
+		outline: none;
+		transition: color $transitionTime ease;
+		@include md-min {
+			&:focus {
+				color: $color-132;
+			}
+
+			&:hover {
+				color: $color-accent;
+			}
+
+			&:active {
+				top: 1px;
+			}
+		}
+	}
+}
+
+.range {
+	// .range__input
+	&__input {
+		width: 100%;
+		height: 20px;
+		cursor: pointer;
+		outline: none;
+		@include adaptiv-value(margin-bottom, 14, 10);
+
+		&::-webkit-slider-thumb {
+			background-color: $color-132;
+			border-radius: 100%;
+			transition: box-shadow $transitionTime linear;
+		}
+
+		&:focus {
+			&::-webkit-slider-thumb {
+				box-shadow: 0 0 15px $color-132;
+			}
+		}
+	}
+
+	// .range__amount
+	&__amount {
+		display: block;
+		color: $color-617;
+	}
+}
