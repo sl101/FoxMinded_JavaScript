@@ -1,6 +1,0 @@
-*/task_2_8/node_modules
-*/task_2_8/package-lock.json
-/task_2_8/node_modules/
-/task_2_8/package-lock.json/
-*node_modules
-*/node_modules

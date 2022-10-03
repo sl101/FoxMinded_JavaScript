@@ -1,9 +1,3 @@
-# task_2
+# The shared repository for the partition "JS or TypeScript"
 
-## Загальний репозіторій для розділу "JS or TypeScript"
-
-## task_2_3
-
-### for load browser print
-
-### npm start
+- [task_1]()
